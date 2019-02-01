@@ -1,0 +1,2 @@
+tox==3.7.0
+virtualenv==16.3.0

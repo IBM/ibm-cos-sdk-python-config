@@ -1,0 +1,16 @@
+*.pyc
+__pycache__
+*.egg-info
+
+
+# Common virtualenv names
+venv
+env2
+env3
+
+# IntelliJ / PyCharm IDE
+.idea/
+
+
+# Visual Studio Code
+.vscode/
