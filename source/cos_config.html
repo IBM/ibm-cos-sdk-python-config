@@ -70,10 +70,10 @@
       <ul>
 <li><a class="reference internal" href="#">cos_config package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-cos_config.iam_token_manager">cos_config.iam_token_manager module</a></li>
+<li><a class="reference internal" href="#cos-config-iam-token-manager-module">cos_config.iam_token_manager module</a></li>
 <li><a class="reference internal" href="#module-cos_config.resource_configuration_v1">cos_config.resource_configuration_v1 module</a></li>
-<li><a class="reference internal" href="#module-cos_config.version">cos_config.version module</a></li>
-<li><a class="reference internal" href="#module-cos_config.watson_service">cos_config.watson_service module</a></li>
+<li><a class="reference internal" href="#cos-config-version-module">cos_config.version module</a></li>
+<li><a class="reference internal" href="#cos-config-watson-service-module">cos_config.watson_service module</a></li>
 <li><a class="reference internal" href="#module-cos_config">Module contents</a></li>
 </ul>
 </li>
@@ -115,56 +115,35 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-cos_config.iam_token_manager">
-<span id="cos-config-iam-token-manager-module"></span><h2>cos_config.iam_token_manager module<a class="headerlink" href="#module-cos_config.iam_token_manager" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="cos_config.iam_token_manager.IAMTokenManager">
-<em class="property">class </em><tt class="descclassname">cos_config.iam_token_manager.</tt><tt class="descname">IAMTokenManager</tt><big>(</big><em>iam_apikey=None</em>, <em>iam_access_token=None</em>, <em>iam_url=None</em><big>)</big><a class="reference internal" href="../_modules/cos_config/iam_token_manager.html#IAMTokenManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.iam_token_manager.IAMTokenManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<dl class="method">
-<dt id="cos_config.iam_token_manager.IAMTokenManager.get_token">
-<tt class="descname">get_token</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/cos_config/iam_token_manager.html#IAMTokenManager.get_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.iam_token_manager.IAMTokenManager.get_token" title="Permalink to this definition">¶</a></dt>
-<dd><p>The source of the token is determined by the following logic:
-1. If user provides their own managed access token, assume it is valid and send it
-2. If this class is managing tokens and does not yet have one, make a request for one
-3. If this class is managing tokens and the token has expired refresh it. In case the refresh token is expired, get a new one
-If this class is managing tokens and has a valid token stored, send it</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cos_config.iam_token_manager.IAMTokenManager.request">
-<tt class="descname">request</tt><big>(</big><em>method</em>, <em>url</em>, <em>headers=None</em>, <em>params=None</em>, <em>data=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/cos_config/iam_token_manager.html#IAMTokenManager.request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.iam_token_manager.IAMTokenManager.request" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cos_config.iam_token_manager.IAMTokenManager.set_access_token">
-<tt class="descname">set_access_token</tt><big>(</big><em>iam_access_token</em><big>)</big><a class="reference internal" href="../_modules/cos_config/iam_token_manager.html#IAMTokenManager.set_access_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.iam_token_manager.IAMTokenManager.set_access_token" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set a self-managed IAM access token.
-The access token should be valid and not yet expired.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cos_config.iam_token_manager.IAMTokenManager.set_iam_apikey">
-<tt class="descname">set_iam_apikey</tt><big>(</big><em>iam_apikey</em><big>)</big><a class="reference internal" href="../_modules/cos_config/iam_token_manager.html#IAMTokenManager.set_iam_apikey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.iam_token_manager.IAMTokenManager.set_iam_apikey" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the IAM api key</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cos_config.iam_token_manager.IAMTokenManager.set_iam_url">
-<tt class="descname">set_iam_url</tt><big>(</big><em>iam_url</em><big>)</big><a class="reference internal" href="../_modules/cos_config/iam_token_manager.html#IAMTokenManager.set_iam_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.iam_token_manager.IAMTokenManager.set_iam_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the IAM url</p>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="cos-config-iam-token-manager-module">
+<h2>cos_config.iam_token_manager module<a class="headerlink" href="#cos-config-iam-token-manager-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-cos_config.resource_configuration_v1">
 <span id="cos-config-resource-configuration-v1-module"></span><h2>cos_config.resource_configuration_v1 module<a class="headerlink" href="#module-cos_config.resource_configuration_v1" title="Permalink to this headline">¶</a></h2>
 <p>REST API used to configure Cloud Object Storage buckets.  This version of the API only
 supports reading bucket metadata and setting IP access controls.</p>
 <dl class="class">
+<dt id="cos_config.resource_configuration_v1.ActivityTracking">
+<em class="property">class </em><tt class="descclassname">cos_config.resource_configuration_v1.</tt><tt class="descname">ActivityTracking</tt><big>(</big><em>read_data_events=None</em>, <em>write_data_events=None</em>, <em>activity_tracker_crn=None</em><big>)</big><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#ActivityTracking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.ActivityTracking" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>Enables sending log data to Activity Tracker and LogDNA to provide visibility into
+object read and write events. All object events are sent to the activity tracker
+instance defined in the <cite>activity_tracker_crn</cite> field.</p>
+<dl class="docutils field-list" frame="void" rules="none">
+<dt class="field-name">Attr bool read_data_events</dt><dd class="field-body">(optional) If set to <cite>true</cite>, all object read events (i.e.</dd>
+</dl>
+<p>downloads) will be sent to Activity Tracker.
+:attr bool write_data_events: (optional) If set to <cite>true</cite>, all object write events
+(i.e. uploads) will be sent to Activity Tracker.
+:attr str activity_tracker_crn: (optional) Required the first time <cite>activity_tracking</cite>
+is configured. The instance of Activity Tracker that will recieve object event data.
+The format is &quot;crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage
+account}:{activity tracker service instance}::&quot;.</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="cos_config.resource_configuration_v1.Bucket">
-<em class="property">class </em><tt class="descclassname">cos_config.resource_configuration_v1.</tt><tt class="descname">Bucket</tt><big>(</big><em>name=None</em>, <em>crn=None</em>, <em>service_instance_id=None</em>, <em>service_instance_crn=None</em>, <em>time_created=None</em>, <em>time_updated=None</em>, <em>object_count=None</em>, <em>bytes_used=None</em>, <em>firewall=None</em><big>)</big><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#Bucket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.Bucket" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">cos_config.resource_configuration_v1.</tt><tt class="descname">Bucket</tt><big>(</big><em>name=None</em>, <em>crn=None</em>, <em>service_instance_id=None</em>, <em>service_instance_crn=None</em>, <em>time_created=None</em>, <em>time_updated=None</em>, <em>object_count=None</em>, <em>bytes_used=None</em>, <em>firewall=None</em>, <em>activity_tracking=None</em><big>)</big><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#Bucket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.Bucket" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>A bucket.</p>
 <dl class="docutils field-list" frame="void" rules="none">
@@ -181,20 +160,26 @@ format. Non-mutable.
 3339 format. Non-mutable.
 :attr int object_count: (optional) Total number of objects in the bucket. Non-mutable.
 :attr int bytes_used: (optional) Total size of all objects in the bucket. Non-mutable.
-:attr Firewall firewall: (optional) A filter that controls access based on the network
-where request originated. Requests not originating from IP addresses listed in the
-<cite>allowed_ip</cite> field will be denied.  Viewing or updating the <cite>Firewall</cite> element
-requires the requester to have the <cite>manager</cite> role.</p>
+:attr Firewall firewall: (optional) An access control mechanism based on the network
+(IP address) where request originated. Requests not originating from IP addresses
+listed in the <cite>allowed_ip</cite> field will be denied regardless of any access policies
+(including public access) that might otherwise permit the request.  Viewing or
+updating the <cite>Firewall</cite> element requires the requester to have the <cite>manager</cite> role.
+:attr ActivityTracking activity_tracking: (optional) Enables sending log data to
+Activity Tracker and LogDNA to provide visibility into object read and write events.
+All object events are sent to the activity tracker instance defined in the
+<cite>activity_tracker_crn</cite> field.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="cos_config.resource_configuration_v1.Firewall">
 <em class="property">class </em><tt class="descclassname">cos_config.resource_configuration_v1.</tt><tt class="descname">Firewall</tt><big>(</big><em>allowed_ip=None</em><big>)</big><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#Firewall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.Firewall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<p>A filter that controls access based on the network where request originated. Requests
-not originating from IP addresses listed in the <cite>allowed_ip</cite> field will be denied.
-Viewing or updating the <cite>Firewall</cite> element requires the requester to have the
-<cite>manager</cite> role.</p>
+<p>An access control mechanism based on the network (IP address) where request
+originated. Requests not originating from IP addresses listed in the <cite>allowed_ip</cite>
+field will be denied regardless of any access policies (including public access) that
+might otherwise permit the request.  Viewing or updating the <cite>Firewall</cite> element
+requires the requester to have the <cite>manager</cite> role.</p>
 <dl class="docutils field-list" frame="void" rules="none">
 <dt class="field-name">Attr list[str] allowed_ip</dt><dd class="field-body">(optional) List of IPv4 or IPv6 addresses in CIDR notation</dd>
 </dl>
@@ -206,7 +191,7 @@ items.</p>
 <dl class="class">
 <dt id="cos_config.resource_configuration_v1.ResourceConfigurationV1">
 <em class="property">class </em><tt class="descclassname">cos_config.resource_configuration_v1.</tt><tt class="descname">ResourceConfigurationV1</tt><big>(</big><em>url='https://config.cloud-object-storage.cloud.ibm.com/v1'</em>, <em>iam_apikey=None</em>, <em>iam_access_token=None</em>, <em>iam_url=None</em><big>)</big><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#ResourceConfigurationV1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.ResourceConfigurationV1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cos_config.watson_service.WatsonService" title="cos_config.watson_service.WatsonService"><tt class="xref py py-class docutils literal"><span class="pre">cos_config.watson_service.WatsonService</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">ibm_cloud_sdk_core.base_service.BaseService</span></tt></p>
 <p>The ResourceConfiguration V1 service.</p>
 <dl class="attribute">
 <dt id="cos_config.resource_configuration_v1.ResourceConfigurationV1.default_url">
@@ -233,7 +218,7 @@ items.</p>
 
 <dl class="method">
 <dt id="cos_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config">
-<tt class="descname">update_bucket_config</tt><big>(</big><em>bucket</em>, <em>firewall=None</em>, <em>if_match=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#ResourceConfigurationV1.update_bucket_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">update_bucket_config</tt><big>(</big><em>bucket</em>, <em>firewall=None</em>, <em>activity_tracking=None</em>, <em>if_match=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#ResourceConfigurationV1.update_bucket_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make changes to a bucket's configuration.</p>
 <p>Updates a bucket using [JSON Merge Patch](<a class="reference external" href="https://tools.ietf.org/html/rfc7396">https://tools.ietf.org/html/rfc7396</a>).
 This request is used to add functionality (like an IP access filter) or to update
@@ -245,13 +230,18 @@ number of objects in a bucket, any timestamps, or other non-mutable fields.</p>
 <dl class="docutils field-list" frame="void" rules="none">
 <dt class="field-name">Parameters</dt><dd class="field-body"><ul class="first last simple">
 <li><strong>bucket</strong> (<em>str</em>) -- Name of a bucket.</li>
-<li><strong>firewall</strong> (<em>Firewall</em>) -- A filter that controls access based on the network where</li>
+<li><strong>firewall</strong> (<em>Firewall</em>) -- An access control mechanism based on the network (IP</li>
 </ul>
 </dd>
 </dl>
-<p>request originated. Requests not originating from IP addresses listed in the
-<cite>allowed_ip</cite> field will be denied.  Viewing or updating the <cite>Firewall</cite> element
-requires the requester to have the <cite>manager</cite> role.
+<p>address) where request originated. Requests not originating from IP addresses
+listed in the <cite>allowed_ip</cite> field will be denied regardless of any access policies
+(including public access) that might otherwise permit the request.  Viewing or
+updating the <cite>Firewall</cite> element requires the requester to have the <cite>manager</cite> role.
+:param ActivityTracking activity_tracking: Enables sending log data to Activity
+Tracker and LogDNA to provide visibility into object read and write events. All
+object events are sent to the activity tracker instance defined in the
+<cite>activity_tracker_crn</cite> field.
 :param str if_match: An Etag previously returned in a header when fetching or
 updating a bucket's metadata. If this value does not match the active Etag, the
 request will fail.
@@ -263,186 +253,11 @@ request will fail.
 </dd></dl>
 
 </div>
-<div class="section" id="module-cos_config.version">
-<span id="cos-config-version-module"></span><h2>cos_config.version module<a class="headerlink" href="#module-cos_config.version" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cos-config-version-module">
+<h2>cos_config.version module<a class="headerlink" href="#cos-config-version-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-cos_config.watson_service">
-<span id="cos-config-watson-service-module"></span><h2>cos_config.watson_service module<a class="headerlink" href="#module-cos_config.watson_service" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="cos_config.watson_service.DetailedResponse">
-<em class="property">class </em><tt class="descclassname">cos_config.watson_service.</tt><tt class="descname">DetailedResponse</tt><big>(</big><em>response=None</em>, <em>headers=None</em>, <em>status_code=None</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#DetailedResponse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.DetailedResponse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<p>Custom class for detailed response returned from Watson APIs.</p>
-<dl class="docutils field-list" frame="void" rules="none">
-<dt class="field-name">Parameters</dt><dd class="field-body"><ul class="first last simple">
-<li><strong>response</strong> (<em>Response</em>) -- Either json response or http Response as requested.</li>
-<li><strong>headers</strong> (<em>dict</em>) -- A dict of response headers</li>
-<li><strong>status_code</strong> (<em>str</em>) -- HTTP response code</li>
-</ul>
-</dd>
-</dl>
-<dl class="method">
-<dt id="cos_config.watson_service.DetailedResponse.get_headers">
-<tt class="descname">get_headers</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#DetailedResponse.get_headers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.DetailedResponse.get_headers" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.DetailedResponse.get_result">
-<tt class="descname">get_result</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#DetailedResponse.get_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.DetailedResponse.get_result" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.DetailedResponse.get_status_code">
-<tt class="descname">get_status_code</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#DetailedResponse.get_status_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.DetailedResponse.get_status_code" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="exception">
-<dt id="cos_config.watson_service.WatsonApiException">
-<em class="property">exception </em><tt class="descclassname">cos_config.watson_service.</tt><tt class="descname">WatsonApiException</tt><big>(</big><em>code</em>, <em>message</em>, <em>info=None</em>, <em>httpResponse=None</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonApiException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonApiException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cos_config.watson_service.WatsonException" title="cos_config.watson_service.WatsonException"><tt class="xref py py-class docutils literal"><span class="pre">cos_config.watson_service.WatsonException</span></tt></a></p>
-<p>Custom exception class for errors returned from Watson APIs.</p>
-<dl class="docutils field-list" frame="void" rules="none">
-<dt class="field-name">Parameters</dt><dd class="field-body"><ul class="first last simple">
-<li><strong>code</strong> (<em>int</em>) -- The HTTP status code returned.</li>
-<li><strong>message</strong> (<em>str</em>) -- A message describing the error.</li>
-<li><strong>info</strong> (<em>dict</em>) -- A dictionary of additional information about the error.</li>
-<li><strong>httpResponse</strong> (<em>response</em>) -- response</li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="exception">
-<dt id="cos_config.watson_service.WatsonException">
-<em class="property">exception </em><tt class="descclassname">cos_config.watson_service.</tt><tt class="descname">WatsonException</tt><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
-<p>Custom exception class for Watson Services.</p>
-</dd></dl>
-
-<dl class="exception">
-<dt id="cos_config.watson_service.WatsonInvalidArgument">
-<em class="property">exception </em><tt class="descclassname">cos_config.watson_service.</tt><tt class="descname">WatsonInvalidArgument</tt><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonInvalidArgument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonInvalidArgument" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cos_config.watson_service.WatsonException" title="cos_config.watson_service.WatsonException"><tt class="xref py py-class docutils literal"><span class="pre">cos_config.watson_service.WatsonException</span></tt></a></p>
-</dd></dl>
-
-<dl class="class">
-<dt id="cos_config.watson_service.WatsonService">
-<em class="property">class </em><tt class="descclassname">cos_config.watson_service.</tt><tt class="descname">WatsonService</tt><big>(</big><em>vcap_services_name</em>, <em>url</em>, <em>username=None</em>, <em>password=None</em>, <em>use_vcap_services=True</em>, <em>api_key=None</em>, <em>iam_apikey=None</em>, <em>iam_access_token=None</em>, <em>iam_url=None</em>, <em>display_name=None</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<dl class="method">
-<dt id="cos_config.watson_service.WatsonService.disable_SSL_verification">
-<tt class="descname">disable_SSL_verification</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.disable_SSL_verification"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.disable_SSL_verification" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.WatsonService.load_from_credential_file">
-<tt class="descname">load_from_credential_file</tt><big>(</big><em>service_name</em>, <em>separator='='</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.load_from_credential_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.load_from_credential_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initiates the credentials based on the credential file</p>
-<dl class="docutils field-list" frame="void" rules="none">
-<dt class="field-name">Parameters</dt><dd class="field-body"><ul class="first last simple">
-<li><strong>service_name</strong> (<em>str</em>) -- The service name</li>
-<li><strong>separator</strong> (<em>str</em>) -- the separator for key value pair</li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.WatsonService.request">
-<tt class="descname">request</tt><big>(</big><em>method</em>, <em>url</em>, <em>accept_json=False</em>, <em>headers=None</em>, <em>params=None</em>, <em>json=None</em>, <em>data=None</em>, <em>files=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.request" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.WatsonService.set_api_key">
-<tt class="descname">set_api_key</tt><big>(</big><em>api_key</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.set_api_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.set_api_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.WatsonService.set_default_headers">
-<tt class="descname">set_default_headers</tt><big>(</big><em>headers</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.set_default_headers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.set_default_headers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set http headers to be sent in every request.
-:param headers: A dictionary of header names and values</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.WatsonService.set_detailed_response">
-<tt class="descname">set_detailed_response</tt><big>(</big><em>detailed_response</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.set_detailed_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.set_detailed_response" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.WatsonService.set_http_config">
-<tt class="descname">set_http_config</tt><big>(</big><em>http_config</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.set_http_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.set_http_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the http client config like timeout, proxies, etc.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.WatsonService.set_iam_access_token">
-<tt class="descname">set_iam_access_token</tt><big>(</big><em>iam_access_token</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.set_iam_access_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.set_iam_access_token" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.WatsonService.set_iam_apikey">
-<tt class="descname">set_iam_apikey</tt><big>(</big><em>iam_apikey</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.set_iam_apikey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.set_iam_apikey" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.WatsonService.set_iam_url">
-<tt class="descname">set_iam_url</tt><big>(</big><em>iam_url</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.set_iam_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.set_iam_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.WatsonService.set_token_manager">
-<tt class="descname">set_token_manager</tt><big>(</big><em>iam_apikey=None</em>, <em>iam_access_token=None</em>, <em>iam_url=None</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.set_token_manager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.set_token_manager" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.WatsonService.set_url">
-<tt class="descname">set_url</tt><big>(</big><em>url</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.set_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.set_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cos_config.watson_service.WatsonService.set_username_and_password">
-<tt class="descname">set_username_and_password</tt><big>(</big><em>username=None</em>, <em>password=None</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.set_username_and_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.set_username_and_password" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="cos_config.watson_service.WatsonService.unpack_id">
-<em class="property">static </em><tt class="descname">unpack_id</tt><big>(</big><em>dictionary</em>, <em>label_id</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#WatsonService.unpack_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.WatsonService.unpack_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="cos_config.watson_service.datetime_to_string">
-<tt class="descclassname">cos_config.watson_service.</tt><tt class="descname">datetime_to_string</tt><big>(</big><em>datetime</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#datetime_to_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.datetime_to_string" title="Permalink to this definition">¶</a></dt>
-<dd><p>Serializes a datetime to a string.
-:param datetime: datetime value
-:return: string. containing iso8601 format date string</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="cos_config.watson_service.get_error_message">
-<tt class="descclassname">cos_config.watson_service.</tt><tt class="descname">get_error_message</tt><big>(</big><em>response</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#get_error_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.get_error_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the error message from a JSON response.
-:return: the error message
-:rtype: string</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="cos_config.watson_service.load_from_vcap_services">
-<tt class="descclassname">cos_config.watson_service.</tt><tt class="descname">load_from_vcap_services</tt><big>(</big><em>service_name</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#load_from_vcap_services"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.load_from_vcap_services" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="cos_config.watson_service.string_to_datetime">
-<tt class="descclassname">cos_config.watson_service.</tt><tt class="descname">string_to_datetime</tt><big>(</big><em>string</em><big>)</big><a class="reference internal" href="../_modules/cos_config/watson_service.html#string_to_datetime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.watson_service.string_to_datetime" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deserializes string to datetime.
-:param string: string containing datetime in iso8601 format
-:return: datetime.</p>
-</dd></dl>
-
+<div class="section" id="cos-config-watson-service-module">
+<h2>cos_config.watson_service module<a class="headerlink" href="#cos-config-watson-service-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-cos_config">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cos_config" title="Permalink to this headline">¶</a></h2>
