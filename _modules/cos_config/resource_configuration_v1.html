@@ -128,14 +128,15 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">.watson_service</span> <span class="kn">import</span> <span class="n">datetime_to_string</span><span class="p">,</span> <span class="n">string_to_datetime</span>
-<span class="kn">from</span> <span class="nn">.watson_service</span> <span class="kn">import</span> <span class="n">WatsonService</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">get_sdk_headers</span>
+<span class="kn">from</span> <span class="nn">ibm_cloud_sdk_core</span> <span class="kn">import</span> <span class="n">BaseService</span>
+<span class="kn">from</span> <span class="nn">ibm_cloud_sdk_core</span> <span class="kn">import</span> <span class="n">datetime_to_string</span><span class="p">,</span> <span class="n">string_to_datetime</span>
 
 <span class="c1">##############################################################################</span>
 <span class="c1"># Service</span>
 <span class="c1">##############################################################################</span>
 
-<div class="viewcode-block" id="ResourceConfigurationV1"><a class="viewcode-back" href="../../source/cos_config.html#cos_config.resource_configuration_v1.ResourceConfigurationV1">[docs]</a><span class="k">class</span> <span class="nc">ResourceConfigurationV1</span><span class="p">(</span><span class="n">WatsonService</span><span class="p">):</span>
+<div class="viewcode-block" id="ResourceConfigurationV1"><a class="viewcode-back" href="../../source/cos_config.html#cos_config.resource_configuration_v1.ResourceConfigurationV1">[docs]</a><span class="k">class</span> <span class="nc">ResourceConfigurationV1</span><span class="p">(</span><span class="n">BaseService</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The ResourceConfiguration V1 service.&quot;&quot;&quot;</span>
 
     <span class="n">default_url</span> <span class="o">=</span> <span class="s1">&#39;https://config.cloud-object-storage.cloud.ibm.com/v1&#39;</span>
@@ -145,13 +146,15 @@
                  <span class="n">iam_apikey</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">iam_access_token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">iam_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">iam_client_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">iam_client_secret</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                 <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construct a new client for the ResourceConfiguration service.</span>
 
 <span class="sd">        :param str url: The base url to use when contacting the service (e.g.</span>
 <span class="sd">               &quot;https://config.cloud-object-storage.cloud.ibm.com/v1/v1&quot;).</span>
-<span class="sd">               The base url may differ between Bluemix regions.</span>
+<span class="sd">               The base url may differ between IBM Cloud regions.</span>
 
 <span class="sd">        :param str iam_apikey: An API key that can be used to request IAM tokens. If</span>
 <span class="sd">               this API key is provided, the SDK will manage the token and handle the</span>
@@ -163,17 +166,23 @@
 <span class="sd">               made with an expired token will fail.</span>
 
 <span class="sd">        :param str iam_url: An optional URL for the IAM service API. Defaults to</span>
-<span class="sd">               &#39;https://iam.bluemix.net/identity/token&#39;.</span>
+<span class="sd">               &#39;https://iam.cloud.ibm.com/identity/token&#39;.</span>
+
+<span class="sd">        :param str iam_client_id: An optional client_id value to use when interacting with the IAM service.</span>
+
+<span class="sd">        :param str iam_client_secret: An optional client_secret value to use when interacting with the IAM service.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">WatsonService</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                                     <span class="n">vcap_services_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                                     <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
-                                     <span class="n">iam_apikey</span><span class="o">=</span><span class="n">iam_apikey</span><span class="p">,</span>
-                                     <span class="n">iam_access_token</span><span class="o">=</span><span class="n">iam_access_token</span><span class="p">,</span>
-                                     <span class="n">iam_url</span><span class="o">=</span><span class="n">iam_url</span><span class="p">,</span>
-                                     <span class="n">use_vcap_services</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                                     <span class="n">display_name</span><span class="o">=</span><span class="s1">&#39;ResourceConfiguration&#39;</span><span class="p">)</span>
+        <span class="n">BaseService</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">vcap_services_name</span><span class="o">=</span><span class="s1">&#39;resource_configuration&#39;</span><span class="p">,</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">iam_apikey</span><span class="o">=</span><span class="n">iam_apikey</span><span class="p">,</span>
+            <span class="n">iam_access_token</span><span class="o">=</span><span class="n">iam_access_token</span><span class="p">,</span>
+            <span class="n">iam_url</span><span class="o">=</span><span class="n">iam_url</span><span class="p">,</span>
+            <span class="n">iam_client_id</span><span class="o">=</span><span class="n">iam_client_id</span><span class="p">,</span>
+            <span class="n">iam_client_secret</span><span class="o">=</span><span class="n">iam_client_secret</span><span class="p">,</span>
+            <span class="n">use_vcap_services</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="n">display_name</span><span class="o">=</span><span class="s1">&#39;ResourceConfiguration&#39;</span><span class="p">)</span>
 
     <span class="c1">#########################</span>
     <span class="c1"># buckets</span>
@@ -198,7 +207,8 @@
         <span class="p">}</span>
         <span class="k">if</span> <span class="s1">&#39;headers&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;headers&#39;</span><span class="p">))</span>
-        <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;X-IBMCloud-SDK-Analytics&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;service_name=;service_version=V1;operation_id=get_bucket_config&#39;</span>
+        <span class="n">sdk_headers</span> <span class="o">=</span> <span class="n">get_sdk_headers</span><span class="p">(</span><span class="s1">&#39;resource_configuration&#39;</span><span class="p">,</span> <span class="s1">&#39;V1&#39;</span><span class="p">,</span> <span class="s1">&#39;get_bucket_config&#39;</span><span class="p">)</span>
+        <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sdk_headers</span><span class="p">)</span>
 
         <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/b/{0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_encode_path_vars</span><span class="p">(</span><span class="n">bucket</span><span class="p">))</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span>
@@ -208,7 +218,7 @@
         <span class="k">return</span> <span class="n">response</span>
 
 </div>
-<div class="viewcode-block" id="ResourceConfigurationV1.update_bucket_config"><a class="viewcode-back" href="../../source/cos_config.html#cos_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config">[docs]</a>    <span class="k">def</span> <span class="nf">update_bucket_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket</span><span class="p">,</span> <span class="n">firewall</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">if_match</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ResourceConfigurationV1.update_bucket_config"><a class="viewcode-back" href="../../source/cos_config.html#cos_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config">[docs]</a>    <span class="k">def</span> <span class="nf">update_bucket_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket</span><span class="p">,</span> <span class="n">firewall</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">activity_tracking</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">if_match</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make changes to a bucket&#39;s configuration.</span>
 
@@ -221,10 +231,15 @@
 <span class="sd">        number of objects in a bucket, any timestamps, or other non-mutable fields.</span>
 
 <span class="sd">        :param str bucket: Name of a bucket.</span>
-<span class="sd">        :param Firewall firewall: A filter that controls access based on the network where</span>
-<span class="sd">        request originated. Requests not originating from IP addresses listed in the</span>
-<span class="sd">        `allowed_ip` field will be denied.  Viewing or updating the `Firewall` element</span>
-<span class="sd">        requires the requester to have the `manager` role.</span>
+<span class="sd">        :param Firewall firewall: An access control mechanism based on the network (IP</span>
+<span class="sd">        address) where request originated. Requests not originating from IP addresses</span>
+<span class="sd">        listed in the `allowed_ip` field will be denied regardless of any access policies</span>
+<span class="sd">        (including public access) that might otherwise permit the request.  Viewing or</span>
+<span class="sd">        updating the `Firewall` element requires the requester to have the `manager` role.</span>
+<span class="sd">        :param ActivityTracking activity_tracking: Enables sending log data to Activity</span>
+<span class="sd">        Tracker and LogDNA to provide visibility into object read and write events. All</span>
+<span class="sd">        object events are sent to the activity tracker instance defined in the</span>
+<span class="sd">        `activity_tracker_crn` field.</span>
 <span class="sd">        :param str if_match: An Etag previously returned in a header when fetching or</span>
 <span class="sd">        updating a bucket&#39;s metadata. If this value does not match the active Etag, the</span>
 <span class="sd">        request will fail.</span>
@@ -237,16 +252,20 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;bucket must be provided&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">firewall</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">firewall</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_model</span><span class="p">(</span><span class="n">firewall</span><span class="p">,</span> <span class="n">Firewall</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">activity_tracking</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">activity_tracking</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_model</span><span class="p">(</span><span class="n">activity_tracking</span><span class="p">,</span> <span class="n">ActivityTracking</span><span class="p">)</span>
 
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;if-match&#39;</span><span class="p">:</span> <span class="n">if_match</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="s1">&#39;headers&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;headers&#39;</span><span class="p">))</span>
-        <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;X-IBMCloud-SDK-Analytics&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;service_name=;service_version=V1;operation_id=update_bucket_config&#39;</span>
+        <span class="n">sdk_headers</span> <span class="o">=</span> <span class="n">get_sdk_headers</span><span class="p">(</span><span class="s1">&#39;resource_configuration&#39;</span><span class="p">,</span> <span class="s1">&#39;V1&#39;</span><span class="p">,</span> <span class="s1">&#39;update_bucket_config&#39;</span><span class="p">)</span>
+        <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sdk_headers</span><span class="p">)</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;firewall&#39;</span><span class="p">:</span> <span class="n">firewall</span>
+            <span class="s1">&#39;firewall&#39;</span><span class="p">:</span> <span class="n">firewall</span><span class="p">,</span>
+            <span class="s1">&#39;activity_tracking&#39;</span><span class="p">:</span> <span class="n">activity_tracking</span>
         <span class="p">}</span>
 
         <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/b/{0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_encode_path_vars</span><span class="p">(</span><span class="n">bucket</span><span class="p">))</span>
@@ -254,7 +273,7 @@
                                 <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
                                 <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
                                 <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
-                                <span class="n">accept_json</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                                <span class="n">accept_json</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">response</span>
 
 
@@ -264,6 +283,81 @@
 <span class="c1">##############################################################################</span>
 
 </div></div>
+<div class="viewcode-block" id="ActivityTracking"><a class="viewcode-back" href="../../source/cos_config.html#cos_config.resource_configuration_v1.ActivityTracking">[docs]</a><span class="k">class</span> <span class="nc">ActivityTracking</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enables sending log data to Activity Tracker and LogDNA to provide visibility into</span>
+<span class="sd">    object read and write events. All object events are sent to the activity tracker</span>
+<span class="sd">    instance defined in the `activity_tracker_crn` field.</span>
+
+<span class="sd">    :attr bool read_data_events: (optional) If set to `true`, all object read events (i.e.</span>
+<span class="sd">    downloads) will be sent to Activity Tracker.</span>
+<span class="sd">    :attr bool write_data_events: (optional) If set to `true`, all object write events</span>
+<span class="sd">    (i.e. uploads) will be sent to Activity Tracker.</span>
+<span class="sd">    :attr str activity_tracker_crn: (optional) Required the first time `activity_tracking`</span>
+<span class="sd">    is configured. The instance of Activity Tracker that will recieve object event data.</span>
+<span class="sd">    The format is &quot;crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage</span>
+<span class="sd">    account}:{activity tracker service instance}::&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">read_data_events</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">write_data_events</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">activity_tracker_crn</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a ActivityTracking object.</span>
+
+<span class="sd">        :param bool read_data_events: (optional) If set to `true`, all object read events</span>
+<span class="sd">        (i.e. downloads) will be sent to Activity Tracker.</span>
+<span class="sd">        :param bool write_data_events: (optional) If set to `true`, all object write</span>
+<span class="sd">        events (i.e. uploads) will be sent to Activity Tracker.</span>
+<span class="sd">        :param str activity_tracker_crn: (optional) Required the first time</span>
+<span class="sd">        `activity_tracking` is configured. The instance of Activity Tracker that will</span>
+<span class="sd">        recieve object event data. The format is &quot;crn:v1:bluemix:public:logdnaat:{bucket</span>
+<span class="sd">        location}:a/{storage account}:{activity tracker service instance}::&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_data_events</span> <span class="o">=</span> <span class="n">read_data_events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_data_events</span> <span class="o">=</span> <span class="n">write_data_events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracker_crn</span> <span class="o">=</span> <span class="n">activity_tracker_crn</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a ActivityTracking object from a json dictionary.&quot;&quot;&quot;</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">validKeys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;read_data_events&#39;</span><span class="p">,</span> <span class="s1">&#39;write_data_events&#39;</span><span class="p">,</span> <span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">]</span>
+        <span class="n">badKeys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">validKeys</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">badKeys</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unrecognized keys detected in dictionary for class ActivityTracking: &#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">badKeys</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s1">&#39;read_data_events&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;read_data_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;read_data_events&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;write_data_events&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;write_data_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;write_data_events&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;activity_tracker_crn&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a json dictionary representing this model.&quot;&quot;&quot;</span>
+        <span class="n">_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;read_data_events&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_data_events</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;read_data_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_data_events</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;write_data_events&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_data_events</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;write_data_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_data_events</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracker_crn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracker_crn</span>
+        <span class="k">return</span> <span class="n">_dict</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a `str` version of this ActivityTracking object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return `true` when self and other are equal, false otherwise.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span>
+
+    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return `true` when self and other are not equal, false otherwise.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">other</span>
+
+</div>
 <div class="viewcode-block" id="Bucket"><a class="viewcode-back" href="../../source/cos_config.html#cos_config.resource_configuration_v1.Bucket">[docs]</a><span class="k">class</span> <span class="nc">Bucket</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A bucket.</span>
@@ -280,13 +374,18 @@
 <span class="sd">    3339 format. Non-mutable.</span>
 <span class="sd">    :attr int object_count: (optional) Total number of objects in the bucket. Non-mutable.</span>
 <span class="sd">    :attr int bytes_used: (optional) Total size of all objects in the bucket. Non-mutable.</span>
-<span class="sd">    :attr Firewall firewall: (optional) A filter that controls access based on the network</span>
-<span class="sd">    where request originated. Requests not originating from IP addresses listed in the</span>
-<span class="sd">    `allowed_ip` field will be denied.  Viewing or updating the `Firewall` element</span>
-<span class="sd">    requires the requester to have the `manager` role.</span>
+<span class="sd">    :attr Firewall firewall: (optional) An access control mechanism based on the network</span>
+<span class="sd">    (IP address) where request originated. Requests not originating from IP addresses</span>
+<span class="sd">    listed in the `allowed_ip` field will be denied regardless of any access policies</span>
+<span class="sd">    (including public access) that might otherwise permit the request.  Viewing or</span>
+<span class="sd">    updating the `Firewall` element requires the requester to have the `manager` role.</span>
+<span class="sd">    :attr ActivityTracking activity_tracking: (optional) Enables sending log data to</span>
+<span class="sd">    Activity Tracker and LogDNA to provide visibility into object read and write events.</span>
+<span class="sd">    All object events are sent to the activity tracker instance defined in the</span>
+<span class="sd">    `activity_tracker_crn` field.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">crn</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">service_instance_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">service_instance_crn</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">time_created</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">time_updated</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">object_count</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">bytes_used</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">firewall</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">crn</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">service_instance_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">service_instance_crn</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">time_created</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">time_updated</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">object_count</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">bytes_used</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">firewall</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">activity_tracking</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a Bucket object.</span>
 
@@ -305,10 +404,16 @@
 <span class="sd">        Non-mutable.</span>
 <span class="sd">        :param int bytes_used: (optional) Total size of all objects in the bucket.</span>
 <span class="sd">        Non-mutable.</span>
-<span class="sd">        :param Firewall firewall: (optional) A filter that controls access based on the</span>
-<span class="sd">        network where request originated. Requests not originating from IP addresses</span>
-<span class="sd">        listed in the `allowed_ip` field will be denied.  Viewing or updating the</span>
-<span class="sd">        `Firewall` element requires the requester to have the `manager` role.</span>
+<span class="sd">        :param Firewall firewall: (optional) An access control mechanism based on the</span>
+<span class="sd">        network (IP address) where request originated. Requests not originating from IP</span>
+<span class="sd">        addresses listed in the `allowed_ip` field will be denied regardless of any access</span>
+<span class="sd">        policies (including public access) that might otherwise permit the request.</span>
+<span class="sd">        Viewing or updating the `Firewall` element requires the requester to have the</span>
+<span class="sd">        `manager` role.</span>
+<span class="sd">        :param ActivityTracking activity_tracking: (optional) Enables sending log data to</span>
+<span class="sd">        Activity Tracker and LogDNA to provide visibility into object read and write</span>
+<span class="sd">        events. All object events are sent to the activity tracker instance defined in the</span>
+<span class="sd">        `activity_tracker_crn` field.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">crn</span> <span class="o">=</span> <span class="n">crn</span>
@@ -319,11 +424,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">object_count</span> <span class="o">=</span> <span class="n">object_count</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bytes_used</span> <span class="o">=</span> <span class="n">bytes_used</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">firewall</span> <span class="o">=</span> <span class="n">firewall</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracking</span> <span class="o">=</span> <span class="n">activity_tracking</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialize a Bucket object from a json dictionary.&quot;&quot;&quot;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">validKeys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;crn&#39;</span><span class="p">,</span> <span class="s1">&#39;service_instance_id&#39;</span><span class="p">,</span> <span class="s1">&#39;service_instance_crn&#39;</span><span class="p">,</span> <span class="s1">&#39;time_created&#39;</span><span class="p">,</span> <span class="s1">&#39;time_updated&#39;</span><span class="p">,</span> <span class="s1">&#39;object_count&#39;</span><span class="p">,</span> <span class="s1">&#39;bytes_used&#39;</span><span class="p">,</span> <span class="s1">&#39;firewall&#39;</span><span class="p">,</span> <span class="s1">&#39;activity_tracking&#39;</span><span class="p">]</span>
+        <span class="n">badKeys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">validKeys</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">badKeys</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unrecognized keys detected in dictionary for class Bucket: &#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">badKeys</span><span class="p">))</span>
         <span class="k">if</span> <span class="s1">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
             <span class="n">args</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="s1">&#39;crn&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
@@ -342,6 +452,8 @@
             <span class="n">args</span><span class="p">[</span><span class="s1">&#39;bytes_used&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bytes_used&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="s1">&#39;firewall&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
             <span class="n">args</span><span class="p">[</span><span class="s1">&#39;firewall&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Firewall</span><span class="o">.</span><span class="n">_from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;firewall&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s1">&#39;activity_tracking&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActivityTracking</span><span class="o">.</span><span class="n">_from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -365,6 +477,8 @@
             <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;bytes_used&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bytes_used</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;firewall&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">firewall</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;firewall&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">firewall</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;activity_tracking&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracking</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracking</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">_dict</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -384,10 +498,11 @@
 </div>
 <div class="viewcode-block" id="Firewall"><a class="viewcode-back" href="../../source/cos_config.html#cos_config.resource_configuration_v1.Firewall">[docs]</a><span class="k">class</span> <span class="nc">Firewall</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A filter that controls access based on the network where request originated. Requests</span>
-<span class="sd">    not originating from IP addresses listed in the `allowed_ip` field will be denied.</span>
-<span class="sd">    Viewing or updating the `Firewall` element requires the requester to have the</span>
-<span class="sd">    `manager` role.</span>
+<span class="sd">    An access control mechanism based on the network (IP address) where request</span>
+<span class="sd">    originated. Requests not originating from IP addresses listed in the `allowed_ip`</span>
+<span class="sd">    field will be denied regardless of any access policies (including public access) that</span>
+<span class="sd">    might otherwise permit the request.  Viewing or updating the `Firewall` element</span>
+<span class="sd">    requires the requester to have the `manager` role.</span>
 
 <span class="sd">    :attr list[str] allowed_ip: (optional) List of IPv4 or IPv6 addresses in CIDR notation</span>
 <span class="sd">    to be affected by firewall in CIDR notation is supported. Passing an empty array will</span>
@@ -410,6 +525,10 @@
     <span class="k">def</span> <span class="nf">_from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialize a Firewall object from a json dictionary.&quot;&quot;&quot;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">validKeys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">]</span>
+        <span class="n">badKeys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">validKeys</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">badKeys</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unrecognized keys detected in dictionary for class Firewall: &#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">badKeys</span><span class="p">))</span>
         <span class="k">if</span> <span class="s1">&#39;allowed_ip&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
             <span class="n">args</span><span class="p">[</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
