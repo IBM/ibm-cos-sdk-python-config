@@ -5,7 +5,7 @@ import sys
 
 from setuptools import setup, find_packages
 # IbmCos Config sdk python version check
-_valid  =  sys.version_info[:2] == (2, 7) or sys.version_info >= (3,4)
+_valid = sys.version_info[:2] == (2, 7) or sys.version_info >= (3,4)
 if not _valid:
     sys.exit("Sorry, IBM COS Config SDK only supports versions 2.7, 3.4, 3.5, 3.6, 3.7 of python.")
 
@@ -15,7 +15,7 @@ VERSION_RE = re.compile(r'''__version__ = ['"]([a-z0-9._-]+)['"]''')
 
 requirements = [
     'requests',
-    'python-dateutil'
+    'ibm-cloud-sdk-core>=0.4.2',
 ]
 
 
@@ -35,7 +35,7 @@ setup(
     scripts=[],
     packages=find_packages(exclude=['tests*']),
     include_package_data=True,
-    install_requires = requirements,
+    install_requires=requirements,
     license="Apache License 2.0",
     classifiers=[
         'Development Status :: 5 - Production/Stable',

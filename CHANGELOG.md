@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# 1.1.0
+## Content
+### Features
+* Activity Tracker
+
 # 1.0.1
 ## Content
 ### Defect Fixes

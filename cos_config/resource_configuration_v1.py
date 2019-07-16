@@ -22,14 +22,15 @@ supports reading bucket metadata and setting IP access controls.
 from __future__ import absolute_import
 
 import json
-from .watson_service import datetime_to_string, string_to_datetime
-from .watson_service import WatsonService
+from .common import get_sdk_headers
+from ibm_cloud_sdk_core import BaseService
+from ibm_cloud_sdk_core import datetime_to_string, string_to_datetime
 
 ##############################################################################
 # Service
 ##############################################################################
 
-class ResourceConfigurationV1(WatsonService):
+class ResourceConfigurationV1(BaseService):
     """The ResourceConfiguration V1 service."""
 
     default_url = 'https://config.cloud-object-storage.cloud.ibm.com/v1'
@@ -39,13 +40,15 @@ class ResourceConfigurationV1(WatsonService):
                  iam_apikey=None,
                  iam_access_token=None,
                  iam_url=None,
+                 iam_client_id=None,
+                 iam_client_secret=None,
                 ):
         """
         Construct a new client for the ResourceConfiguration service.
 
         :param str url: The base url to use when contacting the service (e.g.
                "https://config.cloud-object-storage.cloud.ibm.com/v1/v1").
-               The base url may differ between Bluemix regions.
+               The base url may differ between IBM Cloud regions.
 
         :param str iam_apikey: An API key that can be used to request IAM tokens. If
                this API key is provided, the SDK will manage the token and handle the
@@ -57,17 +60,23 @@ class ResourceConfigurationV1(WatsonService):
                made with an expired token will fail.
 
         :param str iam_url: An optional URL for the IAM service API. Defaults to
-               'https://iam.bluemix.net/identity/token'.
+               'https://iam.cloud.ibm.com/identity/token'.
+
+        :param str iam_client_id: An optional client_id value to use when interacting with the IAM service.
+
+        :param str iam_client_secret: An optional client_secret value to use when interacting with the IAM service.
         """
 
-        WatsonService.__init__(self,
-                                     vcap_services_name='',
-                                     url=url,
-                                     iam_apikey=iam_apikey,
-                                     iam_access_token=iam_access_token,
-                                     iam_url=iam_url,
-                                     use_vcap_services=True,
-                                     display_name='ResourceConfiguration')
+        BaseService.__init__(self,
+            vcap_services_name='resource_configuration',
+            url=url,
+            iam_apikey=iam_apikey,
+            iam_access_token=iam_access_token,
+            iam_url=iam_url,
+            iam_client_id=iam_client_id,
+            iam_client_secret=iam_client_secret,
+            use_vcap_services=True,
+            display_name='ResourceConfiguration')
 
     #########################
     # buckets
@@ -92,7 +101,8 @@ class ResourceConfigurationV1(WatsonService):
         }
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
-        headers['X-IBMCloud-SDK-Analytics'] = 'service_name=;service_version=V1;operation_id=get_bucket_config'
+        sdk_headers = get_sdk_headers('resource_configuration', 'V1', 'get_bucket_config')
+        headers.update(sdk_headers)
 
         url = '/b/{0}'.format(*self._encode_path_vars(bucket))
         response = self.request(method='GET',
@@ -102,7 +112,7 @@ class ResourceConfigurationV1(WatsonService):
         return response
 
 
-    def update_bucket_config(self, bucket, firewall=None, if_match=None, **kwargs):
+    def update_bucket_config(self, bucket, firewall=None, activity_tracking=None, if_match=None, **kwargs):
         """
         Make changes to a bucket's configuration.
 
@@ -115,10 +125,15 @@ class ResourceConfigurationV1(WatsonService):
         number of objects in a bucket, any timestamps, or other non-mutable fields.
 
         :param str bucket: Name of a bucket.
-        :param Firewall firewall: A filter that controls access based on the network where
-        request originated. Requests not originating from IP addresses listed in the
-        `allowed_ip` field will be denied.  Viewing or updating the `Firewall` element
-        requires the requester to have the `manager` role.
+        :param Firewall firewall: An access control mechanism based on the network (IP
+        address) where request originated. Requests not originating from IP addresses
+        listed in the `allowed_ip` field will be denied regardless of any access policies
+        (including public access) that might otherwise permit the request.  Viewing or
+        updating the `Firewall` element requires the requester to have the `manager` role.
+        :param ActivityTracking activity_tracking: Enables sending log data to Activity
+        Tracker and LogDNA to provide visibility into object read and write events. All
+        object events are sent to the activity tracker instance defined in the
+        `activity_tracker_crn` field.
         :param str if_match: An Etag previously returned in a header when fetching or
         updating a bucket's metadata. If this value does not match the active Etag, the
         request will fail.
@@ -131,16 +146,20 @@ class ResourceConfigurationV1(WatsonService):
             raise ValueError('bucket must be provided')
         if firewall is not None:
             firewall = self._convert_model(firewall, Firewall)
+        if activity_tracking is not None:
+            activity_tracking = self._convert_model(activity_tracking, ActivityTracking)
 
         headers = {
             'if-match': if_match
         }
         if 'headers' in kwargs:
             headers.update(kwargs.get('headers'))
-        headers['X-IBMCloud-SDK-Analytics'] = 'service_name=;service_version=V1;operation_id=update_bucket_config'
+        sdk_headers = get_sdk_headers('resource_configuration', 'V1', 'update_bucket_config')
+        headers.update(sdk_headers)
 
         data = {
-            'firewall': firewall
+            'firewall': firewall,
+            'activity_tracking': activity_tracking
         }
 
         url = '/b/{0}'.format(*self._encode_path_vars(bucket))
@@ -148,7 +167,7 @@ class ResourceConfigurationV1(WatsonService):
                                 url=url,
                                 headers=headers,
                                 json=data,
-                                accept_json=True)
+                                accept_json=False)
         return response
 
 
@@ -156,6 +175,81 @@ class ResourceConfigurationV1(WatsonService):
 ##############################################################################
 # Models
 ##############################################################################
+
+
+class ActivityTracking(object):
+    """
+    Enables sending log data to Activity Tracker and LogDNA to provide visibility into
+    object read and write events. All object events are sent to the activity tracker
+    instance defined in the `activity_tracker_crn` field.
+
+    :attr bool read_data_events: (optional) If set to `true`, all object read events (i.e.
+    downloads) will be sent to Activity Tracker.
+    :attr bool write_data_events: (optional) If set to `true`, all object write events
+    (i.e. uploads) will be sent to Activity Tracker.
+    :attr str activity_tracker_crn: (optional) Required the first time `activity_tracking`
+    is configured. The instance of Activity Tracker that will recieve object event data.
+    The format is "crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage
+    account}:{activity tracker service instance}::".
+    """
+
+    def __init__(self, read_data_events=None, write_data_events=None, activity_tracker_crn=None):
+        """
+        Initialize a ActivityTracking object.
+
+        :param bool read_data_events: (optional) If set to `true`, all object read events
+        (i.e. downloads) will be sent to Activity Tracker.
+        :param bool write_data_events: (optional) If set to `true`, all object write
+        events (i.e. uploads) will be sent to Activity Tracker.
+        :param str activity_tracker_crn: (optional) Required the first time
+        `activity_tracking` is configured. The instance of Activity Tracker that will
+        recieve object event data. The format is "crn:v1:bluemix:public:logdnaat:{bucket
+        location}:a/{storage account}:{activity tracker service instance}::".
+        """
+        self.read_data_events = read_data_events
+        self.write_data_events = write_data_events
+        self.activity_tracker_crn = activity_tracker_crn
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ActivityTracking object from a json dictionary."""
+        args = {}
+        validKeys = ['read_data_events', 'write_data_events', 'activity_tracker_crn']
+        badKeys = set(_dict.keys()) - set(validKeys)
+        if badKeys:
+            raise ValueError('Unrecognized keys detected in dictionary for class ActivityTracking: ' + ', '.join(badKeys))
+        if 'read_data_events' in _dict:
+            args['read_data_events'] = _dict.get('read_data_events')
+        if 'write_data_events' in _dict:
+            args['write_data_events'] = _dict.get('write_data_events')
+        if 'activity_tracker_crn' in _dict:
+            args['activity_tracker_crn'] = _dict.get('activity_tracker_crn')
+        return cls(**args)
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'read_data_events') and self.read_data_events is not None:
+            _dict['read_data_events'] = self.read_data_events
+        if hasattr(self, 'write_data_events') and self.write_data_events is not None:
+            _dict['write_data_events'] = self.write_data_events
+        if hasattr(self, 'activity_tracker_crn') and self.activity_tracker_crn is not None:
+            _dict['activity_tracker_crn'] = self.activity_tracker_crn
+        return _dict
+
+    def __str__(self):
+        """Return a `str` version of this ActivityTracking object."""
+        return json.dumps(self._to_dict(), indent=2)
+
+    def __eq__(self, other):
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
 
 
 class Bucket(object):
@@ -174,13 +268,18 @@ class Bucket(object):
     3339 format. Non-mutable.
     :attr int object_count: (optional) Total number of objects in the bucket. Non-mutable.
     :attr int bytes_used: (optional) Total size of all objects in the bucket. Non-mutable.
-    :attr Firewall firewall: (optional) A filter that controls access based on the network
-    where request originated. Requests not originating from IP addresses listed in the
-    `allowed_ip` field will be denied.  Viewing or updating the `Firewall` element
-    requires the requester to have the `manager` role.
+    :attr Firewall firewall: (optional) An access control mechanism based on the network
+    (IP address) where request originated. Requests not originating from IP addresses
+    listed in the `allowed_ip` field will be denied regardless of any access policies
+    (including public access) that might otherwise permit the request.  Viewing or
+    updating the `Firewall` element requires the requester to have the `manager` role.
+    :attr ActivityTracking activity_tracking: (optional) Enables sending log data to
+    Activity Tracker and LogDNA to provide visibility into object read and write events.
+    All object events are sent to the activity tracker instance defined in the
+    `activity_tracker_crn` field.
     """
 
-    def __init__(self, name=None, crn=None, service_instance_id=None, service_instance_crn=None, time_created=None, time_updated=None, object_count=None, bytes_used=None, firewall=None):
+    def __init__(self, name=None, crn=None, service_instance_id=None, service_instance_crn=None, time_created=None, time_updated=None, object_count=None, bytes_used=None, firewall=None, activity_tracking=None):
         """
         Initialize a Bucket object.
 
@@ -199,10 +298,16 @@ class Bucket(object):
         Non-mutable.
         :param int bytes_used: (optional) Total size of all objects in the bucket.
         Non-mutable.
-        :param Firewall firewall: (optional) A filter that controls access based on the
-        network where request originated. Requests not originating from IP addresses
-        listed in the `allowed_ip` field will be denied.  Viewing or updating the
-        `Firewall` element requires the requester to have the `manager` role.
+        :param Firewall firewall: (optional) An access control mechanism based on the
+        network (IP address) where request originated. Requests not originating from IP
+        addresses listed in the `allowed_ip` field will be denied regardless of any access
+        policies (including public access) that might otherwise permit the request.
+        Viewing or updating the `Firewall` element requires the requester to have the
+        `manager` role.
+        :param ActivityTracking activity_tracking: (optional) Enables sending log data to
+        Activity Tracker and LogDNA to provide visibility into object read and write
+        events. All object events are sent to the activity tracker instance defined in the
+        `activity_tracker_crn` field.
         """
         self.name = name
         self.crn = crn
@@ -213,11 +318,16 @@ class Bucket(object):
         self.object_count = object_count
         self.bytes_used = bytes_used
         self.firewall = firewall
+        self.activity_tracking = activity_tracking
 
     @classmethod
     def _from_dict(cls, _dict):
         """Initialize a Bucket object from a json dictionary."""
         args = {}
+        validKeys = ['name', 'crn', 'service_instance_id', 'service_instance_crn', 'time_created', 'time_updated', 'object_count', 'bytes_used', 'firewall', 'activity_tracking']
+        badKeys = set(_dict.keys()) - set(validKeys)
+        if badKeys:
+            raise ValueError('Unrecognized keys detected in dictionary for class Bucket: ' + ', '.join(badKeys))
         if 'name' in _dict:
             args['name'] = _dict.get('name')
         if 'crn' in _dict:
@@ -236,6 +346,8 @@ class Bucket(object):
             args['bytes_used'] = _dict.get('bytes_used')
         if 'firewall' in _dict:
             args['firewall'] = Firewall._from_dict(_dict.get('firewall'))
+        if 'activity_tracking' in _dict:
+            args['activity_tracking'] = ActivityTracking._from_dict(_dict.get('activity_tracking'))
         return cls(**args)
 
     def _to_dict(self):
@@ -259,6 +371,8 @@ class Bucket(object):
             _dict['bytes_used'] = self.bytes_used
         if hasattr(self, 'firewall') and self.firewall is not None:
             _dict['firewall'] = self.firewall._to_dict()
+        if hasattr(self, 'activity_tracking') and self.activity_tracking is not None:
+            _dict['activity_tracking'] = self.activity_tracking._to_dict()
         return _dict
 
     def __str__(self):
@@ -278,10 +392,11 @@ class Bucket(object):
 
 class Firewall(object):
     """
-    A filter that controls access based on the network where request originated. Requests
-    not originating from IP addresses listed in the `allowed_ip` field will be denied.
-    Viewing or updating the `Firewall` element requires the requester to have the
-    `manager` role.
+    An access control mechanism based on the network (IP address) where request
+    originated. Requests not originating from IP addresses listed in the `allowed_ip`
+    field will be denied regardless of any access policies (including public access) that
+    might otherwise permit the request.  Viewing or updating the `Firewall` element
+    requires the requester to have the `manager` role.
 
     :attr list[str] allowed_ip: (optional) List of IPv4 or IPv6 addresses in CIDR notation
     to be affected by firewall in CIDR notation is supported. Passing an empty array will
@@ -304,6 +419,10 @@ class Firewall(object):
     def _from_dict(cls, _dict):
         """Initialize a Firewall object from a json dictionary."""
         args = {}
+        validKeys = ['allowed_ip']
+        badKeys = set(_dict.keys()) - set(validKeys)
+        if badKeys:
+            raise ValueError('Unrecognized keys detected in dictionary for class Firewall: ' + ', '.join(badKeys))
         if 'allowed_ip' in _dict:
             args['allowed_ip'] = _dict.get('allowed_ip')
         return cls(**args)
