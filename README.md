@@ -3,6 +3,10 @@
 This package allows Python developers to write software that interacts with the Resource Configuration API for [IBM
 Cloud Object Storage](https://cloud.ibm.com/apidocs/cos/cos-configuration).
 
+## Notice
+
+IBM is officially deprecating support of Python versions 2.7 & 3.4.   All clients need to upgrade to version 3.5 or greater by January 31, 2020.
+
 ## Documentation
 
 * [Core documentation for IBM COS](https://cloud.ibm.com/docs/services/cloud-object-storage/getting-started.html)
@@ -16,7 +20,7 @@ For release notes, see the [CHANGELOG](CHANGELOG.md).
 You'll need:
   * An instance of COS.
   * An API key from [IBM Cloud Identity and Access Management](https://cloud.ibm.com/docs/iam/users_roles.html).
-  * **Python 2.7, 3.4, 3.5, 3.6, or 3.7**.
+  * **Python 3.5, 3.6, or 3.7**.
 
   These values can be found in the IBM Cloud Console by [generating a 'service credential'](https://cloud.ibm.com/docs/services/cloud-object-storage/iam/service-credentials.html).
 

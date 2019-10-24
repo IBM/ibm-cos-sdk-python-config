@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# 1.1.1
+## Content
+* No change. Refer to deprecation notice in README
+
 # 1.1.0
 ## Content
 ### Features

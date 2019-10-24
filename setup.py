@@ -15,11 +15,15 @@ VERSION_RE = re.compile(r'''__version__ = ['"]([a-z0-9._-]+)['"]''')
 
 requirements = [
     'requests',
-    'ibm-cloud-sdk-core>=0.4.2',
+    'ibm-cloud-sdk-core>=0.4.2,<=0.5.0',
 ]
 
 
 def get_version():
+    '''
+    Get the SDK version number
+    :return:
+    '''
     init = open(os.path.join(ROOT, 'cos_config', '__init__.py')).read()
     return VERSION_RE.search(init).group(1)
 
