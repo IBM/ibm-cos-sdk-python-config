@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# 1.2.0
+## Content
+### Features
+* COS Usage Metrics Monitoring
+
 # 1.1.1
 ## Content
 * No change. Refer to deprecation notice in README
