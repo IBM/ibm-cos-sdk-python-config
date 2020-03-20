@@ -112,7 +112,7 @@ class ResourceConfigurationV1(BaseService):
         return response
 
 
-    def update_bucket_config(self, bucket, firewall=None, activity_tracking=None, if_match=None, **kwargs):
+    def update_bucket_config(self, bucket, firewall=None, activity_tracking=None, metrics_monitoring=None, if_match=None, **kwargs):
         """
         Make changes to a bucket's configuration.
 
@@ -134,6 +134,9 @@ class ResourceConfigurationV1(BaseService):
         Tracker and LogDNA to provide visibility into object read and write events. All
         object events are sent to the activity tracker instance defined in the
         `activity_tracker_crn` field.
+        :param MetricsMonitoring metrics_monitoring: Enables sending metrics to IBM Cloud
+        Monitoring. All metrics are sent to the IBM Cloud Monitoring instance defined in
+        the `monitoring_crn` field.
         :param str if_match: An Etag previously returned in a header when fetching or
         updating a bucket's metadata. If this value does not match the active Etag, the
         request will fail.
@@ -148,6 +151,8 @@ class ResourceConfigurationV1(BaseService):
             firewall = self._convert_model(firewall, Firewall)
         if activity_tracking is not None:
             activity_tracking = self._convert_model(activity_tracking, ActivityTracking)
+        if metrics_monitoring is not None:
+            metrics_monitoring = self._convert_model(metrics_monitoring, MetricsMonitoring)
 
         headers = {
             'if-match': if_match
@@ -159,7 +164,8 @@ class ResourceConfigurationV1(BaseService):
 
         data = {
             'firewall': firewall,
-            'activity_tracking': activity_tracking
+            'activity_tracking': activity_tracking,
+            'metrics_monitoring': metrics_monitoring
         }
 
         url = '/b/{0}'.format(*self._encode_path_vars(bucket))
@@ -277,9 +283,12 @@ class Bucket(object):
     Activity Tracker and LogDNA to provide visibility into object read and write events.
     All object events are sent to the activity tracker instance defined in the
     `activity_tracker_crn` field.
+    :attr MetricsMonitoring metrics_monitoring: (optional) Enables sending metrics to IBM
+    Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring instance defined in
+    the `monitoring_crn` field.
     """
 
-    def __init__(self, name=None, crn=None, service_instance_id=None, service_instance_crn=None, time_created=None, time_updated=None, object_count=None, bytes_used=None, firewall=None, activity_tracking=None):
+    def __init__(self, name=None, crn=None, service_instance_id=None, service_instance_crn=None, time_created=None, time_updated=None, object_count=None, bytes_used=None, firewall=None, activity_tracking=None, metrics_monitoring=None):
         """
         Initialize a Bucket object.
 
@@ -308,6 +317,9 @@ class Bucket(object):
         Activity Tracker and LogDNA to provide visibility into object read and write
         events. All object events are sent to the activity tracker instance defined in the
         `activity_tracker_crn` field.
+        :param MetricsMonitoring metrics_monitoring: (optional) Enables sending metrics to
+        IBM Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring instance
+        defined in the `monitoring_crn` field.
         """
         self.name = name
         self.crn = crn
@@ -319,12 +331,13 @@ class Bucket(object):
         self.bytes_used = bytes_used
         self.firewall = firewall
         self.activity_tracking = activity_tracking
+        self.metrics_monitoring = metrics_monitoring
 
     @classmethod
     def _from_dict(cls, _dict):
         """Initialize a Bucket object from a json dictionary."""
         args = {}
-        validKeys = ['name', 'crn', 'service_instance_id', 'service_instance_crn', 'time_created', 'time_updated', 'object_count', 'bytes_used', 'firewall', 'activity_tracking']
+        validKeys = ['name', 'crn', 'service_instance_id', 'service_instance_crn', 'time_created', 'time_updated', 'object_count', 'bytes_used', 'firewall', 'activity_tracking', 'metrics_monitoring']
         badKeys = set(_dict.keys()) - set(validKeys)
         if badKeys:
             raise ValueError('Unrecognized keys detected in dictionary for class Bucket: ' + ', '.join(badKeys))
@@ -348,6 +361,8 @@ class Bucket(object):
             args['firewall'] = Firewall._from_dict(_dict.get('firewall'))
         if 'activity_tracking' in _dict:
             args['activity_tracking'] = ActivityTracking._from_dict(_dict.get('activity_tracking'))
+        if 'metrics_monitoring' in _dict:
+            args['metrics_monitoring'] = MetricsMonitoring._from_dict(_dict.get('metrics_monitoring'))
         return cls(**args)
 
     def _to_dict(self):
@@ -373,6 +388,8 @@ class Bucket(object):
             _dict['firewall'] = self.firewall._to_dict()
         if hasattr(self, 'activity_tracking') and self.activity_tracking is not None:
             _dict['activity_tracking'] = self.activity_tracking._to_dict()
+        if hasattr(self, 'metrics_monitoring') and self.metrics_monitoring is not None:
+            _dict['metrics_monitoring'] = self.metrics_monitoring._to_dict()
         return _dict
 
     def __str__(self):
@@ -436,6 +453,71 @@ class Firewall(object):
 
     def __str__(self):
         """Return a `str` version of this Firewall object."""
+        return json.dumps(self._to_dict(), indent=2)
+
+    def __eq__(self, other):
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other):
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class MetricsMonitoring(object):
+    """
+    Enables sending metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud
+    Monitoring instance defined in the `monitoring_crn` field.
+
+    :attr bool usage_metrics_enabled: (optional) If set to `true`, all usage metrics (i.e.
+    `bytes_used`) will be sent to the monitoring service.
+    :attr str metrics_monitoring_crn: (optional) Required the first time
+    `metrics_monitoring` is configured. The instance of IBM Cloud Monitoring that will
+    receive the bucket metrics. The format is "crn:v1:bluemix:public:logdnaat:{bucket
+    location}:a/{storage account}:{monitoring service instance}::".
+    """
+
+    def __init__(self, usage_metrics_enabled=None, metrics_monitoring_crn=None):
+        """
+        Initialize a MetricsMonitoring object.
+
+        :param bool usage_metrics_enabled: (optional) If set to `true`, all usage metrics
+        (i.e. `bytes_used`) will be sent to the monitoring service.
+        :param str metrics_monitoring_crn: (optional) Required the first time
+        `metrics_monitoring` is configured. The instance of IBM Cloud Monitoring that will
+        receive the bucket metrics. The format is "crn:v1:bluemix:public:logdnaat:{bucket
+        location}:a/{storage account}:{monitoring service instance}::".
+        """
+        self.usage_metrics_enabled = usage_metrics_enabled
+        self.metrics_monitoring_crn = metrics_monitoring_crn
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a MetricsMonitoring object from a json dictionary."""
+        args = {}
+        validKeys = ['usage_metrics_enabled', 'metrics_monitoring_crn']
+        badKeys = set(_dict.keys()) - set(validKeys)
+        if badKeys:
+            raise ValueError('Unrecognized keys detected in dictionary for class MetricsMonitoring: ' + ', '.join(badKeys))
+        if 'usage_metrics_enabled' in _dict:
+            args['usage_metrics_enabled'] = _dict.get('usage_metrics_enabled')
+        if 'metrics_monitoring_crn' in _dict:
+            args['metrics_monitoring_crn'] = _dict.get('metrics_monitoring_crn')
+        return cls(**args)
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'usage_metrics_enabled') and self.usage_metrics_enabled is not None:
+            _dict['usage_metrics_enabled'] = self.usage_metrics_enabled
+        if hasattr(self, 'metrics_monitoring_crn') and self.metrics_monitoring_crn is not None:
+            _dict['metrics_monitoring_crn'] = self.metrics_monitoring_crn
+        return _dict
+
+    def __str__(self):
+        """Return a `str` version of this MetricsMonitoring object."""
         return json.dumps(self._to_dict(), indent=2)
 
     def __eq__(self, other):
