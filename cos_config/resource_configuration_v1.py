@@ -16,7 +16,8 @@
 
 """
 REST API used to configure Cloud Object Storage buckets.  This version of the API only
-supports reading bucket metadata and setting IP access controls.
+supports reading bucket metadata, setting IP access controls, and configuring logging and
+monitoring services.
 """
 
 from __future__ import absolute_import
@@ -194,7 +195,7 @@ class ActivityTracking(object):
     :attr bool write_data_events: (optional) If set to `true`, all object write events
     (i.e. uploads) will be sent to Activity Tracker.
     :attr str activity_tracker_crn: (optional) Required the first time `activity_tracking`
-    is configured. The instance of Activity Tracker that will recieve object event data.
+    is configured. The instance of Activity Tracker that will receive object event data.
     The format is "crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage
     account}:{activity tracker service instance}::".
     """
@@ -209,7 +210,7 @@ class ActivityTracking(object):
         events (i.e. uploads) will be sent to Activity Tracker.
         :param str activity_tracker_crn: (optional) Required the first time
         `activity_tracking` is configured. The instance of Activity Tracker that will
-        recieve object event data. The format is "crn:v1:bluemix:public:logdnaat:{bucket
+        receive object event data. The format is "crn:v1:bluemix:public:logdnaat:{bucket
         location}:a/{storage account}:{activity tracker service instance}::".
         """
         self.read_data_events = read_data_events
@@ -419,9 +420,19 @@ class Firewall(object):
     to be affected by firewall in CIDR notation is supported. Passing an empty array will
     lift the IP address filter.  The `allowed_ip` array can contain a maximum of 1000
     items.
+    :attr list[str] denied_ip: (optional) List of IPv4 or IPv6 addresses in CIDR notation
+    to be affected by firewall in CIDR notation is supported. Passing an empty array will
+    lift the IP address filter.  The `denied_ip` array can contain a maximum of 1000
+    items.
+    :attr list[str] allowed_network_type: (optional) Indicates which network types are
+    allowed for bucket access. May contain `public`, `private`, and/or `direct` elements.
+    Setting `allowed_network_type` to only `private` will prevent access to object storage
+    from outside of the IBM Cloud.  The entire array will be overwritten in a `PATCH`
+    operation. For more information on network types, [see the
+    documentation](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types).
     """
 
-    def __init__(self, allowed_ip=None):
+    def __init__(self, allowed_ip=None, denied_ip=None, allowed_network_type=None):
         """
         Initialize a Firewall object.
 
@@ -429,19 +440,36 @@ class Firewall(object):
         notation to be affected by firewall in CIDR notation is supported. Passing an
         empty array will lift the IP address filter.  The `allowed_ip` array can contain a
         maximum of 1000 items.
+        :param list[str] denied_ip: (optional) List of IPv4 or IPv6 addresses in CIDR
+        notation to be affected by firewall in CIDR notation is supported. Passing an
+        empty array will lift the IP address filter.  The `denied_ip` array can contain a
+        maximum of 1000 items.
+        :param list[str] allowed_network_type: (optional) Indicates which network types
+        are allowed for bucket access. May contain `public`, `private`, and/or `direct`
+        elements. Setting `allowed_network_type` to only `private` will prevent access to
+        object storage from outside of the IBM Cloud.  The entire array will be
+        overwritten in a `PATCH` operation. For more information on network types, [see
+        the
+        documentation](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types).
         """
         self.allowed_ip = allowed_ip
+        self.denied_ip = denied_ip
+        self.allowed_network_type = allowed_network_type
 
     @classmethod
     def _from_dict(cls, _dict):
         """Initialize a Firewall object from a json dictionary."""
         args = {}
-        validKeys = ['allowed_ip']
+        validKeys = ['allowed_ip', 'denied_ip', 'allowed_network_type']
         badKeys = set(_dict.keys()) - set(validKeys)
         if badKeys:
             raise ValueError('Unrecognized keys detected in dictionary for class Firewall: ' + ', '.join(badKeys))
         if 'allowed_ip' in _dict:
             args['allowed_ip'] = _dict.get('allowed_ip')
+        if 'denied_ip' in _dict:
+            args['denied_ip'] = _dict.get('denied_ip')
+        if 'allowed_network_type' in _dict:
+            args['allowed_network_type'] = _dict.get('allowed_network_type')
         return cls(**args)
 
     def _to_dict(self):
@@ -449,6 +477,10 @@ class Firewall(object):
         _dict = {}
         if hasattr(self, 'allowed_ip') and self.allowed_ip is not None:
             _dict['allowed_ip'] = self.allowed_ip
+        if hasattr(self, 'denied_ip') and self.denied_ip is not None:
+            _dict['denied_ip'] = self.denied_ip
+        if hasattr(self, 'allowed_network_type') and self.allowed_network_type is not None:
+            _dict['allowed_network_type'] = self.allowed_network_type
         return _dict
 
     def __str__(self):
