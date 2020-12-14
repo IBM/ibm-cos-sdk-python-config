@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <!-- Licensed under the Apache 2.0 License -->
   <link rel="stylesheet" type="text/css" href="../_static/fonts/open-sans/stylesheet.css" />
@@ -14,8 +15,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
     <title>cos_config package &#8212; ibm-cos-sdk-config  documentation</title>
-    <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
@@ -36,7 +37,8 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">ibm-cos-sdk-config  documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">ibm-cos-sdk-config  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">cos_config package</a></li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -111,10 +113,11 @@
 <div class="section" id="module-cos_config.resource_configuration_v1">
 <span id="cos-config-resource-configuration-v1-module"></span><h2>cos_config.resource_configuration_v1 module<a class="headerlink" href="#module-cos_config.resource_configuration_v1" title="Permalink to this headline">¶</a></h2>
 <p>REST API used to configure Cloud Object Storage buckets.  This version of the API only
-supports reading bucket metadata and setting IP access controls.</p>
-<dl class="class">
+supports reading bucket metadata, setting IP access controls, and configuring logging and
+monitoring services.</p>
+<dl class="py class">
 <dt id="cos_config.resource_configuration_v1.ActivityTracking">
-<em class="property">class </em><code class="sig-prename descclassname">cos_config.resource_configuration_v1.</code><code class="sig-name descname">ActivityTracking</code><span class="sig-paren">(</span><em class="sig-param">read_data_events=None</em>, <em class="sig-param">write_data_events=None</em>, <em class="sig-param">activity_tracker_crn=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#ActivityTracking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.ActivityTracking" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cos_config.resource_configuration_v1.</code><code class="sig-name descname">ActivityTracking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">read_data_events</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">write_data_events</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">activity_tracker_crn</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#ActivityTracking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.ActivityTracking" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Enables sending log data to Activity Tracker and LogDNA to provide visibility into
 object read and write events. All object events are sent to the activity tracker
@@ -128,14 +131,14 @@ instance defined in the <cite>activity_tracker_crn</cite> field.</p>
 :attr bool write_data_events: (optional) If set to <cite>true</cite>, all object write events
 (i.e. uploads) will be sent to Activity Tracker.
 :attr str activity_tracker_crn: (optional) Required the first time <cite>activity_tracking</cite>
-is configured. The instance of Activity Tracker that will recieve object event data.
+is configured. The instance of Activity Tracker that will receive object event data.
 The format is “crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage
 account}:{activity tracker service instance}::”.</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="cos_config.resource_configuration_v1.Bucket">
-<em class="property">class </em><code class="sig-prename descclassname">cos_config.resource_configuration_v1.</code><code class="sig-name descname">Bucket</code><span class="sig-paren">(</span><em class="sig-param">name=None</em>, <em class="sig-param">crn=None</em>, <em class="sig-param">service_instance_id=None</em>, <em class="sig-param">service_instance_crn=None</em>, <em class="sig-param">time_created=None</em>, <em class="sig-param">time_updated=None</em>, <em class="sig-param">object_count=None</em>, <em class="sig-param">bytes_used=None</em>, <em class="sig-param">firewall=None</em>, <em class="sig-param">activity_tracking=None</em>, <em class="sig-param">metrics_monitoring=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#Bucket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.Bucket" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cos_config.resource_configuration_v1.</code><code class="sig-name descname">Bucket</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">crn</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">service_instance_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">service_instance_crn</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_created</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_updated</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">object_count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bytes_used</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">firewall</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">activity_tracking</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">metrics_monitoring</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#Bucket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.Bucket" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A bucket.</p>
 <dl class="field-list simple">
@@ -172,9 +175,9 @@ Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring instance defi
 the <cite>monitoring_crn</cite> field.</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="cos_config.resource_configuration_v1.Firewall">
-<em class="property">class </em><code class="sig-prename descclassname">cos_config.resource_configuration_v1.</code><code class="sig-name descname">Firewall</code><span class="sig-paren">(</span><em class="sig-param">allowed_ip=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#Firewall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.Firewall" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cos_config.resource_configuration_v1.</code><code class="sig-name descname">Firewall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">allowed_ip</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">denied_ip</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">allowed_network_type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#Firewall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.Firewall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>An access control mechanism based on the network (IP address) where request
 originated. Requests not originating from IP addresses listed in the <cite>allowed_ip</cite>
@@ -188,12 +191,22 @@ requires the requester to have the <cite>manager</cite> role.</p>
 </dl>
 <p>to be affected by firewall in CIDR notation is supported. Passing an empty array will
 lift the IP address filter.  The <cite>allowed_ip</cite> array can contain a maximum of 1000
-items.</p>
+items.
+:attr list[str] denied_ip: (optional) List of IPv4 or IPv6 addresses in CIDR notation
+to be affected by firewall in CIDR notation is supported. Passing an empty array will
+lift the IP address filter.  The <cite>denied_ip</cite> array can contain a maximum of 1000
+items.
+:attr list[str] allowed_network_type: (optional) Indicates which network types are
+allowed for bucket access. May contain <cite>public</cite>, <cite>private</cite>, and/or <cite>direct</cite> elements.
+Setting <cite>allowed_network_type</cite> to only <cite>private</cite> will prevent access to object storage
+from outside of the IBM Cloud.  The entire array will be overwritten in a <cite>PATCH</cite>
+operation. For more information on network types, [see the
+documentation](<a class="reference external" href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types">https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types</a>).</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="cos_config.resource_configuration_v1.MetricsMonitoring">
-<em class="property">class </em><code class="sig-prename descclassname">cos_config.resource_configuration_v1.</code><code class="sig-name descname">MetricsMonitoring</code><span class="sig-paren">(</span><em class="sig-param">usage_metrics_enabled=None</em>, <em class="sig-param">metrics_monitoring_crn=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#MetricsMonitoring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.MetricsMonitoring" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cos_config.resource_configuration_v1.</code><code class="sig-name descname">MetricsMonitoring</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">usage_metrics_enabled</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">metrics_monitoring_crn</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#MetricsMonitoring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.MetricsMonitoring" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Enables sending metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud
 Monitoring instance defined in the <cite>monitoring_crn</cite> field.</p>
@@ -209,19 +222,19 @@ receive the bucket metrics. The format is “crn:v1:bluemix:public:logdnaat:{buc
 location}:a/{storage account}:{monitoring service instance}::”.</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="cos_config.resource_configuration_v1.ResourceConfigurationV1">
-<em class="property">class </em><code class="sig-prename descclassname">cos_config.resource_configuration_v1.</code><code class="sig-name descname">ResourceConfigurationV1</code><span class="sig-paren">(</span><em class="sig-param">url='https://config.cloud-object-storage.cloud.ibm.com/v1'</em>, <em class="sig-param">iam_apikey=None</em>, <em class="sig-param">iam_access_token=None</em>, <em class="sig-param">iam_url=None</em>, <em class="sig-param">iam_client_id=None</em>, <em class="sig-param">iam_client_secret=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#ResourceConfigurationV1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.ResourceConfigurationV1" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cos_config.resource_configuration_v1.</code><code class="sig-name descname">ResourceConfigurationV1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span><span class="o">=</span><span class="default_value">'https://config.cloud-object-storage.cloud.ibm.com/v1'</span></em>, <em class="sig-param"><span class="n">iam_apikey</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">iam_access_token</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">iam_url</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">iam_client_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">iam_client_secret</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#ResourceConfigurationV1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.ResourceConfigurationV1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ibm_cloud_sdk_core.base_service.BaseService</span></code></p>
 <p>The ResourceConfiguration V1 service.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="cos_config.resource_configuration_v1.ResourceConfigurationV1.default_url">
 <code class="sig-name descname">default_url</code><em class="property"> = 'https://config.cloud-object-storage.cloud.ibm.com/v1'</em><a class="headerlink" href="#cos_config.resource_configuration_v1.ResourceConfigurationV1.default_url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="cos_config.resource_configuration_v1.ResourceConfigurationV1.get_bucket_config">
-<code class="sig-name descname">get_bucket_config</code><span class="sig-paren">(</span><em class="sig-param">bucket</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#ResourceConfigurationV1.get_bucket_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.ResourceConfigurationV1.get_bucket_config" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_bucket_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bucket</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#ResourceConfigurationV1.get_bucket_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.ResourceConfigurationV1.get_bucket_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns metadata for the specified bucket.</p>
 <p>Returns metadata for the specified bucket.</p>
 <dl class="field-list simple">
@@ -240,9 +253,9 @@ location}:a/{storage account}:{monitoring service instance}::”.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="cos_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config">
-<code class="sig-name descname">update_bucket_config</code><span class="sig-paren">(</span><em class="sig-param">bucket</em>, <em class="sig-param">firewall=None</em>, <em class="sig-param">activity_tracking=None</em>, <em class="sig-param">metrics_monitoring=None</em>, <em class="sig-param">if_match=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#ResourceConfigurationV1.update_bucket_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update_bucket_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bucket</span></em>, <em class="sig-param"><span class="n">firewall</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">activity_tracking</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">metrics_monitoring</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">if_match</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cos_config/resource_configuration_v1.html#ResourceConfigurationV1.update_bucket_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cos_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make changes to a bucket’s configuration.</p>
 <p>Updates a bucket using [JSON Merge Patch](<a class="reference external" href="https://tools.ietf.org/html/rfc7396">https://tools.ietf.org/html/rfc7396</a>).
 This request is used to add functionality (like an IP access filter) or to update
@@ -307,7 +320,8 @@ request will fail.
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">ibm-cos-sdk-config  documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">ibm-cos-sdk-config  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">cos_config package</a></li> 
       </ul>
     </div>
 <script type="text/javascript">

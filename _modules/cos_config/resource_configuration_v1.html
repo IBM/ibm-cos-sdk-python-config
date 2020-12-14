@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <!-- Licensed under the Apache 2.0 License -->
   <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
@@ -14,8 +15,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
     <title>cos_config.resource_configuration_v1 &#8212; ibm-cos-sdk-config  documentation</title>
-    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
     <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -37,7 +38,8 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">ibm-cos-sdk-config  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">cos_config.resource_configuration_v1</a></li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -96,7 +98,8 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">REST API used to configure Cloud Object Storage buckets.  This version of the API only</span>
-<span class="sd">supports reading bucket metadata and setting IP access controls.</span>
+<span class="sd">supports reading bucket metadata, setting IP access controls, and configuring logging and</span>
+<span class="sd">monitoring services.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
@@ -274,7 +277,7 @@
 <span class="sd">    :attr bool write_data_events: (optional) If set to `true`, all object write events</span>
 <span class="sd">    (i.e. uploads) will be sent to Activity Tracker.</span>
 <span class="sd">    :attr str activity_tracker_crn: (optional) Required the first time `activity_tracking`</span>
-<span class="sd">    is configured. The instance of Activity Tracker that will recieve object event data.</span>
+<span class="sd">    is configured. The instance of Activity Tracker that will receive object event data.</span>
 <span class="sd">    The format is &quot;crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage</span>
 <span class="sd">    account}:{activity tracker service instance}::&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -289,7 +292,7 @@
 <span class="sd">        events (i.e. uploads) will be sent to Activity Tracker.</span>
 <span class="sd">        :param str activity_tracker_crn: (optional) Required the first time</span>
 <span class="sd">        `activity_tracking` is configured. The instance of Activity Tracker that will</span>
-<span class="sd">        recieve object event data. The format is &quot;crn:v1:bluemix:public:logdnaat:{bucket</span>
+<span class="sd">        receive object event data. The format is &quot;crn:v1:bluemix:public:logdnaat:{bucket</span>
 <span class="sd">        location}:a/{storage account}:{activity tracker service instance}::&quot;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">read_data_events</span> <span class="o">=</span> <span class="n">read_data_events</span>
@@ -499,9 +502,19 @@
 <span class="sd">    to be affected by firewall in CIDR notation is supported. Passing an empty array will</span>
 <span class="sd">    lift the IP address filter.  The `allowed_ip` array can contain a maximum of 1000</span>
 <span class="sd">    items.</span>
+<span class="sd">    :attr list[str] denied_ip: (optional) List of IPv4 or IPv6 addresses in CIDR notation</span>
+<span class="sd">    to be affected by firewall in CIDR notation is supported. Passing an empty array will</span>
+<span class="sd">    lift the IP address filter.  The `denied_ip` array can contain a maximum of 1000</span>
+<span class="sd">    items.</span>
+<span class="sd">    :attr list[str] allowed_network_type: (optional) Indicates which network types are</span>
+<span class="sd">    allowed for bucket access. May contain `public`, `private`, and/or `direct` elements.</span>
+<span class="sd">    Setting `allowed_network_type` to only `private` will prevent access to object storage</span>
+<span class="sd">    from outside of the IBM Cloud.  The entire array will be overwritten in a `PATCH`</span>
+<span class="sd">    operation. For more information on network types, [see the</span>
+<span class="sd">    documentation](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">allowed_ip</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">allowed_ip</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">denied_ip</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allowed_network_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a Firewall object.</span>
 
@@ -509,19 +522,36 @@
 <span class="sd">        notation to be affected by firewall in CIDR notation is supported. Passing an</span>
 <span class="sd">        empty array will lift the IP address filter.  The `allowed_ip` array can contain a</span>
 <span class="sd">        maximum of 1000 items.</span>
+<span class="sd">        :param list[str] denied_ip: (optional) List of IPv4 or IPv6 addresses in CIDR</span>
+<span class="sd">        notation to be affected by firewall in CIDR notation is supported. Passing an</span>
+<span class="sd">        empty array will lift the IP address filter.  The `denied_ip` array can contain a</span>
+<span class="sd">        maximum of 1000 items.</span>
+<span class="sd">        :param list[str] allowed_network_type: (optional) Indicates which network types</span>
+<span class="sd">        are allowed for bucket access. May contain `public`, `private`, and/or `direct`</span>
+<span class="sd">        elements. Setting `allowed_network_type` to only `private` will prevent access to</span>
+<span class="sd">        object storage from outside of the IBM Cloud.  The entire array will be</span>
+<span class="sd">        overwritten in a `PATCH` operation. For more information on network types, [see</span>
+<span class="sd">        the</span>
+<span class="sd">        documentation](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">allowed_ip</span> <span class="o">=</span> <span class="n">allowed_ip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">denied_ip</span> <span class="o">=</span> <span class="n">denied_ip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allowed_network_type</span> <span class="o">=</span> <span class="n">allowed_network_type</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialize a Firewall object from a json dictionary.&quot;&quot;&quot;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">validKeys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">]</span>
+        <span class="n">validKeys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">,</span> <span class="s1">&#39;denied_ip&#39;</span><span class="p">,</span> <span class="s1">&#39;allowed_network_type&#39;</span><span class="p">]</span>
         <span class="n">badKeys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">validKeys</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">badKeys</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unrecognized keys detected in dictionary for class Firewall: &#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">badKeys</span><span class="p">))</span>
         <span class="k">if</span> <span class="s1">&#39;allowed_ip&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
             <span class="n">args</span><span class="p">[</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;denied_ip&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;denied_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;denied_ip&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;allowed_network_type&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;allowed_network_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allowed_network_type&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -529,6 +559,10 @@
         <span class="n">_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;allowed_ip&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_ip</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;denied_ip&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">denied_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;denied_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">denied_ip</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;allowed_network_type&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_network_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;allowed_network_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_network_type</span>
         <span class="k">return</span> <span class="n">_dict</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -628,7 +662,8 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">ibm-cos-sdk-config  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">cos_config.resource_configuration_v1</a></li> 
       </ul>
     </div>
 <script type="text/javascript">
