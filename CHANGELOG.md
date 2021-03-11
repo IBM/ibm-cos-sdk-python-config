@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 1.4.0
+
+### Content
+
+#### Features
+
+* COS Request Metrics Monitoring
+* COS Quota
+* Object Versioning Metrics
+
 ## 1.3.0
 
 ### Content

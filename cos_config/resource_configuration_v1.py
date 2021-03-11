@@ -113,7 +113,7 @@ class ResourceConfigurationV1(BaseService):
         return response
 
 
-    def update_bucket_config(self, bucket, firewall=None, activity_tracking=None, metrics_monitoring=None, if_match=None, **kwargs):
+    def update_bucket_config(self, bucket, firewall=None, activity_tracking=None, metrics_monitoring=None, hard_quota=None, if_match=None, **kwargs):
         """
         Make changes to a bucket's configuration.
 
@@ -138,6 +138,7 @@ class ResourceConfigurationV1(BaseService):
         :param MetricsMonitoring metrics_monitoring: Enables sending metrics to IBM Cloud
         Monitoring. All metrics are sent to the IBM Cloud Monitoring instance defined in
         the `monitoring_crn` field.
+        :param int hard_quota: Maximum bytes for this bucket.
         :param str if_match: An Etag previously returned in a header when fetching or
         updating a bucket's metadata. If this value does not match the active Etag, the
         request will fail.
@@ -166,7 +167,8 @@ class ResourceConfigurationV1(BaseService):
         data = {
             'firewall': firewall,
             'activity_tracking': activity_tracking,
-            'metrics_monitoring': metrics_monitoring
+            'metrics_monitoring': metrics_monitoring,
+            'hard_quota': hard_quota
         }
 
         url = '/b/{0}'.format(*self._encode_path_vars(bucket))
@@ -275,6 +277,13 @@ class Bucket(object):
     3339 format. Non-mutable.
     :attr int object_count: (optional) Total number of objects in the bucket. Non-mutable.
     :attr int bytes_used: (optional) Total size of all objects in the bucket. Non-mutable.
+    :attr int noncurrent_object_count: (optional) Number of non-current object versions in
+    the bucket. Non-mutable.
+    :attr int noncurrent_bytes_used: (optional) Total size of all non-current object
+    versions in the bucket. Non-mutable.
+    :attr int delete_marker_count: (optional) Total number of delete markers in the
+    bucket. Non-mutable.
+    :attr int hard_quota: (optional) Maximum bytes for this bucket.
     :attr Firewall firewall: (optional) An access control mechanism based on the network
     (IP address) where request originated. Requests not originating from IP addresses
     listed in the `allowed_ip` field will be denied regardless of any access policies
@@ -289,7 +298,7 @@ class Bucket(object):
     the `monitoring_crn` field.
     """
 
-    def __init__(self, name=None, crn=None, service_instance_id=None, service_instance_crn=None, time_created=None, time_updated=None, object_count=None, bytes_used=None, firewall=None, activity_tracking=None, metrics_monitoring=None):
+    def __init__(self, name=None, crn=None, service_instance_id=None, service_instance_crn=None, time_created=None, time_updated=None, object_count=None, bytes_used=None, noncurrent_object_count=None, noncurrent_bytes_used=None, delete_marker_count=None, hard_quota=None, firewall=None, activity_tracking=None, metrics_monitoring=None):
         """
         Initialize a Bucket object.
 
@@ -308,6 +317,13 @@ class Bucket(object):
         Non-mutable.
         :param int bytes_used: (optional) Total size of all objects in the bucket.
         Non-mutable.
+        :param int noncurrent_object_count: (optional) Number of non-current object
+        versions in the bucket. Non-mutable.
+        :param int noncurrent_bytes_used: (optional) Total size of all non-current object
+        versions in the bucket. Non-mutable.
+        :param int delete_marker_count: (optional) Total number of delete markers in the
+        bucket. Non-mutable.
+        :param int hard_quota: (optional) Maximum bytes for this bucket.
         :param Firewall firewall: (optional) An access control mechanism based on the
         network (IP address) where request originated. Requests not originating from IP
         addresses listed in the `allowed_ip` field will be denied regardless of any access
@@ -330,6 +346,10 @@ class Bucket(object):
         self.time_updated = time_updated
         self.object_count = object_count
         self.bytes_used = bytes_used
+        self.noncurrent_object_count = noncurrent_object_count
+        self.noncurrent_bytes_used = noncurrent_bytes_used
+        self.delete_marker_count = delete_marker_count
+        self.hard_quota = hard_quota
         self.firewall = firewall
         self.activity_tracking = activity_tracking
         self.metrics_monitoring = metrics_monitoring
@@ -338,7 +358,7 @@ class Bucket(object):
     def _from_dict(cls, _dict):
         """Initialize a Bucket object from a json dictionary."""
         args = {}
-        validKeys = ['name', 'crn', 'service_instance_id', 'service_instance_crn', 'time_created', 'time_updated', 'object_count', 'bytes_used', 'firewall', 'activity_tracking', 'metrics_monitoring']
+        validKeys = ['name', 'crn', 'service_instance_id', 'service_instance_crn', 'time_created', 'time_updated', 'object_count', 'bytes_used', 'noncurrent_object_count', 'noncurrent_bytes_used', 'delete_marker_count', 'hard_quota', 'firewall', 'activity_tracking', 'metrics_monitoring']
         badKeys = set(_dict.keys()) - set(validKeys)
         if badKeys:
             raise ValueError('Unrecognized keys detected in dictionary for class Bucket: ' + ', '.join(badKeys))
@@ -358,6 +378,14 @@ class Bucket(object):
             args['object_count'] = _dict.get('object_count')
         if 'bytes_used' in _dict:
             args['bytes_used'] = _dict.get('bytes_used')
+        if 'noncurrent_object_count' in _dict:
+            args['noncurrent_object_count'] = _dict.get('noncurrent_object_count')
+        if 'noncurrent_bytes_used' in _dict:
+            args['noncurrent_bytes_used'] = _dict.get('noncurrent_bytes_used')
+        if 'delete_marker_count' in _dict:
+            args['delete_marker_count'] = _dict.get('delete_marker_count')
+        if 'hard_quota' in _dict:
+            args['hard_quota'] = _dict.get('hard_quota')
         if 'firewall' in _dict:
             args['firewall'] = Firewall._from_dict(_dict.get('firewall'))
         if 'activity_tracking' in _dict:
@@ -385,6 +413,14 @@ class Bucket(object):
             _dict['object_count'] = self.object_count
         if hasattr(self, 'bytes_used') and self.bytes_used is not None:
             _dict['bytes_used'] = self.bytes_used
+        if hasattr(self, 'noncurrent_object_count') and self.noncurrent_object_count is not None:
+            _dict['noncurrent_object_count'] = self.noncurrent_object_count
+        if hasattr(self, 'noncurrent_bytes_used') and self.noncurrent_bytes_used is not None:
+            _dict['noncurrent_bytes_used'] = self.noncurrent_bytes_used
+        if hasattr(self, 'delete_marker_count') and self.delete_marker_count is not None:
+            _dict['delete_marker_count'] = self.delete_marker_count
+        if hasattr(self, 'hard_quota') and self.hard_quota is not None:
+            _dict['hard_quota'] = self.hard_quota
         if hasattr(self, 'firewall') and self.firewall is not None:
             _dict['firewall'] = self.firewall._to_dict()
         if hasattr(self, 'activity_tracking') and self.activity_tracking is not None:
@@ -505,36 +541,43 @@ class MetricsMonitoring(object):
 
     :attr bool usage_metrics_enabled: (optional) If set to `true`, all usage metrics (i.e.
     `bytes_used`) will be sent to the monitoring service.
+    :attr bool request_metrics_enabled: (optional) If set to `true`, all request metrics
+    (i.e. `rest.object.head`) will be sent to the monitoring service.
     :attr str metrics_monitoring_crn: (optional) Required the first time
     `metrics_monitoring` is configured. The instance of IBM Cloud Monitoring that will
     receive the bucket metrics. The format is "crn:v1:bluemix:public:logdnaat:{bucket
     location}:a/{storage account}:{monitoring service instance}::".
     """
 
-    def __init__(self, usage_metrics_enabled=None, metrics_monitoring_crn=None):
+    def __init__(self, usage_metrics_enabled=None, request_metrics_enabled=None, metrics_monitoring_crn=None):
         """
         Initialize a MetricsMonitoring object.
 
         :param bool usage_metrics_enabled: (optional) If set to `true`, all usage metrics
         (i.e. `bytes_used`) will be sent to the monitoring service.
+        :param bool request_metrics_enabled: (optional) If set to `true`, all request
+        metrics (i.e. `rest.object.head`) will be sent to the monitoring service.
         :param str metrics_monitoring_crn: (optional) Required the first time
         `metrics_monitoring` is configured. The instance of IBM Cloud Monitoring that will
         receive the bucket metrics. The format is "crn:v1:bluemix:public:logdnaat:{bucket
         location}:a/{storage account}:{monitoring service instance}::".
         """
         self.usage_metrics_enabled = usage_metrics_enabled
+        self.request_metrics_enabled = request_metrics_enabled
         self.metrics_monitoring_crn = metrics_monitoring_crn
 
     @classmethod
     def _from_dict(cls, _dict):
         """Initialize a MetricsMonitoring object from a json dictionary."""
         args = {}
-        validKeys = ['usage_metrics_enabled', 'metrics_monitoring_crn']
+        validKeys = ['usage_metrics_enabled', 'request_metrics_enabled', 'metrics_monitoring_crn']
         badKeys = set(_dict.keys()) - set(validKeys)
         if badKeys:
             raise ValueError('Unrecognized keys detected in dictionary for class MetricsMonitoring: ' + ', '.join(badKeys))
         if 'usage_metrics_enabled' in _dict:
             args['usage_metrics_enabled'] = _dict.get('usage_metrics_enabled')
+        if 'request_metrics_enabled' in _dict:
+            args['request_metrics_enabled'] = _dict.get('request_metrics_enabled')
         if 'metrics_monitoring_crn' in _dict:
             args['metrics_monitoring_crn'] = _dict.get('metrics_monitoring_crn')
         return cls(**args)
@@ -544,6 +587,8 @@ class MetricsMonitoring(object):
         _dict = {}
         if hasattr(self, 'usage_metrics_enabled') and self.usage_metrics_enabled is not None:
             _dict['usage_metrics_enabled'] = self.usage_metrics_enabled
+        if hasattr(self, 'request_metrics_enabled') and self.request_metrics_enabled is not None:
+            _dict['request_metrics_enabled'] = self.request_metrics_enabled
         if hasattr(self, 'metrics_monitoring_crn') and self.metrics_monitoring_crn is not None:
             _dict['metrics_monitoring_crn'] = self.metrics_monitoring_crn
         return _dict

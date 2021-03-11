@@ -1,1 +1,1 @@
-ibm-cloud-sdk-core>=0.4.2,<=0.5.0
+ibm-cloud-sdk-core>=0.5.3,<1.0.0

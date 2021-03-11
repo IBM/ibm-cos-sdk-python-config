@@ -28,9 +28,9 @@ setup(
     scripts=[],
     packages=find_packages(exclude=['tests*']),
     include_package_data=True,
-    python_requires='~=3.5',
+    python_requires='~=3.6',
     install_requires=[
-        'ibm-cloud-sdk-core>=0.4.2,<=0.5.0',
+        'ibm-cloud-sdk-core>=0.5.3,<1.0.0',
     ],
     license="Apache License 2.0",
     classifiers=[
@@ -40,9 +40,9 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
     ],
 )
