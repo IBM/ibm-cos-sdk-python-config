@@ -1,0 +1,907 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>ibm_cos_sdk_config.resource_configuration_v1 &#8212; ibm-cos-sdk-config  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/guzzle.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">ibm-cos-sdk-config  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ibm_cos_sdk_config.resource_configuration_v1</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+                <li><a href="../index.html">Module code</a></li>
+              
+              <li>ibm_cos_sdk_config.resource_configuration_v1</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <h1>Source code for ibm_cos_sdk_config.resource_configuration_v1</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding: utf-8</span>
+
+<span class="c1"># (C) Copyright IBM Corp. 2023.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="c1"># IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">REST API used to configure Cloud Object Storage buckets.  This version of the API only</span>
+<span class="sd">supports reading bucket metadata, setting IP access controls, and configuring logging and</span>
+<span class="sd">monitoring services.</span>
+
+<span class="sd">API Version: 1.0.0</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">from</span> <span class="nn">ibm_cloud_sdk_core</span> <span class="kn">import</span> <span class="n">BaseService</span><span class="p">,</span> <span class="n">DetailedResponse</span>
+<span class="kn">from</span> <span class="nn">ibm_cloud_sdk_core.authenticators.authenticator</span> <span class="kn">import</span> <span class="n">Authenticator</span>
+<span class="kn">from</span> <span class="nn">ibm_cloud_sdk_core.get_authenticator</span> <span class="kn">import</span> <span class="n">get_authenticator_from_environment</span>
+<span class="kn">from</span> <span class="nn">ibm_cloud_sdk_core.utils</span> <span class="kn">import</span> <span class="n">convert_model</span><span class="p">,</span> <span class="n">datetime_to_string</span><span class="p">,</span> <span class="n">string_to_datetime</span>
+
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">get_sdk_headers</span>
+
+<span class="c1">##############################################################################</span>
+<span class="c1"># Service</span>
+<span class="c1">##############################################################################</span>
+
+<div class="viewcode-block" id="ResourceConfigurationV1"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1">[docs]</a><span class="k">class</span> <span class="nc">ResourceConfigurationV1</span><span class="p">(</span><span class="n">BaseService</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The ResourceConfiguration V1 service.&quot;&quot;&quot;</span>
+
+    <span class="n">DEFAULT_SERVICE_URL</span> <span class="o">=</span> <span class="s1">&#39;https://config.cloud-object-storage.cloud.ibm.com/v1&#39;</span>
+    <span class="n">DEFAULT_SERVICE_NAME</span> <span class="o">=</span> <span class="s1">&#39;resource_configuration&#39;</span>
+
+<div class="viewcode-block" id="ResourceConfigurationV1.new_instance"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.new_instance">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">new_instance</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+                     <span class="n">service_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_SERVICE_NAME</span><span class="p">,</span>
+                    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ResourceConfigurationV1&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new client for the ResourceConfiguration service using the</span>
+<span class="sd">               specified parameters and external configuration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">authenticator</span> <span class="o">=</span> <span class="n">get_authenticator_from_environment</span><span class="p">(</span><span class="n">service_name</span><span class="p">)</span>
+        <span class="n">service</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">authenticator</span>
+            <span class="p">)</span>
+        <span class="n">service</span><span class="o">.</span><span class="n">configure_service</span><span class="p">(</span><span class="n">service_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">service</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">authenticator</span><span class="p">:</span> <span class="n">Authenticator</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a new client for the ResourceConfiguration service.</span>
+
+<span class="sd">        :param Authenticator authenticator: The authenticator specifies the authentication mechanism.</span>
+<span class="sd">               Get up to date information from https://github.com/IBM/python-sdk-core/blob/main/README.md</span>
+<span class="sd">               about initializing the authenticator of your choice.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">BaseService</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                             <span class="n">service_url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_SERVICE_URL</span><span class="p">,</span>
+                             <span class="n">authenticator</span><span class="o">=</span><span class="n">authenticator</span><span class="p">)</span>
+
+
+    <span class="c1">#########################</span>
+    <span class="c1"># buckets</span>
+    <span class="c1">#########################</span>
+
+
+<div class="viewcode-block" id="ResourceConfigurationV1.get_bucket_config"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.get_bucket_config">[docs]</a>    <span class="k">def</span> <span class="nf">get_bucket_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+        <span class="n">bucket</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DetailedResponse</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns metadata for the specified bucket.</span>
+
+<span class="sd">        Returns metadata for the specified bucket.</span>
+
+<span class="sd">        :param str bucket: Name of a bucket.</span>
+<span class="sd">        :param dict headers: A `dict` containing the request headers</span>
+<span class="sd">        :return: A `DetailedResponse` containing the result, headers and HTTP status code.</span>
+<span class="sd">        :rtype: DetailedResponse with `dict` result representing a `Bucket` object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bucket</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;bucket must be provided&#39;</span><span class="p">)</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">sdk_headers</span> <span class="o">=</span> <span class="n">get_sdk_headers</span><span class="p">(</span><span class="n">service_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_SERVICE_NAME</span><span class="p">,</span>
+                                      <span class="n">service_version</span><span class="o">=</span><span class="s1">&#39;V1&#39;</span><span class="p">,</span>
+                                      <span class="n">operation_id</span><span class="o">=</span><span class="s1">&#39;get_bucket_config&#39;</span><span class="p">)</span>
+        <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sdk_headers</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;headers&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;headers&#39;</span><span class="p">))</span>
+            <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;headers&#39;</span><span class="p">]</span>
+        <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Accept&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;application/json&#39;</span>
+
+        <span class="n">path_param_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bucket&#39;</span><span class="p">]</span>
+        <span class="n">path_param_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_path_vars</span><span class="p">(</span><span class="n">bucket</span><span class="p">)</span>
+        <span class="n">path_param_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">path_param_keys</span><span class="p">,</span> <span class="n">path_param_values</span><span class="p">))</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/b/</span><span class="si">{bucket}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">path_param_dict</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+                                       <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+                                       <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+
+<div class="viewcode-block" id="ResourceConfigurationV1.update_bucket_config"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config">[docs]</a>    <span class="k">def</span> <span class="nf">update_bucket_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+        <span class="n">bucket</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">bucket_patch</span><span class="p">:</span> <span class="s1">&#39;BucketPatch&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">if_match</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DetailedResponse</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make changes to a bucket&#39;s configuration.</span>
+
+<span class="sd">        Updates a bucket using [JSON Merge Patch](https://tools.ietf.org/html/rfc7396).</span>
+<span class="sd">        This request is used to add functionality (like an IP access filter) or to update</span>
+<span class="sd">        existing parameters.  **Primitives are overwritten and replaced in their entirety.</span>
+<span class="sd">        It is not possible to append a new (or to delete a specific) value to an array.**</span>
+<span class="sd">        Arrays can be cleared by updating the parameter with an empty array `[]`. A</span>
+<span class="sd">        `PATCH` operation only updates specified mutable fields. Please don&#39;t use `PATCH`</span>
+<span class="sd">        trying to update the number of objects in a bucket, any timestamps, or other</span>
+<span class="sd">        non-mutable fields.</span>
+
+<span class="sd">        :param str bucket: Name of a bucket.</span>
+<span class="sd">        :param BucketPatch bucket_patch: (optional) An object containing new</span>
+<span class="sd">               configuration metadata.</span>
+<span class="sd">        :param str if_match: (optional) An Etag previously returned in a header</span>
+<span class="sd">               when fetching or updating a bucket&#39;s metadata. If this value does not match</span>
+<span class="sd">               the active Etag, the request will fail.</span>
+<span class="sd">        :param dict headers: A `dict` containing the request headers</span>
+<span class="sd">        :return: A `DetailedResponse` containing the result, headers and HTTP status code.</span>
+<span class="sd">        :rtype: DetailedResponse</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bucket</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;bucket must be provided&#39;</span><span class="p">)</span>
+        <span class="k">if</span>  <span class="n">bucket_patch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bucket_patch</span><span class="p">,</span> <span class="n">BucketPatch</span><span class="p">):</span>
+            <span class="n">bucket_patch</span> <span class="o">=</span> <span class="n">convert_model</span><span class="p">(</span><span class="n">bucket_patch</span><span class="p">)</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;if-match&#39;</span><span class="p">:</span> <span class="n">if_match</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">sdk_headers</span> <span class="o">=</span> <span class="n">get_sdk_headers</span><span class="p">(</span><span class="n">service_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_SERVICE_NAME</span><span class="p">,</span>
+                                      <span class="n">service_version</span><span class="o">=</span><span class="s1">&#39;V1&#39;</span><span class="p">,</span>
+                                      <span class="n">operation_id</span><span class="o">=</span><span class="s1">&#39;update_bucket_config&#39;</span><span class="p">)</span>
+        <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sdk_headers</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">bucket_patch</span><span class="p">)</span>
+        <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;content-type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;application/merge-patch+json&#39;</span>
+
+        <span class="k">if</span> <span class="s1">&#39;headers&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;headers&#39;</span><span class="p">))</span>
+            <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;headers&#39;</span><span class="p">]</span>
+
+        <span class="n">path_param_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bucket&#39;</span><span class="p">]</span>
+        <span class="n">path_param_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_path_vars</span><span class="p">(</span><span class="n">bucket</span><span class="p">)</span>
+        <span class="n">path_param_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">path_param_keys</span><span class="p">,</span> <span class="n">path_param_values</span><span class="p">))</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;/b/</span><span class="si">{bucket}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">path_param_dict</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;PATCH&#39;</span><span class="p">,</span>
+                                       <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+                                       <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+                                       <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span></div></div>
+
+
+<span class="c1">##############################################################################</span>
+<span class="c1"># Models</span>
+<span class="c1">##############################################################################</span>
+
+
+<div class="viewcode-block" id="ActivityTracking"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking">[docs]</a><span class="k">class</span> <span class="nc">ActivityTracking</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enables sending log data to IBM Cloud Activity Tracker to provide visibility into</span>
+<span class="sd">    object read and write events. All object events are sent to the activity tracker</span>
+<span class="sd">    instance defined in the `activity_tracker_crn` field.</span>
+
+<span class="sd">    :attr bool read_data_events: (optional) If set to `true`, all object read events</span>
+<span class="sd">          (i.e. downloads) will be sent to Activity Tracker.</span>
+<span class="sd">    :attr bool write_data_events: (optional) If set to `true`, all object write</span>
+<span class="sd">          events (i.e. uploads) will be sent to Activity Tracker.</span>
+<span class="sd">    :attr str activity_tracker_crn: (optional) Required the first time</span>
+<span class="sd">          `activity_tracking` is configured. The instance of Activity Tracker that will</span>
+<span class="sd">          receive object event data. The format is &quot;crn:v1:bluemix:public:logdnaat:{bucket</span>
+<span class="sd">          location}:a/{storage account}:{activity tracker service instance}::&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="o">*</span><span class="p">,</span>
+                 <span class="n">read_data_events</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">write_data_events</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">activity_tracker_crn</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a ActivityTracking object.</span>
+
+<span class="sd">        :param bool read_data_events: (optional) If set to `true`, all object read</span>
+<span class="sd">               events (i.e. downloads) will be sent to Activity Tracker.</span>
+<span class="sd">        :param bool write_data_events: (optional) If set to `true`, all object</span>
+<span class="sd">               write events (i.e. uploads) will be sent to Activity Tracker.</span>
+<span class="sd">        :param str activity_tracker_crn: (optional) Required the first time</span>
+<span class="sd">               `activity_tracking` is configured. The instance of Activity Tracker that</span>
+<span class="sd">               will receive object event data. The format is</span>
+<span class="sd">               &quot;crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage</span>
+<span class="sd">               account}:{activity tracker service instance}::&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_data_events</span> <span class="o">=</span> <span class="n">read_data_events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_data_events</span> <span class="o">=</span> <span class="n">write_data_events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracker_crn</span> <span class="o">=</span> <span class="n">activity_tracker_crn</span>
+
+<div class="viewcode-block" id="ActivityTracking.from_dict"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ActivityTracking&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a ActivityTracking object from a json dictionary.&quot;&quot;&quot;</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="s1">&#39;read_data_events&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;read_data_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;read_data_events&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;write_data_events&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;write_data_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;write_data_events&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;activity_tracker_crn&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a ActivityTracking object from a json dictionary.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ActivityTracking.to_dict"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a json dictionary representing this model.&quot;&quot;&quot;</span>
+        <span class="n">_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;read_data_events&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_data_events</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;read_data_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_data_events</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;write_data_events&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_data_events</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;write_data_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_data_events</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracker_crn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracker_crn</span>
+        <span class="k">return</span> <span class="n">_dict</span></div>
+
+    <span class="k">def</span> <span class="nf">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a json dictionary representing this model.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a `str` version of this ActivityTracking object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;ActivityTracking&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return `true` when self and other are equal, false otherwise.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span>
+
+    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;ActivityTracking&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return `true` when self and other are not equal, false otherwise.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">other</span></div>
+
+<div class="viewcode-block" id="Bucket"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Bucket">[docs]</a><span class="k">class</span> <span class="nc">Bucket</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A bucket.</span>
+
+<span class="sd">    :attr str name: (optional) The name of the bucket. Non-mutable.</span>
+<span class="sd">    :attr str crn: (optional) The service instance that holds the bucket.</span>
+<span class="sd">          Non-mutable.</span>
+<span class="sd">    :attr str service_instance_id: (optional) The service instance that holds the</span>
+<span class="sd">          bucket. Non-mutable.</span>
+<span class="sd">    :attr str service_instance_crn: (optional) The service instance that holds the</span>
+<span class="sd">          bucket. Non-mutable.</span>
+<span class="sd">    :attr datetime time_created: (optional) The creation time of the bucket in RFC</span>
+<span class="sd">          3339 format. Non-mutable.</span>
+<span class="sd">    :attr datetime time_updated: (optional) The modification time of the bucket in</span>
+<span class="sd">          RFC 3339 format. Non-mutable.</span>
+<span class="sd">    :attr int object_count: (optional) Total number of objects in the bucket.</span>
+<span class="sd">          Non-mutable.</span>
+<span class="sd">    :attr int bytes_used: (optional) Total size of all objects in the bucket.</span>
+<span class="sd">          Non-mutable.</span>
+<span class="sd">    :attr int noncurrent_object_count: (optional) Number of non-current object</span>
+<span class="sd">          versions in the bucket. Non-mutable.</span>
+<span class="sd">    :attr int noncurrent_bytes_used: (optional) Total size of all non-current object</span>
+<span class="sd">          versions in the bucket. Non-mutable.</span>
+<span class="sd">    :attr int delete_marker_count: (optional) Total number of delete markers in the</span>
+<span class="sd">          bucket. Non-mutable.</span>
+<span class="sd">    :attr Firewall firewall: (optional) An access control mechanism based on the</span>
+<span class="sd">          network (IP address) where request originated. Requests not originating from IP</span>
+<span class="sd">          addresses listed in the `allowed_ip` field will be denied regardless of any</span>
+<span class="sd">          access policies (including public access) that might otherwise permit the</span>
+<span class="sd">          request.  Viewing or updating the `Firewall` element requires the requester to</span>
+<span class="sd">          have the `manager` role.</span>
+<span class="sd">    :attr ActivityTracking activity_tracking: (optional) Enables sending log data to</span>
+<span class="sd">          IBM Cloud Activity Tracker to provide visibility into object read and write</span>
+<span class="sd">          events. All object events are sent to the activity tracker instance defined in</span>
+<span class="sd">          the `activity_tracker_crn` field.</span>
+<span class="sd">    :attr MetricsMonitoring metrics_monitoring: (optional) Enables sending metrics</span>
+<span class="sd">          to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring</span>
+<span class="sd">          instance defined in the `monitoring_crn` field.</span>
+<span class="sd">    :attr int hard_quota: (optional) Maximum bytes for this bucket.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="o">*</span><span class="p">,</span>
+                 <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">crn</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">service_instance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">service_instance_crn</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">time_created</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">time_updated</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">object_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">bytes_used</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">noncurrent_object_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">noncurrent_bytes_used</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">delete_marker_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">firewall</span><span class="p">:</span> <span class="s1">&#39;Firewall&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">activity_tracking</span><span class="p">:</span> <span class="s1">&#39;ActivityTracking&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">metrics_monitoring</span><span class="p">:</span> <span class="s1">&#39;MetricsMonitoring&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">hard_quota</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a Bucket object.</span>
+
+<span class="sd">        :param str name: (optional) The name of the bucket. Non-mutable.</span>
+<span class="sd">        :param str crn: (optional) The service instance that holds the bucket.</span>
+<span class="sd">               Non-mutable.</span>
+<span class="sd">        :param str service_instance_id: (optional) The service instance that holds</span>
+<span class="sd">               the bucket. Non-mutable.</span>
+<span class="sd">        :param str service_instance_crn: (optional) The service instance that holds</span>
+<span class="sd">               the bucket. Non-mutable.</span>
+<span class="sd">        :param datetime time_created: (optional) The creation time of the bucket in</span>
+<span class="sd">               RFC 3339 format. Non-mutable.</span>
+<span class="sd">        :param datetime time_updated: (optional) The modification time of the</span>
+<span class="sd">               bucket in RFC 3339 format. Non-mutable.</span>
+<span class="sd">        :param int object_count: (optional) Total number of objects in the bucket.</span>
+<span class="sd">               Non-mutable.</span>
+<span class="sd">        :param int bytes_used: (optional) Total size of all objects in the bucket.</span>
+<span class="sd">               Non-mutable.</span>
+<span class="sd">        :param int noncurrent_object_count: (optional) Number of non-current object</span>
+<span class="sd">               versions in the bucket. Non-mutable.</span>
+<span class="sd">        :param int noncurrent_bytes_used: (optional) Total size of all non-current</span>
+<span class="sd">               object versions in the bucket. Non-mutable.</span>
+<span class="sd">        :param int delete_marker_count: (optional) Total number of delete markers</span>
+<span class="sd">               in the bucket. Non-mutable.</span>
+<span class="sd">        :param Firewall firewall: (optional) An access control mechanism based on</span>
+<span class="sd">               the network (IP address) where request originated. Requests not originating</span>
+<span class="sd">               from IP addresses listed in the `allowed_ip` field will be denied</span>
+<span class="sd">               regardless of any access policies (including public access) that might</span>
+<span class="sd">               otherwise permit the request.  Viewing or updating the `Firewall` element</span>
+<span class="sd">               requires the requester to have the `manager` role.</span>
+<span class="sd">        :param ActivityTracking activity_tracking: (optional) Enables sending log</span>
+<span class="sd">               data to IBM Cloud Activity Tracker to provide visibility into object read</span>
+<span class="sd">               and write events. All object events are sent to the activity tracker</span>
+<span class="sd">               instance defined in the `activity_tracker_crn` field.</span>
+<span class="sd">        :param MetricsMonitoring metrics_monitoring: (optional) Enables sending</span>
+<span class="sd">               metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud</span>
+<span class="sd">               Monitoring instance defined in the `monitoring_crn` field.</span>
+<span class="sd">        :param int hard_quota: (optional) Maximum bytes for this bucket.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">crn</span> <span class="o">=</span> <span class="n">crn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">service_instance_id</span> <span class="o">=</span> <span class="n">service_instance_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">service_instance_crn</span> <span class="o">=</span> <span class="n">service_instance_crn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_created</span> <span class="o">=</span> <span class="n">time_created</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_updated</span> <span class="o">=</span> <span class="n">time_updated</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">object_count</span> <span class="o">=</span> <span class="n">object_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bytes_used</span> <span class="o">=</span> <span class="n">bytes_used</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">noncurrent_object_count</span> <span class="o">=</span> <span class="n">noncurrent_object_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">noncurrent_bytes_used</span> <span class="o">=</span> <span class="n">noncurrent_bytes_used</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete_marker_count</span> <span class="o">=</span> <span class="n">delete_marker_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">firewall</span> <span class="o">=</span> <span class="n">firewall</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracking</span> <span class="o">=</span> <span class="n">activity_tracking</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics_monitoring</span> <span class="o">=</span> <span class="n">metrics_monitoring</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hard_quota</span> <span class="o">=</span> <span class="n">hard_quota</span>
+
+<div class="viewcode-block" id="Bucket.from_dict"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Bucket.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Bucket&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a Bucket object from a json dictionary.&quot;&quot;&quot;</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="s1">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;crn&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;crn&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;service_instance_id&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;service_instance_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;service_instance_id&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;service_instance_crn&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;service_instance_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;service_instance_crn&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;time_created&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;time_created&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">string_to_datetime</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time_created&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s1">&#39;time_updated&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;time_updated&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">string_to_datetime</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time_updated&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s1">&#39;object_count&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;object_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;object_count&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;bytes_used&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;bytes_used&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bytes_used&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;noncurrent_object_count&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;noncurrent_object_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;noncurrent_object_count&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;noncurrent_bytes_used&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;noncurrent_bytes_used&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;noncurrent_bytes_used&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;delete_marker_count&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;delete_marker_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;delete_marker_count&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;firewall&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;firewall&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Firewall</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;firewall&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s1">&#39;activity_tracking&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActivityTracking</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s1">&#39;metrics_monitoring&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">MetricsMonitoring</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s1">&#39;hard_quota&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a Bucket object from a json dictionary.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Bucket.to_dict"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Bucket.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a json dictionary representing this model.&quot;&quot;&quot;</span>
+        <span class="n">_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;crn&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">crn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">crn</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;service_instance_id&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">service_instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;service_instance_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">service_instance_id</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;service_instance_crn&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">service_instance_crn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;service_instance_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">service_instance_crn</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;time_created&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_created</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;time_created&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime_to_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_created</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;time_updated&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_updated</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;time_updated&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime_to_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_updated</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;object_count&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_count</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;object_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_count</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;bytes_used&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">bytes_used</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;bytes_used&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bytes_used</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;noncurrent_object_count&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">noncurrent_object_count</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;noncurrent_object_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">noncurrent_object_count</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;noncurrent_bytes_used&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">noncurrent_bytes_used</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;noncurrent_bytes_used&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">noncurrent_bytes_used</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;delete_marker_count&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete_marker_count</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;delete_marker_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete_marker_count</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;firewall&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">firewall</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firewall</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;firewall&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">firewall</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;firewall&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">firewall</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;activity_tracking&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracking</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">activity_tracking</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracking</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracking</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics_monitoring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics_monitoring</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics_monitoring</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics_monitoring</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;hard_quota&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">hard_quota</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hard_quota</span>
+        <span class="k">return</span> <span class="n">_dict</span></div>
+
+    <span class="k">def</span> <span class="nf">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a json dictionary representing this model.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a `str` version of this Bucket object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Bucket&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return `true` when self and other are equal, false otherwise.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span>
+
+    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Bucket&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return `true` when self and other are not equal, false otherwise.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">other</span></div>
+
+<div class="viewcode-block" id="BucketPatch"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch">[docs]</a><span class="k">class</span> <span class="nc">BucketPatch</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An object containing new bucket metadata.</span>
+
+<span class="sd">    :attr Firewall firewall: (optional) An access control mechanism based on the</span>
+<span class="sd">          network (IP address) where request originated. Requests not originating from IP</span>
+<span class="sd">          addresses listed in the `allowed_ip` field will be denied regardless of any</span>
+<span class="sd">          access policies (including public access) that might otherwise permit the</span>
+<span class="sd">          request.  Viewing or updating the `Firewall` element requires the requester to</span>
+<span class="sd">          have the `manager` role.</span>
+<span class="sd">    :attr ActivityTracking activity_tracking: (optional) Enables sending log data to</span>
+<span class="sd">          IBM Cloud Activity Tracker to provide visibility into object read and write</span>
+<span class="sd">          events. All object events are sent to the activity tracker instance defined in</span>
+<span class="sd">          the `activity_tracker_crn` field.</span>
+<span class="sd">    :attr MetricsMonitoring metrics_monitoring: (optional) Enables sending metrics</span>
+<span class="sd">          to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring</span>
+<span class="sd">          instance defined in the `monitoring_crn` field.</span>
+<span class="sd">    :attr int hard_quota: (optional) Maximum bytes for this bucket.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="o">*</span><span class="p">,</span>
+                 <span class="n">firewall</span><span class="p">:</span> <span class="s1">&#39;Firewall&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">activity_tracking</span><span class="p">:</span> <span class="s1">&#39;ActivityTracking&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">metrics_monitoring</span><span class="p">:</span> <span class="s1">&#39;MetricsMonitoring&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">hard_quota</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a BucketPatch object.</span>
+
+<span class="sd">        :param Firewall firewall: (optional) An access control mechanism based on</span>
+<span class="sd">               the network (IP address) where request originated. Requests not originating</span>
+<span class="sd">               from IP addresses listed in the `allowed_ip` field will be denied</span>
+<span class="sd">               regardless of any access policies (including public access) that might</span>
+<span class="sd">               otherwise permit the request.  Viewing or updating the `Firewall` element</span>
+<span class="sd">               requires the requester to have the `manager` role.</span>
+<span class="sd">        :param ActivityTracking activity_tracking: (optional) Enables sending log</span>
+<span class="sd">               data to IBM Cloud Activity Tracker to provide visibility into object read</span>
+<span class="sd">               and write events. All object events are sent to the activity tracker</span>
+<span class="sd">               instance defined in the `activity_tracker_crn` field.</span>
+<span class="sd">        :param MetricsMonitoring metrics_monitoring: (optional) Enables sending</span>
+<span class="sd">               metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud</span>
+<span class="sd">               Monitoring instance defined in the `monitoring_crn` field.</span>
+<span class="sd">        :param int hard_quota: (optional) Maximum bytes for this bucket.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">firewall</span> <span class="o">=</span> <span class="n">firewall</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracking</span> <span class="o">=</span> <span class="n">activity_tracking</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics_monitoring</span> <span class="o">=</span> <span class="n">metrics_monitoring</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hard_quota</span> <span class="o">=</span> <span class="n">hard_quota</span>
+
+<div class="viewcode-block" id="BucketPatch.from_dict"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;BucketPatch&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a BucketPatch object from a json dictionary.&quot;&quot;&quot;</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="s1">&#39;firewall&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;firewall&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Firewall</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;firewall&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s1">&#39;activity_tracking&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActivityTracking</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s1">&#39;metrics_monitoring&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">MetricsMonitoring</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s1">&#39;hard_quota&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a BucketPatch object from a json dictionary.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BucketPatch.to_dict"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a json dictionary representing this model.&quot;&quot;&quot;</span>
+        <span class="n">_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;firewall&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">firewall</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firewall</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;firewall&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">firewall</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;firewall&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">firewall</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;activity_tracking&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracking</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">activity_tracking</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracking</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracking</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics_monitoring</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics_monitoring</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics_monitoring</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics_monitoring</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;hard_quota&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">hard_quota</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hard_quota</span>
+        <span class="k">return</span> <span class="n">_dict</span></div>
+
+    <span class="k">def</span> <span class="nf">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a json dictionary representing this model.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a `str` version of this BucketPatch object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;BucketPatch&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return `true` when self and other are equal, false otherwise.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span>
+
+    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;BucketPatch&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return `true` when self and other are not equal, false otherwise.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">other</span></div>
+
+<div class="viewcode-block" id="Firewall"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Firewall">[docs]</a><span class="k">class</span> <span class="nc">Firewall</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An access control mechanism based on the network (IP address) where request</span>
+<span class="sd">    originated. Requests not originating from IP addresses listed in the `allowed_ip`</span>
+<span class="sd">    field will be denied regardless of any access policies (including public access) that</span>
+<span class="sd">    might otherwise permit the request.  Viewing or updating the `Firewall` element</span>
+<span class="sd">    requires the requester to have the `manager` role.</span>
+
+<span class="sd">    :attr List[str] allowed_ip: (optional) List of IPv4 or IPv6 addresses in CIDR</span>
+<span class="sd">          notation to be affected by firewall in CIDR notation is supported. Passing an</span>
+<span class="sd">          empty array will lift the IP address filter.  The `allowed_ip` array can contain</span>
+<span class="sd">          a maximum of 1000 items.</span>
+<span class="sd">    :attr List[str] denied_ip: (optional) List of IPv4 or IPv6 addresses in CIDR</span>
+<span class="sd">          notation to be affected by firewall in CIDR notation is supported. Passing an</span>
+<span class="sd">          empty array will lift the IP address filter.  The `denied_ip` array can contain</span>
+<span class="sd">          a maximum of 1000 items.</span>
+<span class="sd">    :attr List[str] allowed_network_type: (optional) Indicates which network types</span>
+<span class="sd">          are allowed for bucket access. May contain `public`, `private`, and/or `direct`</span>
+<span class="sd">          elements. Setting `allowed_network_type` to only `private` will prevent access</span>
+<span class="sd">          to object storage from outside of the IBM Cloud.  The entire array will be</span>
+<span class="sd">          overwritten in a `PATCH` operation. For more information on network types, [see</span>
+<span class="sd">          the</span>
+<span class="sd">          documentation](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="o">*</span><span class="p">,</span>
+                 <span class="n">allowed_ip</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">denied_ip</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">allowed_network_type</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a Firewall object.</span>
+
+<span class="sd">        :param List[str] allowed_ip: (optional) List of IPv4 or IPv6 addresses in</span>
+<span class="sd">               CIDR notation to be affected by firewall in CIDR notation is supported.</span>
+<span class="sd">               Passing an empty array will lift the IP address filter.  The `allowed_ip`</span>
+<span class="sd">               array can contain a maximum of 1000 items.</span>
+<span class="sd">        :param List[str] denied_ip: (optional) List of IPv4 or IPv6 addresses in</span>
+<span class="sd">               CIDR notation to be affected by firewall in CIDR notation is supported.</span>
+<span class="sd">               Passing an empty array will lift the IP address filter.  The `denied_ip`</span>
+<span class="sd">               array can contain a maximum of 1000 items.</span>
+<span class="sd">        :param List[str] allowed_network_type: (optional) Indicates which network</span>
+<span class="sd">               types are allowed for bucket access. May contain `public`, `private`,</span>
+<span class="sd">               and/or `direct` elements. Setting `allowed_network_type` to only `private`</span>
+<span class="sd">               will prevent access to object storage from outside of the IBM Cloud.  The</span>
+<span class="sd">               entire array will be overwritten in a `PATCH` operation. For more</span>
+<span class="sd">               information on network types, [see the</span>
+<span class="sd">               documentation](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allowed_ip</span> <span class="o">=</span> <span class="n">allowed_ip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">denied_ip</span> <span class="o">=</span> <span class="n">denied_ip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allowed_network_type</span> <span class="o">=</span> <span class="n">allowed_network_type</span>
+
+<div class="viewcode-block" id="Firewall.from_dict"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Firewall.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Firewall&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a Firewall object from a json dictionary.&quot;&quot;&quot;</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="s1">&#39;allowed_ip&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;denied_ip&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;denied_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;denied_ip&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;allowed_network_type&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;allowed_network_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allowed_network_type&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a Firewall object from a json dictionary.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Firewall.to_dict"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Firewall.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a json dictionary representing this model.&quot;&quot;&quot;</span>
+        <span class="n">_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;allowed_ip&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_ip</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;denied_ip&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">denied_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;denied_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">denied_ip</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;allowed_network_type&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_network_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;allowed_network_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_network_type</span>
+        <span class="k">return</span> <span class="n">_dict</span></div>
+
+    <span class="k">def</span> <span class="nf">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a json dictionary representing this model.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a `str` version of this Firewall object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Firewall&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return `true` when self and other are equal, false otherwise.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span>
+
+    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Firewall&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return `true` when self and other are not equal, false otherwise.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">other</span>
+
+<div class="viewcode-block" id="Firewall.AllowedNetworkTypeEnum"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Firewall.AllowedNetworkTypeEnum">[docs]</a>    <span class="k">class</span> <span class="nc">AllowedNetworkTypeEnum</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        May contain `public`, `private`, and/or `direct` elements. Setting</span>
+<span class="sd">        `allowed_network_type` to only `private` will prevent access to object storage</span>
+<span class="sd">        from outside of the IBM Cloud.  The entire array will be overwritten in a `PATCH`</span>
+<span class="sd">        operation. For more information on network types, [see the</span>
+<span class="sd">        documentation](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">PUBLIC</span> <span class="o">=</span> <span class="s1">&#39;public&#39;</span>
+        <span class="n">PRIVATE</span> <span class="o">=</span> <span class="s1">&#39;private&#39;</span>
+        <span class="n">DIRECT</span> <span class="o">=</span> <span class="s1">&#39;direct&#39;</span></div></div>
+
+
+<div class="viewcode-block" id="MetricsMonitoring"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring">[docs]</a><span class="k">class</span> <span class="nc">MetricsMonitoring</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enables sending metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud</span>
+<span class="sd">    Monitoring instance defined in the `monitoring_crn` field.</span>
+
+<span class="sd">    :attr bool usage_metrics_enabled: (optional) If set to `true`, all usage metrics</span>
+<span class="sd">          (i.e. `bytes_used`) will be sent to the monitoring service.</span>
+<span class="sd">    :attr bool request_metrics_enabled: (optional) If set to `true`, all request</span>
+<span class="sd">          metrics (i.e. `rest.object.head`) will be sent to the monitoring service.</span>
+<span class="sd">    :attr str metrics_monitoring_crn: (optional) Required the first time</span>
+<span class="sd">          `metrics_monitoring` is configured. The instance of IBM Cloud Monitoring that</span>
+<span class="sd">          will receive the bucket metrics. The format is</span>
+<span class="sd">          &quot;crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage</span>
+<span class="sd">          account}:{monitoring service instance}::&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="o">*</span><span class="p">,</span>
+                 <span class="n">usage_metrics_enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">request_metrics_enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">metrics_monitoring_crn</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a MetricsMonitoring object.</span>
+
+<span class="sd">        :param bool usage_metrics_enabled: (optional) If set to `true`, all usage</span>
+<span class="sd">               metrics (i.e. `bytes_used`) will be sent to the monitoring service.</span>
+<span class="sd">        :param bool request_metrics_enabled: (optional) If set to `true`, all</span>
+<span class="sd">               request metrics (i.e. `rest.object.head`) will be sent to the monitoring</span>
+<span class="sd">               service.</span>
+<span class="sd">        :param str metrics_monitoring_crn: (optional) Required the first time</span>
+<span class="sd">               `metrics_monitoring` is configured. The instance of IBM Cloud Monitoring</span>
+<span class="sd">               that will receive the bucket metrics. The format is</span>
+<span class="sd">               &quot;crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage</span>
+<span class="sd">               account}:{monitoring service instance}::&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">usage_metrics_enabled</span> <span class="o">=</span> <span class="n">usage_metrics_enabled</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_metrics_enabled</span> <span class="o">=</span> <span class="n">request_metrics_enabled</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics_monitoring_crn</span> <span class="o">=</span> <span class="n">metrics_monitoring_crn</span>
+
+<div class="viewcode-block" id="MetricsMonitoring.from_dict"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;MetricsMonitoring&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a MetricsMonitoring object from a json dictionary.&quot;&quot;&quot;</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="s1">&#39;usage_metrics_enabled&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;usage_metrics_enabled&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;usage_metrics_enabled&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;request_metrics_enabled&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;request_metrics_enabled&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;request_metrics_enabled&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;metrics_monitoring_crn&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;metrics_monitoring_crn&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a MetricsMonitoring object from a json dictionary.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MetricsMonitoring.to_dict"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a json dictionary representing this model.&quot;&quot;&quot;</span>
+        <span class="n">_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;usage_metrics_enabled&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">usage_metrics_enabled</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;usage_metrics_enabled&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">usage_metrics_enabled</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;request_metrics_enabled&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_metrics_enabled</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;request_metrics_enabled&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_metrics_enabled</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;metrics_monitoring_crn&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics_monitoring_crn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics_monitoring_crn</span>
+        <span class="k">return</span> <span class="n">_dict</span></div>
+
+    <span class="k">def</span> <span class="nf">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a json dictionary representing this model.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a `str` version of this MetricsMonitoring object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;MetricsMonitoring&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return `true` when self and other are equal, false otherwise.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span>
+
+    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;MetricsMonitoring&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return `true` when self and other are not equal, false otherwise.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">other</span></div>
+</pre></div>
+
+          </div>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">ibm-cos-sdk-config  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ibm_cos_sdk_config.resource_configuration_v1</a></li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="../../_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2019, IBM. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>
