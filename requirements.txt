@@ -1,1 +1,2 @@
-ibm-cloud-sdk-core>=0.5.3,<1.0.0
+python_dateutil>=2.8.2,<3.0.0
+ibm_cloud_sdk_core>=3.16.1,<4.0.0

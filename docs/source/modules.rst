@@ -1,7 +1,7 @@
-cos_config
+ibm_cos_sdk_config
 ==========
 
 .. toctree::
    :maxdepth: 4
 
-   cos_config
+   ibm_cos_sdk_config

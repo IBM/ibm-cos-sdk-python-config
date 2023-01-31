@@ -1,48 +1,62 @@
 #!/usr/bin/env python
-import os
-import re
+# Copyright 2019, 2020 IBM All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-from setuptools import setup, find_packages
+from setuptools import setup
+import pkg_resources
 
-ROOT = os.path.dirname(__file__)
-VERSION_RE = re.compile(r'''__version__ = ['"]([a-z0-9._-]+)['"]''')
+__version__ = '2.0.0'
+PACKAGE_NAME = 'ibm_cos_sdk_config'
+PACKAGE_DESC = 'IBM COS Resource Configuration SDK for Python'
 
+with open('requirements.txt') as f:
+    install_requires = [
+        str(req) for req in pkg_resources.parse_requirements(f)
+    ]
+with open('requirements-dev.txt') as f:
+    tests_require = [str(req) for req in pkg_resources.parse_requirements(f)]
 
-def get_version():
-    '''
-    Get the SDK version number
-    :return:
-    '''
-    init = open(os.path.join(ROOT, 'cos_config', '__init__.py')).read()
-    return VERSION_RE.search(init).group(1)
-
+with open("README.md", "r") as fh:
+    readme = fh.read()
 
 setup(
-    name='ibm-cos-sdk-config',
-    version=get_version(),
-    description='IBM Config SDK for Python',
-    long_description=open('README.md').read(),
+    name=PACKAGE_NAME.replace('_', '-'),
+    version=__version__,
+    description=PACKAGE_DESC,
+    license='Apache 2.0',
+    install_requires=install_requires,
+    tests_require=tests_require,
     author='IBM',
-    author_email='',
+    author_email='cossdk@us.ibm.com',
+    long_description=readme,
+    long_description_content_type='text/markdown',
     url='https://github.com/IBM/ibm-cos-sdk-python-config',
-    scripts=[],
-    packages=find_packages(exclude=['tests*']),
+    packages=[PACKAGE_NAME],
     include_package_data=True,
-    python_requires='~=3.6',
-    install_requires=[
-        'ibm-cloud-sdk-core>=0.5.3,<1.0.0',
-    ],
-    license="Apache License 2.0",
+    keywords=PACKAGE_NAME,
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Intended Audience :: Developers',
-        'Natural Language :: English',
-        'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: OS Independent',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Topic :: Software Development :: Libraries :: Application Frameworks',
     ],
-)
+    zip_safe=True)
