@@ -16,7 +16,7 @@
 from setuptools import setup
 import pkg_resources
 
-__version__ = '2.0.0'
+__version__ = '2.0.1'
 PACKAGE_NAME = 'ibm_cos_sdk_config'
 PACKAGE_DESC = 'IBM COS Resource Configuration SDK for Python'
 
@@ -52,6 +52,7 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
