@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +20,9 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
   
@@ -83,13 +85,65 @@
           <div class="document clearer body">
             
   <div class="section" id="ibm-cos-sdk-config">
-<h1>ibm_cos_sdk_config<a class="headerlink" href="#ibm-cos-sdk-config" title="Permalink to this headline">¶</a></h1>
+<h1>ibm_cos_sdk_config<a class="headerlink" href="#ibm-cos-sdk-config" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ibm_cos_sdk_config.html">ibm_cos_sdk_config package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ibm_cos_sdk_config.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm-cos-sdk-config-iam-token-manager-module">ibm_cos_sdk_config.iam_token_manager module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm-cos-sdk-config-resource-configuration-v1-module">ibm_cos_sdk_config.resource_configuration_v1 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm-cos-sdk-config-resource-configuration-v1-module">ibm_cos_sdk_config.resource_configuration_v1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking"><code class="docutils literal notranslate"><span class="pre">ActivityTracking</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking.from_dict"><code class="docutils literal notranslate"><span class="pre">ActivityTracking.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking.to_dict"><code class="docutils literal notranslate"><span class="pre">ActivityTracking.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Bucket"><code class="docutils literal notranslate"><span class="pre">Bucket</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Bucket.from_dict"><code class="docutils literal notranslate"><span class="pre">Bucket.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Bucket.to_dict"><code class="docutils literal notranslate"><span class="pre">Bucket.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch"><code class="docutils literal notranslate"><span class="pre">BucketPatch</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch.from_dict"><code class="docutils literal notranslate"><span class="pre">BucketPatch.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch.to_dict"><code class="docutils literal notranslate"><span class="pre">BucketPatch.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Firewall"><code class="docutils literal notranslate"><span class="pre">Firewall</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Firewall.AllowedNetworkTypeEnum"><code class="docutils literal notranslate"><span class="pre">Firewall.AllowedNetworkTypeEnum</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Firewall.from_dict"><code class="docutils literal notranslate"><span class="pre">Firewall.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.Firewall.to_dict"><code class="docutils literal notranslate"><span class="pre">Firewall.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring"><code class="docutils literal notranslate"><span class="pre">MetricsMonitoring</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring.from_dict"><code class="docutils literal notranslate"><span class="pre">MetricsMonitoring.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring.to_dict"><code class="docutils literal notranslate"><span class="pre">MetricsMonitoring.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement"><code class="docutils literal notranslate"><span class="pre">ProtectionManagement</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.RequestedStateEnum"><code class="docutils literal notranslate"><span class="pre">ProtectionManagement.RequestedStateEnum</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.from_dict"><code class="docutils literal notranslate"><span class="pre">ProtectionManagement.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.to_dict"><code class="docutils literal notranslate"><span class="pre">ProtectionManagement.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse"><code class="docutils literal notranslate"><span class="pre">ProtectionManagementResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse.from_dict"><code class="docutils literal notranslate"><span class="pre">ProtectionManagementResponse.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse.to_dict"><code class="docutils literal notranslate"><span class="pre">ProtectionManagementResponse.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry"><code class="docutils literal notranslate"><span class="pre">ProtectionManagementResponseTokenEntry</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry.from_dict"><code class="docutils literal notranslate"><span class="pre">ProtectionManagementResponseTokenEntry.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry.to_dict"><code class="docutils literal notranslate"><span class="pre">ProtectionManagementResponseTokenEntry.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1"><code class="docutils literal notranslate"><span class="pre">ResourceConfigurationV1</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.DEFAULT_SERVICE_NAME"><code class="docutils literal notranslate"><span class="pre">ResourceConfigurationV1.DEFAULT_SERVICE_NAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.DEFAULT_SERVICE_URL"><code class="docutils literal notranslate"><span class="pre">ResourceConfigurationV1.DEFAULT_SERVICE_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.get_bucket_config"><code class="docutils literal notranslate"><span class="pre">ResourceConfigurationV1.get_bucket_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.new_instance"><code class="docutils literal notranslate"><span class="pre">ResourceConfigurationV1.new_instance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config"><code class="docutils literal notranslate"><span class="pre">ResourceConfigurationV1.update_bucket_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm-cos-sdk-config-version-module">ibm_cos_sdk_config.version module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ibm_cos_sdk_config.html#ibm-cos-sdk-config-watson-service-module">ibm_cos_sdk_config.watson_service module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ibm_cos_sdk_config.html#module-ibm_cos_sdk_config">Module contents</a></li>

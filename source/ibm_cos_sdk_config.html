@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +20,9 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
   
@@ -55,7 +57,68 @@
 <li><a class="reference internal" href="#">ibm_cos_sdk_config package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#ibm-cos-sdk-config-iam-token-manager-module">ibm_cos_sdk_config.iam_token_manager module</a></li>
-<li><a class="reference internal" href="#ibm-cos-sdk-config-resource-configuration-v1-module">ibm_cos_sdk_config.resource_configuration_v1 module</a></li>
+<li><a class="reference internal" href="#ibm-cos-sdk-config-resource-configuration-v1-module">ibm_cos_sdk_config.resource_configuration_v1 module</a><ul>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking"><code class="docutils literal notranslate"><span class="pre">ActivityTracking</span></code></a><ul>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking.from_dict"><code class="docutils literal notranslate"><span class="pre">ActivityTracking.from_dict()</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking.to_dict"><code class="docutils literal notranslate"><span class="pre">ActivityTracking.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Bucket"><code class="docutils literal notranslate"><span class="pre">Bucket</span></code></a><ul>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Bucket.from_dict"><code class="docutils literal notranslate"><span class="pre">Bucket.from_dict()</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Bucket.to_dict"><code class="docutils literal notranslate"><span class="pre">Bucket.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch"><code class="docutils literal notranslate"><span class="pre">BucketPatch</span></code></a><ul>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch.from_dict"><code class="docutils literal notranslate"><span class="pre">BucketPatch.from_dict()</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch.to_dict"><code class="docutils literal notranslate"><span class="pre">BucketPatch.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall"><code class="docutils literal notranslate"><span class="pre">Firewall</span></code></a><ul>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall.AllowedNetworkTypeEnum"><code class="docutils literal notranslate"><span class="pre">Firewall.AllowedNetworkTypeEnum</span></code></a><ul>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall.AllowedNetworkTypeEnum.DIRECT"><code class="docutils literal notranslate"><span class="pre">Firewall.AllowedNetworkTypeEnum.DIRECT</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall.AllowedNetworkTypeEnum.PRIVATE"><code class="docutils literal notranslate"><span class="pre">Firewall.AllowedNetworkTypeEnum.PRIVATE</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall.AllowedNetworkTypeEnum.PUBLIC"><code class="docutils literal notranslate"><span class="pre">Firewall.AllowedNetworkTypeEnum.PUBLIC</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall.from_dict"><code class="docutils literal notranslate"><span class="pre">Firewall.from_dict()</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall.to_dict"><code class="docutils literal notranslate"><span class="pre">Firewall.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring"><code class="docutils literal notranslate"><span class="pre">MetricsMonitoring</span></code></a><ul>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring.from_dict"><code class="docutils literal notranslate"><span class="pre">MetricsMonitoring.from_dict()</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring.to_dict"><code class="docutils literal notranslate"><span class="pre">MetricsMonitoring.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement"><code class="docutils literal notranslate"><span class="pre">ProtectionManagement</span></code></a><ul>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.RequestedStateEnum"><code class="docutils literal notranslate"><span class="pre">ProtectionManagement.RequestedStateEnum</span></code></a><ul>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.RequestedStateEnum.ACTIVATE"><code class="docutils literal notranslate"><span class="pre">ProtectionManagement.RequestedStateEnum.ACTIVATE</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.RequestedStateEnum.DEACTIVATE"><code class="docutils literal notranslate"><span class="pre">ProtectionManagement.RequestedStateEnum.DEACTIVATE</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.from_dict"><code class="docutils literal notranslate"><span class="pre">ProtectionManagement.from_dict()</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.to_dict"><code class="docutils literal notranslate"><span class="pre">ProtectionManagement.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse"><code class="docutils literal notranslate"><span class="pre">ProtectionManagementResponse</span></code></a><ul>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse.from_dict"><code class="docutils literal notranslate"><span class="pre">ProtectionManagementResponse.from_dict()</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse.to_dict"><code class="docutils literal notranslate"><span class="pre">ProtectionManagementResponse.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry"><code class="docutils literal notranslate"><span class="pre">ProtectionManagementResponseTokenEntry</span></code></a><ul>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry.from_dict"><code class="docutils literal notranslate"><span class="pre">ProtectionManagementResponseTokenEntry.from_dict()</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry.to_dict"><code class="docutils literal notranslate"><span class="pre">ProtectionManagementResponseTokenEntry.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1"><code class="docutils literal notranslate"><span class="pre">ResourceConfigurationV1</span></code></a><ul>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.DEFAULT_SERVICE_NAME"><code class="docutils literal notranslate"><span class="pre">ResourceConfigurationV1.DEFAULT_SERVICE_NAME</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.DEFAULT_SERVICE_URL"><code class="docutils literal notranslate"><span class="pre">ResourceConfigurationV1.DEFAULT_SERVICE_URL</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.get_bucket_config"><code class="docutils literal notranslate"><span class="pre">ResourceConfigurationV1.get_bucket_config()</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.new_instance"><code class="docutils literal notranslate"><span class="pre">ResourceConfigurationV1.new_instance()</span></code></a></li>
+<li><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config"><code class="docutils literal notranslate"><span class="pre">ResourceConfigurationV1.update_bucket_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#ibm-cos-sdk-config-version-module">ibm_cos_sdk_config.version module</a></li>
 <li><a class="reference internal" href="#ibm-cos-sdk-config-watson-service-module">ibm_cos_sdk_config.watson_service module</a></li>
 <li><a class="reference internal" href="#module-ibm_cos_sdk_config">Module contents</a></li>
@@ -102,18 +165,16 @@
           <div class="document clearer body">
             
   <div class="section" id="ibm-cos-sdk-config-package">
-<h1>ibm_cos_sdk_config package<a class="headerlink" href="#ibm-cos-sdk-config-package" title="Permalink to this headline">¶</a></h1>
+<h1>ibm_cos_sdk_config package<a class="headerlink" href="#ibm-cos-sdk-config-package" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </div>
 <div class="section" id="ibm-cos-sdk-config-iam-token-manager-module">
-<h2>ibm_cos_sdk_config.iam_token_manager module<a class="headerlink" href="#ibm-cos-sdk-config-iam-token-manager-module" title="Permalink to this headline">¶</a></h2>
+<h2>ibm_cos_sdk_config.iam_token_manager module<a class="headerlink" href="#ibm-cos-sdk-config-iam-token-manager-module" title="Permalink to this heading">¶</a></h2>
 </div>
 <div class="section" id="ibm-cos-sdk-config-resource-configuration-v1-module">
-<h2>ibm_cos_sdk_config.resource_configuration_v1 module<a class="headerlink" href="#ibm-cos-sdk-config-resource-configuration-v1-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-ibm_cos_sdk_config.resource_configuration_v1"></span><p>REST API used to configure Cloud Object Storage buckets.  This version of the API only
-supports reading bucket metadata, setting IP access controls, and configuring logging and
-monitoring services.</p>
+<h2>ibm_cos_sdk_config.resource_configuration_v1 module<a class="headerlink" href="#ibm-cos-sdk-config-resource-configuration-v1-module" title="Permalink to this heading">¶</a></h2>
+<span class="target" id="module-ibm_cos_sdk_config.resource_configuration_v1"></span><p>REST API used to configure Cloud Object Storage buckets.</p>
 <p>API Version: 1.0.0</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking">
@@ -123,24 +184,22 @@ monitoring services.</p>
 object read and write events. All object events are sent to the activity tracker
 instance defined in the <cite>activity_tracker_crn</cite> field.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Attr bool read_data_events</dt>
-<dd class="field-odd"><p>(optional) If set to <cite>true</cite>, all object read events
-(i.e. downloads) will be sent to Activity Tracker.</p>
-</dd>
-<dt class="field-even">Attr bool write_data_events</dt>
-<dd class="field-even"><p>(optional) If set to <cite>true</cite>, all object write
-events (i.e. uploads) will be sent to Activity Tracker.</p>
-</dd>
-<dt class="field-odd">Attr str activity_tracker_crn</dt>
-<dd class="field-odd"><p>(optional) Required the first time
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>read_data_events</strong> (<em>bool</em>) – (optional) If set to <cite>true</cite>, all object read
+events (i.e. downloads) will be sent to Activity Tracker.</p></li>
+<li><p><strong>write_data_events</strong> (<em>bool</em>) – (optional) If set to <cite>true</cite>, all object write
+events (i.e. uploads) will be sent to Activity Tracker.</p></li>
+<li><p><strong>activity_tracker_crn</strong> (<em>str</em>) – (optional) Required the first time
 <cite>activity_tracking</cite> is configured. The instance of Activity Tracker that will
 receive object event data. The format is “crn:v1:bluemix:public:logdnaat:{bucket
-location}:a/{storage account}:{activity tracker service instance}::”.</p>
+location}:a/{storage account}:{activity tracker service instance}::”.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking" title="ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ActivityTracking.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking.from_dict" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking" title="ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking"><span class="pre">ActivityTracking</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ActivityTracking.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking.from_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a ActivityTracking object from a json dictionary.</p>
 </dd></dl>
 
@@ -154,79 +213,55 @@ location}:a/{storage account}:{activity tracker service instance}::”.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.Bucket">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.</span></span><span class="sig-name descname"><span class="pre">Bucket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service_instance_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service_instance_crn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_created</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime.datetime</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_updated</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime.datetime</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bytes_used</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noncurrent_object_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noncurrent_bytes_used</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_marker_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">firewall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall" title="ibm_cos_sdk_config.resource_configuration_v1.Firewall"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.Firewall</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity_tracking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking" title="ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics_monitoring</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring" title="ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hard_quota</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#Bucket"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.Bucket" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.</span></span><span class="sig-name descname"><span class="pre">Bucket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service_instance_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service_instance_crn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_created</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_updated</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bytes_used</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noncurrent_object_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noncurrent_bytes_used</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_marker_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">firewall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall" title="ibm_cos_sdk_config.resource_configuration_v1.Firewall"><span class="pre">Firewall</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity_tracking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking" title="ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking"><span class="pre">ActivityTracking</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics_monitoring</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring" title="ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring"><span class="pre">MetricsMonitoring</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hard_quota</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protection_management</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse" title="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse"><span class="pre">ProtectionManagementResponse</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#Bucket"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.Bucket" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A bucket.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Attr str name</dt>
-<dd class="field-odd"><p>(optional) The name of the bucket. Non-mutable.</p>
-</dd>
-<dt class="field-even">Attr str crn</dt>
-<dd class="field-even"><p>(optional) The service instance that holds the bucket.
-Non-mutable.</p>
-</dd>
-<dt class="field-odd">Attr str service_instance_id</dt>
-<dd class="field-odd"><p>(optional) The service instance that holds the
-bucket. Non-mutable.</p>
-</dd>
-<dt class="field-even">Attr str service_instance_crn</dt>
-<dd class="field-even"><p>(optional) The service instance that holds the
-bucket. Non-mutable.</p>
-</dd>
-<dt class="field-odd">Attr datetime time_created</dt>
-<dd class="field-odd"><p>(optional) The creation time of the bucket in RFC
-3339 format. Non-mutable.</p>
-</dd>
-<dt class="field-even">Attr datetime time_updated</dt>
-<dd class="field-even"><p>(optional) The modification time of the bucket in
-RFC 3339 format. Non-mutable.</p>
-</dd>
-<dt class="field-odd">Attr int object_count</dt>
-<dd class="field-odd"><p>(optional) Total number of objects in the bucket.
-Non-mutable.</p>
-</dd>
-<dt class="field-even">Attr int bytes_used</dt>
-<dd class="field-even"><p>(optional) Total size of all objects in the bucket.
-Non-mutable.</p>
-</dd>
-<dt class="field-odd">Attr int noncurrent_object_count</dt>
-<dd class="field-odd"><p>(optional) Number of non-current object
-versions in the bucket. Non-mutable.</p>
-</dd>
-<dt class="field-even">Attr int noncurrent_bytes_used</dt>
-<dd class="field-even"><p>(optional) Total size of all non-current object
-versions in the bucket. Non-mutable.</p>
-</dd>
-<dt class="field-odd">Attr int delete_marker_count</dt>
-<dd class="field-odd"><p>(optional) Total number of delete markers in the
-bucket. Non-mutable.</p>
-</dd>
-<dt class="field-even">Attr Firewall firewall</dt>
-<dd class="field-even"><p>(optional) An access control mechanism based on the
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – (optional) The name of the bucket. Non-mutable.</p></li>
+<li><p><strong>crn</strong> (<em>str</em>) – (optional) The service instance that holds the bucket.
+Non-mutable.</p></li>
+<li><p><strong>service_instance_id</strong> (<em>str</em>) – (optional) The service instance that holds the
+bucket. Non-mutable.</p></li>
+<li><p><strong>service_instance_crn</strong> (<em>str</em>) – (optional) The service instance that holds the
+bucket. Non-mutable.</p></li>
+<li><p><strong>time_created</strong> (<em>datetime</em>) – (optional) The creation time of the bucket in RFC
+3339 format. Non-mutable.</p></li>
+<li><p><strong>time_updated</strong> (<em>datetime</em>) – (optional) The modification time of the bucket in
+RFC 3339 format. Non-mutable.</p></li>
+<li><p><strong>object_count</strong> (<em>int</em>) – (optional) Total number of objects in the bucket.
+Non-mutable.</p></li>
+<li><p><strong>bytes_used</strong> (<em>int</em>) – (optional) Total size of all objects in the bucket.
+Non-mutable.</p></li>
+<li><p><strong>noncurrent_object_count</strong> (<em>int</em>) – (optional) Number of non-current object
+versions in the bucket. Non-mutable.</p></li>
+<li><p><strong>noncurrent_bytes_used</strong> (<em>int</em>) – (optional) Total size of all non-current
+object versions in the bucket. Non-mutable.</p></li>
+<li><p><strong>delete_marker_count</strong> (<em>int</em>) – (optional) Total number of delete markers in the
+bucket. Non-mutable.</p></li>
+<li><p><strong>firewall</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall" title="ibm_cos_sdk_config.resource_configuration_v1.Firewall"><em>Firewall</em></a>) – (optional) An access control mechanism based on the
 network (IP address) where request originated. Requests not originating from IP
 addresses listed in the <cite>allowed_ip</cite> field will be denied regardless of any
 access policies (including public access) that might otherwise permit the
 request.  Viewing or updating the <cite>Firewall</cite> element requires the requester to
-have the <cite>manager</cite> role.</p>
-</dd>
-<dt class="field-odd">Attr ActivityTracking activity_tracking</dt>
-<dd class="field-odd"><p>(optional) Enables sending log data to
-IBM Cloud Activity Tracker to provide visibility into object read and write
+have the <cite>manager</cite> role.</p></li>
+<li><p><strong>activity_tracking</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking" title="ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking"><em>ActivityTracking</em></a>) – (optional) Enables sending log data
+to IBM Cloud Activity Tracker to provide visibility into object read and write
 events. All object events are sent to the activity tracker instance defined in
-the <cite>activity_tracker_crn</cite> field.</p>
-</dd>
-<dt class="field-even">Attr MetricsMonitoring metrics_monitoring</dt>
-<dd class="field-even"><p>(optional) Enables sending metrics
+the <cite>activity_tracker_crn</cite> field.</p></li>
+<li><p><strong>metrics_monitoring</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring" title="ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring"><em>MetricsMonitoring</em></a>) – (optional) Enables sending metrics
 to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring
-instance defined in the <cite>monitoring_crn</cite> field.</p>
-</dd>
-<dt class="field-odd">Attr int hard_quota</dt>
-<dd class="field-odd"><p>(optional) Maximum bytes for this bucket.</p>
+instance defined in the <cite>monitoring_crn</cite> field.</p></li>
+<li><p><strong>hard_quota</strong> (<em>int</em>) – (optional) Maximum bytes for this bucket.</p></li>
+<li><p><strong>protection_management</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse" title="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse"><em>ProtectionManagementResponse</em></a>) – (optional) Data
+structure holding protection management response.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.Bucket.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Bucket" title="ibm_cos_sdk_config.resource_configuration_v1.Bucket"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.Bucket</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#Bucket.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.Bucket.from_dict" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Bucket" title="ibm_cos_sdk_config.resource_configuration_v1.Bucket"><span class="pre">Bucket</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#Bucket.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.Bucket.from_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a Bucket object from a json dictionary.</p>
 </dd></dl>
 
@@ -240,36 +275,34 @@ instance defined in the <cite>monitoring_crn</cite> field.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.BucketPatch">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.</span></span><span class="sig-name descname"><span class="pre">BucketPatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">firewall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall" title="ibm_cos_sdk_config.resource_configuration_v1.Firewall"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.Firewall</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity_tracking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking" title="ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics_monitoring</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring" title="ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hard_quota</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#BucketPatch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.</span></span><span class="sig-name descname"><span class="pre">BucketPatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">firewall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall" title="ibm_cos_sdk_config.resource_configuration_v1.Firewall"><span class="pre">Firewall</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity_tracking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking" title="ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking"><span class="pre">ActivityTracking</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics_monitoring</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring" title="ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring"><span class="pre">MetricsMonitoring</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hard_quota</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protection_management</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement" title="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement"><span class="pre">ProtectionManagement</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#BucketPatch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>An object containing new bucket metadata.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Attr Firewall firewall</dt>
-<dd class="field-odd"><p>(optional) An access control mechanism based on the
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>firewall</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall" title="ibm_cos_sdk_config.resource_configuration_v1.Firewall"><em>Firewall</em></a>) – (optional) An access control mechanism based on the
 network (IP address) where request originated. Requests not originating from IP
 addresses listed in the <cite>allowed_ip</cite> field will be denied regardless of any
 access policies (including public access) that might otherwise permit the
 request.  Viewing or updating the <cite>Firewall</cite> element requires the requester to
-have the <cite>manager</cite> role.</p>
-</dd>
-<dt class="field-even">Attr ActivityTracking activity_tracking</dt>
-<dd class="field-even"><p>(optional) Enables sending log data to
-IBM Cloud Activity Tracker to provide visibility into object read and write
+have the <cite>manager</cite> role.</p></li>
+<li><p><strong>activity_tracking</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking" title="ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking"><em>ActivityTracking</em></a>) – (optional) Enables sending log data
+to IBM Cloud Activity Tracker to provide visibility into object read and write
 events. All object events are sent to the activity tracker instance defined in
-the <cite>activity_tracker_crn</cite> field.</p>
-</dd>
-<dt class="field-odd">Attr MetricsMonitoring metrics_monitoring</dt>
-<dd class="field-odd"><p>(optional) Enables sending metrics
+the <cite>activity_tracker_crn</cite> field.</p></li>
+<li><p><strong>metrics_monitoring</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring" title="ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring"><em>MetricsMonitoring</em></a>) – (optional) Enables sending metrics
 to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring
-instance defined in the <cite>monitoring_crn</cite> field.</p>
-</dd>
-<dt class="field-even">Attr int hard_quota</dt>
-<dd class="field-even"><p>(optional) Maximum bytes for this bucket.</p>
+instance defined in the <cite>monitoring_crn</cite> field.</p></li>
+<li><p><strong>hard_quota</strong> (<em>int</em>) – (optional) Maximum bytes for this bucket.</p></li>
+<li><p><strong>protection_management</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement" title="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement"><em>ProtectionManagement</em></a>) – (optional) Data structure
+holding protection management operations.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.BucketPatch.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch" title="ibm_cos_sdk_config.resource_configuration_v1.BucketPatch"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.BucketPatch</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#BucketPatch.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch.from_dict" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch" title="ibm_cos_sdk_config.resource_configuration_v1.BucketPatch"><span class="pre">BucketPatch</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#BucketPatch.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch.from_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a BucketPatch object from a json dictionary.</p>
 </dd></dl>
 
@@ -291,32 +324,30 @@ field will be denied regardless of any access policies (including public access)
 might otherwise permit the request.  Viewing or updating the <cite>Firewall</cite> element
 requires the requester to have the <cite>manager</cite> role.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Attr List[str] allowed_ip</dt>
-<dd class="field-odd"><p>(optional) List of IPv4 or IPv6 addresses in CIDR
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>allowed_ip</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – (optional) List of IPv4 or IPv6 addresses in CIDR
 notation to be affected by firewall in CIDR notation is supported. Passing an
 empty array will lift the IP address filter.  The <cite>allowed_ip</cite> array can contain
-a maximum of 1000 items.</p>
-</dd>
-<dt class="field-even">Attr List[str] denied_ip</dt>
-<dd class="field-even"><p>(optional) List of IPv4 or IPv6 addresses in CIDR
+a maximum of 1000 items.</p></li>
+<li><p><strong>denied_ip</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – (optional) List of IPv4 or IPv6 addresses in CIDR
 notation to be affected by firewall in CIDR notation is supported. Passing an
 empty array will lift the IP address filter.  The <cite>denied_ip</cite> array can contain
-a maximum of 1000 items.</p>
-</dd>
-<dt class="field-odd">Attr List[str] allowed_network_type</dt>
-<dd class="field-odd"><p>(optional) Indicates which network types
+a maximum of 1000 items.</p></li>
+<li><p><strong>allowed_network_type</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – (optional) Indicates which network types
 are allowed for bucket access. May contain <cite>public</cite>, <cite>private</cite>, and/or <cite>direct</cite>
 elements. Setting <cite>allowed_network_type</cite> to only <cite>private</cite> will prevent access
 to object storage from outside of the IBM Cloud.  The entire array will be
 overwritten in a <cite>PATCH</cite> operation. For more information on network types, [see
 the
-documentation](<a class="reference external" href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types">https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types</a>).</p>
+documentation](<a class="reference external" href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types">https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types</a>).</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.Firewall.AllowedNetworkTypeEnum">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AllowedNetworkTypeEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#Firewall.AllowedNetworkTypeEnum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall.AllowedNetworkTypeEnum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>May contain <cite>public</cite>, <cite>private</cite>, and/or <cite>direct</cite> elements. Setting
 <cite>allowed_network_type</cite> to only <cite>private</cite> will prevent access to object storage
 from outside of the IBM Cloud.  The entire array will be overwritten in a <cite>PATCH</cite>
@@ -341,7 +372,7 @@ documentation](<a class="reference external" href="https://cloud.ibm.com/docs/cl
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.Firewall.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall" title="ibm_cos_sdk_config.resource_configuration_v1.Firewall"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.Firewall</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#Firewall.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall.from_dict" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall" title="ibm_cos_sdk_config.resource_configuration_v1.Firewall"><span class="pre">Firewall</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#Firewall.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.Firewall.from_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a Firewall object from a json dictionary.</p>
 </dd></dl>
 
@@ -360,25 +391,23 @@ documentation](<a class="reference external" href="https://cloud.ibm.com/docs/cl
 <p>Enables sending metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud
 Monitoring instance defined in the <cite>monitoring_crn</cite> field.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Attr bool usage_metrics_enabled</dt>
-<dd class="field-odd"><p>(optional) If set to <cite>true</cite>, all usage metrics
-(i.e. <cite>bytes_used</cite>) will be sent to the monitoring service.</p>
-</dd>
-<dt class="field-even">Attr bool request_metrics_enabled</dt>
-<dd class="field-even"><p>(optional) If set to <cite>true</cite>, all request
-metrics (i.e. <cite>rest.object.head</cite>) will be sent to the monitoring service.</p>
-</dd>
-<dt class="field-odd">Attr str metrics_monitoring_crn</dt>
-<dd class="field-odd"><p>(optional) Required the first time
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>usage_metrics_enabled</strong> (<em>bool</em>) – (optional) If set to <cite>true</cite>, all usage
+metrics (i.e. <cite>bytes_used</cite>) will be sent to the monitoring service.</p></li>
+<li><p><strong>request_metrics_enabled</strong> (<em>bool</em>) – (optional) If set to <cite>true</cite>, all request
+metrics (i.e. <cite>rest.object.head</cite>) will be sent to the monitoring service.</p></li>
+<li><p><strong>metrics_monitoring_crn</strong> (<em>str</em>) – (optional) Required the first time
 <cite>metrics_monitoring</cite> is configured. The instance of IBM Cloud Monitoring that
 will receive the bucket metrics. The format is
 “crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage
-account}:{monitoring service instance}::”.</p>
+account}:{monitoring service instance}::”.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring" title="ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#MetricsMonitoring.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring.from_dict" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring" title="ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring"><span class="pre">MetricsMonitoring</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#MetricsMonitoring.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring.from_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a MetricsMonitoring object from a json dictionary.</p>
 </dd></dl>
 
@@ -391,9 +420,121 @@ account}:{monitoring service instance}::”.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.</span></span><span class="sig-name descname"><span class="pre">ProtectionManagement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requested_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protection_management_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ProtectionManagement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Data structure holding protection management operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>requested_state</strong> (<em>str</em>) – (optional) If set to <cite>activate</cite>, protection
+management action on the bucket is being activated.</p></li>
+<li><p><strong>protection_management_token</strong> (<em>str</em>) – (optional) This field is required when
+using requested_state:<cite>activate</cite> and holds a JWT that is provided by the Cloud
+Operator. This should be the encoded JWT.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.RequestedStateEnum">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RequestedStateEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ProtectionManagement.RequestedStateEnum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.RequestedStateEnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>If set to <cite>activate</cite>, protection management action on the bucket is being
+activated.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.RequestedStateEnum.ACTIVATE">
+<span class="sig-name descname"><span class="pre">ACTIVATE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'activate'</span></em><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.RequestedStateEnum.ACTIVATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.RequestedStateEnum.DEACTIVATE">
+<span class="sig-name descname"><span class="pre">DEACTIVATE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'deactivate'</span></em><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.RequestedStateEnum.DEACTIVATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement" title="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement"><span class="pre">ProtectionManagement</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ProtectionManagement.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a ProtectionManagement object from a json dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ProtectionManagement.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a json dictionary representing this model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.</span></span><span class="sig-name descname"><span class="pre">ProtectionManagementResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_applied_counter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_entries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry" title="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry"><span class="pre">ProtectionManagementResponseTokenEntry</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ProtectionManagementResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Data structure holding protection management response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>token_applied_counter</strong> (<em>str</em>) – (optional) Indicates the X number of
+protection management tokens that have been applied to the bucket in its
+lifetime.</p></li>
+<li><p><strong>token_entries</strong> (<em>List</em><em>[</em><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry" title="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry"><em>ProtectionManagementResponseTokenEntry</em></a><em>]</em>) – (optional)
+The ‘protection management token list’ holding a recent list of applied tokens.
+This list may contain a subset of all tokens applied to the bucket, as indicated
+by the counter.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse" title="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse"><span class="pre">ProtectionManagementResponse</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ProtectionManagementResponse.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a ProtectionManagementResponse object from a json dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ProtectionManagementResponse.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a json dictionary representing this model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.</span></span><span class="sig-name descname"><span class="pre">ProtectionManagementResponseTokenEntry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_expiration_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_reference_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">applied_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invalidated_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expiration_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shorten_retention_flag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ProtectionManagementResponseTokenEntry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Data structure holding protection management token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>token_id</strong> (<em>str</em>) – (optional)</p></li>
+<li><p><strong>token_expiration_time</strong> (<em>str</em>) – (optional)</p></li>
+<li><p><strong>token_reference_id</strong> (<em>str</em>) – (optional)</p></li>
+<li><p><strong>applied_time</strong> (<em>str</em>) – (optional)</p></li>
+<li><p><strong>invalidated_time</strong> (<em>str</em>) – (optional)</p></li>
+<li><p><strong>expiration_time</strong> (<em>str</em>) – (optional)</p></li>
+<li><p><strong>shorten_retention_flag</strong> (<em>bool</em>) – (optional)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry" title="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry"><span class="pre">ProtectionManagementResponseTokenEntry</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ProtectionManagementResponseTokenEntry.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a ProtectionManagementResponseTokenEntry object from a json dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ProtectionManagementResponseTokenEntry.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponseTokenEntry.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a json dictionary representing this model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.</span></span><span class="sig-name descname"><span class="pre">ResourceConfigurationV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">authenticator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">ibm_cloud_sdk_core.authenticators.authenticator.Authenticator</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ResourceConfigurationV1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ibm_cloud_sdk_core.base_service.BaseService</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.</span></span><span class="sig-name descname"><span class="pre">ResourceConfigurationV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">authenticator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Authenticator</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ResourceConfigurationV1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseService</span></code></p>
 <p>The ResourceConfiguration V1 service.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.DEFAULT_SERVICE_NAME">
@@ -407,7 +548,7 @@ account}:{monitoring service instance}::”.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.get_bucket_config">
-<span class="sig-name descname"><span class="pre">get_bucket_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bucket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ibm_cloud_sdk_core.detailed_response.DetailedResponse</span></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ResourceConfigurationV1.get_bucket_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.get_bucket_config" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_bucket_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bucket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DetailedResponse</span></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ResourceConfigurationV1.get_bucket_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.get_bucket_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns metadata for the specified bucket.</p>
 <p>Returns metadata for the specified bucket.</p>
 <dl class="field-list simple">
@@ -428,7 +569,7 @@ account}:{monitoring service instance}::”.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.new_instance">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'resource_configuration'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1" title="ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ResourceConfigurationV1.new_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.new_instance" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'resource_configuration'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1" title="ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1"><span class="pre">ResourceConfigurationV1</span></a></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ResourceConfigurationV1.new_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.new_instance" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Return a new client for the ResourceConfiguration service using the</dt><dd><p>specified parameters and external configuration.</p>
 </dd>
@@ -437,7 +578,7 @@ account}:{monitoring service instance}::”.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config">
-<span class="sig-name descname"><span class="pre">update_bucket_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bucket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bucket_patch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch" title="ibm_cos_sdk_config.resource_configuration_v1.BucketPatch"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.BucketPatch</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">if_match</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ibm_cloud_sdk_core.detailed_response.DetailedResponse</span></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ResourceConfigurationV1.update_bucket_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_bucket_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bucket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bucket_patch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.BucketPatch" title="ibm_cos_sdk_config.resource_configuration_v1.BucketPatch"><span class="pre">BucketPatch</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">if_match</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DetailedResponse</span></span></span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ResourceConfigurationV1.update_bucket_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ResourceConfigurationV1.update_bucket_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make changes to a bucket’s configuration.</p>
 <p>Updates a bucket using [JSON Merge Patch](<a class="reference external" href="https://tools.ietf.org/html/rfc7396">https://tools.ietf.org/html/rfc7396</a>).
 This request is used to add functionality (like an IP access filter) or to update
@@ -472,14 +613,14 @@ the active Etag, the request will fail.</p></li>
 
 </div>
 <div class="section" id="ibm-cos-sdk-config-version-module">
-<h2>ibm_cos_sdk_config.version module<a class="headerlink" href="#ibm-cos-sdk-config-version-module" title="Permalink to this headline">¶</a></h2>
+<h2>ibm_cos_sdk_config.version module<a class="headerlink" href="#ibm-cos-sdk-config-version-module" title="Permalink to this heading">¶</a></h2>
 <span class="target" id="module-ibm_cos_sdk_config.version"></span><p>Version of ibm_cos_sdk_config</p>
 </div>
 <div class="section" id="ibm-cos-sdk-config-watson-service-module">
-<h2>ibm_cos_sdk_config.watson_service module<a class="headerlink" href="#ibm-cos-sdk-config-watson-service-module" title="Permalink to this headline">¶</a></h2>
+<h2>ibm_cos_sdk_config.watson_service module<a class="headerlink" href="#ibm-cos-sdk-config-watson-service-module" title="Permalink to this heading">¶</a></h2>
 </div>
 <div class="section" id="module-ibm_cos_sdk_config">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ibm_cos_sdk_config" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ibm_cos_sdk_config" title="Permalink to this heading">¶</a></h2>
 <p>IBM COS Resource Configuration SDK for Python</p>
 </div>
 </div>
