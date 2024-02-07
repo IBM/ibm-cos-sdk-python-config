@@ -16,14 +16,12 @@
 from setuptools import setup
 import pkg_resources
 
-__version__ = '2.0.2'
+__version__ = '2.0.3'
 PACKAGE_NAME = 'ibm_cos_sdk_config'
 PACKAGE_DESC = 'IBM COS Resource Configuration SDK for Python'
 
 with open('requirements.txt') as f:
-    install_requires = [
-        str(req) for req in pkg_resources.parse_requirements(f)
-    ]
+    install_requires = [str(req) for req in pkg_resources.parse_requirements(f)]
 with open('requirements-dev.txt') as f:
     tests_require = [str(req) for req in pkg_resources.parse_requirements(f)]
 
@@ -60,4 +58,5 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Software Development :: Libraries :: Application Frameworks',
     ],
-    zip_safe=True)
+    zip_safe=True,
+)

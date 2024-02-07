@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# (C) Copyright IBM Corp. 2023.
+# (C) Copyright IBM Corp. 2024.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,19 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
+# IBM OpenAPI SDK Code Generator Version: 3.84.1-55f6d880-20240110-194020
 
 """
-REST API used to configure Cloud Object Storage buckets.  This version of the API only
-supports reading bucket metadata, setting IP access controls, and configuring logging and
-monitoring services.
+REST API used to configure Cloud Object Storage buckets.
 
 API Version: 1.0.0
 """
 
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List
+from typing import Dict, List, Optional
 import json
 
 from ibm_cloud_sdk_core import BaseService, DetailedResponse
@@ -40,6 +38,7 @@ from .common import get_sdk_headers
 # Service
 ##############################################################################
 
+
 class ResourceConfigurationV1(BaseService):
     """The ResourceConfiguration V1 service."""
 
@@ -47,9 +46,10 @@ class ResourceConfigurationV1(BaseService):
     DEFAULT_SERVICE_NAME = 'resource_configuration'
 
     @classmethod
-    def new_instance(cls,
-                     service_name: str = DEFAULT_SERVICE_NAME,
-                    ) -> 'ResourceConfigurationV1':
+    def new_instance(
+        cls,
+        service_name: str = DEFAULT_SERVICE_NAME,
+    ) -> 'ResourceConfigurationV1':
         """
         Return a new client for the ResourceConfiguration service using the
                specified parameters and external configuration.
@@ -61,9 +61,10 @@ class ResourceConfigurationV1(BaseService):
         service.configure_service(service_name)
         return service
 
-    def __init__(self,
-                 authenticator: Authenticator = None,
-                ) -> None:
+    def __init__(
+        self,
+        authenticator: Authenticator = None,
+    ) -> None:
         """
         Construct a new client for the ResourceConfiguration service.
 
@@ -71,19 +72,16 @@ class ResourceConfigurationV1(BaseService):
                Get up to date information from https://github.com/IBM/python-sdk-core/blob/main/README.md
                about initializing the authenticator of your choice.
         """
-        BaseService.__init__(self,
-                             service_url=self.DEFAULT_SERVICE_URL,
-                             authenticator=authenticator)
-
+        BaseService.__init__(self, service_url=self.DEFAULT_SERVICE_URL, authenticator=authenticator)
 
     #########################
     # buckets
     #########################
 
-
-    def get_bucket_config(self,
+    def get_bucket_config(
+        self,
         bucket: str,
-        **kwargs
+        **kwargs,
     ) -> DetailedResponse:
         """
         Returns metadata for the specified bucket.
@@ -99,9 +97,11 @@ class ResourceConfigurationV1(BaseService):
         if not bucket:
             raise ValueError('bucket must be provided')
         headers = {}
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='get_bucket_config')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='get_bucket_config',
+        )
         headers.update(sdk_headers)
 
         if 'headers' in kwargs:
@@ -113,20 +113,22 @@ class ResourceConfigurationV1(BaseService):
         path_param_values = self.encode_path_vars(bucket)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/b/{bucket}'.format(**path_param_dict)
-        request = self.prepare_request(method='GET',
-                                       url=url,
-                                       headers=headers)
+        request = self.prepare_request(
+            method='GET',
+            url=url,
+            headers=headers,
+        )
 
         response = self.send(request, **kwargs)
         return response
 
-
-    def update_bucket_config(self,
+    def update_bucket_config(
+        self,
         bucket: str,
         *,
-        bucket_patch: 'BucketPatch' = None,
-        if_match: str = None,
-        **kwargs
+        bucket_patch: Optional['BucketPatch'] = None,
+        if_match: Optional[str] = None,
+        **kwargs,
     ) -> DetailedResponse:
         """
         Make changes to a bucket's configuration.
@@ -153,14 +155,16 @@ class ResourceConfigurationV1(BaseService):
 
         if not bucket:
             raise ValueError('bucket must be provided')
-        if  bucket_patch is not None and isinstance(bucket_patch, BucketPatch):
+        if bucket_patch is not None and isinstance(bucket_patch, BucketPatch):
             bucket_patch = convert_model(bucket_patch)
         headers = {
             'if-match': if_match,
         }
-        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
-                                      service_version='V1',
-                                      operation_id='update_bucket_config')
+        sdk_headers = get_sdk_headers(
+            service_name=self.DEFAULT_SERVICE_NAME,
+            service_version='V1',
+            operation_id='update_bucket_config',
+        )
         headers.update(sdk_headers)
 
         data = json.dumps(bucket_patch)
@@ -174,10 +178,12 @@ class ResourceConfigurationV1(BaseService):
         path_param_values = self.encode_path_vars(bucket)
         path_param_dict = dict(zip(path_param_keys, path_param_values))
         url = '/b/{bucket}'.format(**path_param_dict)
-        request = self.prepare_request(method='PATCH',
-                                       url=url,
-                                       headers=headers,
-                                       data=data)
+        request = self.prepare_request(
+            method='PATCH',
+            url=url,
+            headers=headers,
+            data=data,
+        )
 
         response = self.send(request, **kwargs)
         return response
@@ -188,27 +194,29 @@ class ResourceConfigurationV1(BaseService):
 ##############################################################################
 
 
-class ActivityTracking():
+class ActivityTracking:
     """
     Enables sending log data to IBM Cloud Activity Tracker to provide visibility into
     object read and write events. All object events are sent to the activity tracker
     instance defined in the `activity_tracker_crn` field.
 
-    :attr bool read_data_events: (optional) If set to `true`, all object read events
-          (i.e. downloads) will be sent to Activity Tracker.
-    :attr bool write_data_events: (optional) If set to `true`, all object write
+    :param bool read_data_events: (optional) If set to `true`, all object read
+          events (i.e. downloads) will be sent to Activity Tracker.
+    :param bool write_data_events: (optional) If set to `true`, all object write
           events (i.e. uploads) will be sent to Activity Tracker.
-    :attr str activity_tracker_crn: (optional) Required the first time
+    :param str activity_tracker_crn: (optional) Required the first time
           `activity_tracking` is configured. The instance of Activity Tracker that will
           receive object event data. The format is "crn:v1:bluemix:public:logdnaat:{bucket
           location}:a/{storage account}:{activity tracker service instance}::".
     """
 
-    def __init__(self,
-                 *,
-                 read_data_events: bool = None,
-                 write_data_events: bool = None,
-                 activity_tracker_crn: str = None) -> None:
+    def __init__(
+        self,
+        *,
+        read_data_events: Optional[bool] = None,
+        write_data_events: Optional[bool] = None,
+        activity_tracker_crn: Optional[str] = None,
+    ) -> None:
         """
         Initialize a ActivityTracking object.
 
@@ -272,64 +280,70 @@ class ActivityTracking():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class Bucket():
+
+class Bucket:
     """
     A bucket.
 
-    :attr str name: (optional) The name of the bucket. Non-mutable.
-    :attr str crn: (optional) The service instance that holds the bucket.
+    :param str name: (optional) The name of the bucket. Non-mutable.
+    :param str crn: (optional) The service instance that holds the bucket.
           Non-mutable.
-    :attr str service_instance_id: (optional) The service instance that holds the
+    :param str service_instance_id: (optional) The service instance that holds the
           bucket. Non-mutable.
-    :attr str service_instance_crn: (optional) The service instance that holds the
+    :param str service_instance_crn: (optional) The service instance that holds the
           bucket. Non-mutable.
-    :attr datetime time_created: (optional) The creation time of the bucket in RFC
+    :param datetime time_created: (optional) The creation time of the bucket in RFC
           3339 format. Non-mutable.
-    :attr datetime time_updated: (optional) The modification time of the bucket in
+    :param datetime time_updated: (optional) The modification time of the bucket in
           RFC 3339 format. Non-mutable.
-    :attr int object_count: (optional) Total number of objects in the bucket.
+    :param int object_count: (optional) Total number of objects in the bucket.
           Non-mutable.
-    :attr int bytes_used: (optional) Total size of all objects in the bucket.
+    :param int bytes_used: (optional) Total size of all objects in the bucket.
           Non-mutable.
-    :attr int noncurrent_object_count: (optional) Number of non-current object
+    :param int noncurrent_object_count: (optional) Number of non-current object
           versions in the bucket. Non-mutable.
-    :attr int noncurrent_bytes_used: (optional) Total size of all non-current object
-          versions in the bucket. Non-mutable.
-    :attr int delete_marker_count: (optional) Total number of delete markers in the
+    :param int noncurrent_bytes_used: (optional) Total size of all non-current
+          object versions in the bucket. Non-mutable.
+    :param int delete_marker_count: (optional) Total number of delete markers in the
           bucket. Non-mutable.
-    :attr Firewall firewall: (optional) An access control mechanism based on the
+    :param Firewall firewall: (optional) An access control mechanism based on the
           network (IP address) where request originated. Requests not originating from IP
           addresses listed in the `allowed_ip` field will be denied regardless of any
           access policies (including public access) that might otherwise permit the
           request.  Viewing or updating the `Firewall` element requires the requester to
           have the `manager` role.
-    :attr ActivityTracking activity_tracking: (optional) Enables sending log data to
-          IBM Cloud Activity Tracker to provide visibility into object read and write
+    :param ActivityTracking activity_tracking: (optional) Enables sending log data
+          to IBM Cloud Activity Tracker to provide visibility into object read and write
           events. All object events are sent to the activity tracker instance defined in
           the `activity_tracker_crn` field.
-    :attr MetricsMonitoring metrics_monitoring: (optional) Enables sending metrics
+    :param MetricsMonitoring metrics_monitoring: (optional) Enables sending metrics
           to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring
           instance defined in the `monitoring_crn` field.
-    :attr int hard_quota: (optional) Maximum bytes for this bucket.
+    :param int hard_quota: (optional) Maximum bytes for this bucket.
+    :param ProtectionManagementResponse protection_management: (optional) Data
+          structure holding protection management response.
     """
 
-    def __init__(self,
-                 *,
-                 name: str = None,
-                 crn: str = None,
-                 service_instance_id: str = None,
-                 service_instance_crn: str = None,
-                 time_created: datetime = None,
-                 time_updated: datetime = None,
-                 object_count: int = None,
-                 bytes_used: int = None,
-                 noncurrent_object_count: int = None,
-                 noncurrent_bytes_used: int = None,
-                 delete_marker_count: int = None,
-                 firewall: 'Firewall' = None,
-                 activity_tracking: 'ActivityTracking' = None,
-                 metrics_monitoring: 'MetricsMonitoring' = None,
-                 hard_quota: int = None) -> None:
+    def __init__(
+        self,
+        *,
+        name: Optional[str] = None,
+        crn: Optional[str] = None,
+        service_instance_id: Optional[str] = None,
+        service_instance_crn: Optional[str] = None,
+        time_created: Optional[datetime] = None,
+        time_updated: Optional[datetime] = None,
+        object_count: Optional[int] = None,
+        bytes_used: Optional[int] = None,
+        noncurrent_object_count: Optional[int] = None,
+        noncurrent_bytes_used: Optional[int] = None,
+        delete_marker_count: Optional[int] = None,
+        firewall: Optional['Firewall'] = None,
+        activity_tracking: Optional['ActivityTracking'] = None,
+        metrics_monitoring: Optional['MetricsMonitoring'] = None,
+        hard_quota: Optional[int] = None,
+        protection_management: Optional['ProtectionManagementResponse'] = None,
+    ) -> None:
         """
         Initialize a Bucket object.
 
@@ -368,6 +382,8 @@ class Bucket():
                metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud
                Monitoring instance defined in the `monitoring_crn` field.
         :param int hard_quota: (optional) Maximum bytes for this bucket.
+        :param ProtectionManagementResponse protection_management: (optional) Data
+               structure holding protection management response.
         """
         self.name = name
         self.crn = crn
@@ -384,6 +400,7 @@ class Bucket():
         self.activity_tracking = activity_tracking
         self.metrics_monitoring = metrics_monitoring
         self.hard_quota = hard_quota
+        self.protection_management = protection_management
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'Bucket':
@@ -419,6 +436,8 @@ class Bucket():
             args['metrics_monitoring'] = MetricsMonitoring.from_dict(_dict.get('metrics_monitoring'))
         if 'hard_quota' in _dict:
             args['hard_quota'] = _dict.get('hard_quota')
+        if 'protection_management' in _dict:
+            args['protection_management'] = ProtectionManagementResponse.from_dict(_dict.get('protection_management'))
         return cls(**args)
 
     @classmethod
@@ -468,6 +487,11 @@ class Bucket():
                 _dict['metrics_monitoring'] = self.metrics_monitoring.to_dict()
         if hasattr(self, 'hard_quota') and self.hard_quota is not None:
             _dict['hard_quota'] = self.hard_quota
+        if hasattr(self, 'protection_management') and self.protection_management is not None:
+            if isinstance(self.protection_management, dict):
+                _dict['protection_management'] = self.protection_management
+            else:
+                _dict['protection_management'] = self.protection_management.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -488,32 +512,38 @@ class Bucket():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class BucketPatch():
+
+class BucketPatch:
     """
     An object containing new bucket metadata.
 
-    :attr Firewall firewall: (optional) An access control mechanism based on the
+    :param Firewall firewall: (optional) An access control mechanism based on the
           network (IP address) where request originated. Requests not originating from IP
           addresses listed in the `allowed_ip` field will be denied regardless of any
           access policies (including public access) that might otherwise permit the
           request.  Viewing or updating the `Firewall` element requires the requester to
           have the `manager` role.
-    :attr ActivityTracking activity_tracking: (optional) Enables sending log data to
-          IBM Cloud Activity Tracker to provide visibility into object read and write
+    :param ActivityTracking activity_tracking: (optional) Enables sending log data
+          to IBM Cloud Activity Tracker to provide visibility into object read and write
           events. All object events are sent to the activity tracker instance defined in
           the `activity_tracker_crn` field.
-    :attr MetricsMonitoring metrics_monitoring: (optional) Enables sending metrics
+    :param MetricsMonitoring metrics_monitoring: (optional) Enables sending metrics
           to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring
           instance defined in the `monitoring_crn` field.
-    :attr int hard_quota: (optional) Maximum bytes for this bucket.
+    :param int hard_quota: (optional) Maximum bytes for this bucket.
+    :param ProtectionManagement protection_management: (optional) Data structure
+          holding protection management operations.
     """
 
-    def __init__(self,
-                 *,
-                 firewall: 'Firewall' = None,
-                 activity_tracking: 'ActivityTracking' = None,
-                 metrics_monitoring: 'MetricsMonitoring' = None,
-                 hard_quota: int = None) -> None:
+    def __init__(
+        self,
+        *,
+        firewall: Optional['Firewall'] = None,
+        activity_tracking: Optional['ActivityTracking'] = None,
+        metrics_monitoring: Optional['MetricsMonitoring'] = None,
+        hard_quota: Optional[int] = None,
+        protection_management: Optional['ProtectionManagement'] = None,
+    ) -> None:
         """
         Initialize a BucketPatch object.
 
@@ -531,11 +561,14 @@ class BucketPatch():
                metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud
                Monitoring instance defined in the `monitoring_crn` field.
         :param int hard_quota: (optional) Maximum bytes for this bucket.
+        :param ProtectionManagement protection_management: (optional) Data
+               structure holding protection management operations.
         """
         self.firewall = firewall
         self.activity_tracking = activity_tracking
         self.metrics_monitoring = metrics_monitoring
         self.hard_quota = hard_quota
+        self.protection_management = protection_management
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'BucketPatch':
@@ -549,6 +582,8 @@ class BucketPatch():
             args['metrics_monitoring'] = MetricsMonitoring.from_dict(_dict.get('metrics_monitoring'))
         if 'hard_quota' in _dict:
             args['hard_quota'] = _dict.get('hard_quota')
+        if 'protection_management' in _dict:
+            args['protection_management'] = ProtectionManagement.from_dict(_dict.get('protection_management'))
         return cls(**args)
 
     @classmethod
@@ -576,6 +611,11 @@ class BucketPatch():
                 _dict['metrics_monitoring'] = self.metrics_monitoring.to_dict()
         if hasattr(self, 'hard_quota') and self.hard_quota is not None:
             _dict['hard_quota'] = self.hard_quota
+        if hasattr(self, 'protection_management') and self.protection_management is not None:
+            if isinstance(self.protection_management, dict):
+                _dict['protection_management'] = self.protection_management
+            else:
+                _dict['protection_management'] = self.protection_management.to_dict()
         return _dict
 
     def _to_dict(self):
@@ -596,7 +636,8 @@ class BucketPatch():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
-class Firewall():
+
+class Firewall:
     """
     An access control mechanism based on the network (IP address) where request
     originated. Requests not originating from IP addresses listed in the `allowed_ip`
@@ -604,15 +645,15 @@ class Firewall():
     might otherwise permit the request.  Viewing or updating the `Firewall` element
     requires the requester to have the `manager` role.
 
-    :attr List[str] allowed_ip: (optional) List of IPv4 or IPv6 addresses in CIDR
+    :param List[str] allowed_ip: (optional) List of IPv4 or IPv6 addresses in CIDR
           notation to be affected by firewall in CIDR notation is supported. Passing an
           empty array will lift the IP address filter.  The `allowed_ip` array can contain
           a maximum of 1000 items.
-    :attr List[str] denied_ip: (optional) List of IPv4 or IPv6 addresses in CIDR
+    :param List[str] denied_ip: (optional) List of IPv4 or IPv6 addresses in CIDR
           notation to be affected by firewall in CIDR notation is supported. Passing an
           empty array will lift the IP address filter.  The `denied_ip` array can contain
           a maximum of 1000 items.
-    :attr List[str] allowed_network_type: (optional) Indicates which network types
+    :param List[str] allowed_network_type: (optional) Indicates which network types
           are allowed for bucket access. May contain `public`, `private`, and/or `direct`
           elements. Setting `allowed_network_type` to only `private` will prevent access
           to object storage from outside of the IBM Cloud.  The entire array will be
@@ -621,11 +662,13 @@ class Firewall():
           documentation](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types).
     """
 
-    def __init__(self,
-                 *,
-                 allowed_ip: List[str] = None,
-                 denied_ip: List[str] = None,
-                 allowed_network_type: List[str] = None) -> None:
+    def __init__(
+        self,
+        *,
+        allowed_ip: Optional[List[str]] = None,
+        denied_ip: Optional[List[str]] = None,
+        allowed_network_type: Optional[List[str]] = None,
+    ) -> None:
         """
         Initialize a Firewall object.
 
@@ -703,32 +746,36 @@ class Firewall():
         operation. For more information on network types, [see the
         documentation](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints#advanced-endpoint-types).
         """
+
         PUBLIC = 'public'
         PRIVATE = 'private'
         DIRECT = 'direct'
 
 
-class MetricsMonitoring():
+
+class MetricsMonitoring:
     """
     Enables sending metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud
     Monitoring instance defined in the `monitoring_crn` field.
 
-    :attr bool usage_metrics_enabled: (optional) If set to `true`, all usage metrics
-          (i.e. `bytes_used`) will be sent to the monitoring service.
-    :attr bool request_metrics_enabled: (optional) If set to `true`, all request
+    :param bool usage_metrics_enabled: (optional) If set to `true`, all usage
+          metrics (i.e. `bytes_used`) will be sent to the monitoring service.
+    :param bool request_metrics_enabled: (optional) If set to `true`, all request
           metrics (i.e. `rest.object.head`) will be sent to the monitoring service.
-    :attr str metrics_monitoring_crn: (optional) Required the first time
+    :param str metrics_monitoring_crn: (optional) Required the first time
           `metrics_monitoring` is configured. The instance of IBM Cloud Monitoring that
           will receive the bucket metrics. The format is
           "crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage
           account}:{monitoring service instance}::".
     """
 
-    def __init__(self,
-                 *,
-                 usage_metrics_enabled: bool = None,
-                 request_metrics_enabled: bool = None,
-                 metrics_monitoring_crn: str = None) -> None:
+    def __init__(
+        self,
+        *,
+        usage_metrics_enabled: Optional[bool] = None,
+        request_metrics_enabled: Optional[bool] = None,
+        metrics_monitoring_crn: Optional[str] = None,
+    ) -> None:
         """
         Initialize a MetricsMonitoring object.
 
@@ -790,5 +837,275 @@ class MetricsMonitoring():
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'MetricsMonitoring') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class ProtectionManagement:
+    """
+    Data structure holding protection management operations.
+
+    :param str requested_state: (optional) If set to `activate`, protection
+          management action on the bucket is being activated.
+    :param str protection_management_token: (optional) This field is required when
+          using requested_state\:`activate` and holds a JWT that is provided by the Cloud
+          Operator. This should be the encoded JWT.
+    """
+
+    def __init__(
+        self,
+        *,
+        requested_state: Optional[str] = None,
+        protection_management_token: Optional[str] = None,
+    ) -> None:
+        """
+        Initialize a ProtectionManagement object.
+
+        :param str requested_state: (optional) If set to `activate`, protection
+               management action on the bucket is being activated.
+        :param str protection_management_token: (optional) This field is required
+               when using requested_state\:`activate` and holds a JWT that is provided by
+               the Cloud Operator. This should be the encoded JWT.
+        """
+        self.requested_state = requested_state
+        self.protection_management_token = protection_management_token
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ProtectionManagement':
+        """Initialize a ProtectionManagement object from a json dictionary."""
+        args = {}
+        if 'requested_state' in _dict:
+            args['requested_state'] = _dict.get('requested_state')
+        if 'protection_management_token' in _dict:
+            args['protection_management_token'] = _dict.get('protection_management_token')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ProtectionManagement object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'requested_state') and self.requested_state is not None:
+            _dict['requested_state'] = self.requested_state
+        if hasattr(self, 'protection_management_token') and self.protection_management_token is not None:
+            _dict['protection_management_token'] = self.protection_management_token
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ProtectionManagement object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ProtectionManagement') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ProtectionManagement') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+    class RequestedStateEnum(str, Enum):
+        """
+        If set to `activate`, protection management action on the bucket is being
+        activated.
+        """
+
+        ACTIVATE = 'activate'
+        DEACTIVATE = 'deactivate'
+
+
+
+class ProtectionManagementResponse:
+    """
+    Data structure holding protection management response.
+
+    :param str token_applied_counter: (optional) Indicates the X number of
+          protection management tokens that have been applied to the bucket in its
+          lifetime.
+    :param List[ProtectionManagementResponseTokenEntry] token_entries: (optional)
+          The 'protection management token list' holding a recent list of applied tokens.
+          This list may contain a subset of all tokens applied to the bucket, as indicated
+          by the counter.
+    """
+
+    def __init__(
+        self,
+        *,
+        token_applied_counter: Optional[str] = None,
+        token_entries: Optional[List['ProtectionManagementResponseTokenEntry']] = None,
+    ) -> None:
+        """
+        Initialize a ProtectionManagementResponse object.
+
+        :param str token_applied_counter: (optional) Indicates the X number of
+               protection management tokens that have been applied to the bucket in its
+               lifetime.
+        :param List[ProtectionManagementResponseTokenEntry] token_entries:
+               (optional) The 'protection management token list' holding a recent list of
+               applied tokens. This list may contain a subset of all tokens applied to the
+               bucket, as indicated by the counter.
+        """
+        self.token_applied_counter = token_applied_counter
+        self.token_entries = token_entries
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ProtectionManagementResponse':
+        """Initialize a ProtectionManagementResponse object from a json dictionary."""
+        args = {}
+        if 'token_applied_counter' in _dict:
+            args['token_applied_counter'] = _dict.get('token_applied_counter')
+        if 'token_entries' in _dict:
+            args['token_entries'] = [ProtectionManagementResponseTokenEntry.from_dict(v) for v in _dict.get('token_entries')]
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ProtectionManagementResponse object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'token_applied_counter') and self.token_applied_counter is not None:
+            _dict['token_applied_counter'] = self.token_applied_counter
+        if hasattr(self, 'token_entries') and self.token_entries is not None:
+            token_entries_list = []
+            for v in self.token_entries:
+                if isinstance(v, dict):
+                    token_entries_list.append(v)
+                else:
+                    token_entries_list.append(v.to_dict())
+            _dict['token_entries'] = token_entries_list
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ProtectionManagementResponse object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ProtectionManagementResponse') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ProtectionManagementResponse') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+
+class ProtectionManagementResponseTokenEntry:
+    """
+    Data structure holding protection management token.
+
+    :param str token_id: (optional)
+    :param str token_expiration_time: (optional)
+    :param str token_reference_id: (optional)
+    :param str applied_time: (optional)
+    :param str invalidated_time: (optional)
+    :param str expiration_time: (optional)
+    :param bool shorten_retention_flag: (optional)
+    """
+
+    def __init__(
+        self,
+        *,
+        token_id: Optional[str] = None,
+        token_expiration_time: Optional[str] = None,
+        token_reference_id: Optional[str] = None,
+        applied_time: Optional[str] = None,
+        invalidated_time: Optional[str] = None,
+        expiration_time: Optional[str] = None,
+        shorten_retention_flag: Optional[bool] = None,
+    ) -> None:
+        """
+        Initialize a ProtectionManagementResponseTokenEntry object.
+
+        :param str token_id: (optional)
+        :param str token_expiration_time: (optional)
+        :param str token_reference_id: (optional)
+        :param str applied_time: (optional)
+        :param str invalidated_time: (optional)
+        :param str expiration_time: (optional)
+        :param bool shorten_retention_flag: (optional)
+        """
+        self.token_id = token_id
+        self.token_expiration_time = token_expiration_time
+        self.token_reference_id = token_reference_id
+        self.applied_time = applied_time
+        self.invalidated_time = invalidated_time
+        self.expiration_time = expiration_time
+        self.shorten_retention_flag = shorten_retention_flag
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ProtectionManagementResponseTokenEntry':
+        """Initialize a ProtectionManagementResponseTokenEntry object from a json dictionary."""
+        args = {}
+        if 'token_id' in _dict:
+            args['token_id'] = _dict.get('token_id')
+        if 'token_expiration_time' in _dict:
+            args['token_expiration_time'] = _dict.get('token_expiration_time')
+        if 'token_reference_id' in _dict:
+            args['token_reference_id'] = _dict.get('token_reference_id')
+        if 'applied_time' in _dict:
+            args['applied_time'] = _dict.get('applied_time')
+        if 'invalidated_time' in _dict:
+            args['invalidated_time'] = _dict.get('invalidated_time')
+        if 'expiration_time' in _dict:
+            args['expiration_time'] = _dict.get('expiration_time')
+        if 'shorten_retention_flag' in _dict:
+            args['shorten_retention_flag'] = _dict.get('shorten_retention_flag')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ProtectionManagementResponseTokenEntry object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'token_id') and self.token_id is not None:
+            _dict['token_id'] = self.token_id
+        if hasattr(self, 'token_expiration_time') and self.token_expiration_time is not None:
+            _dict['token_expiration_time'] = self.token_expiration_time
+        if hasattr(self, 'token_reference_id') and self.token_reference_id is not None:
+            _dict['token_reference_id'] = self.token_reference_id
+        if hasattr(self, 'applied_time') and self.applied_time is not None:
+            _dict['applied_time'] = self.applied_time
+        if hasattr(self, 'invalidated_time') and self.invalidated_time is not None:
+            _dict['invalidated_time'] = self.invalidated_time
+        if hasattr(self, 'expiration_time') and self.expiration_time is not None:
+            _dict['expiration_time'] = self.expiration_time
+        if hasattr(self, 'shorten_retention_flag') and self.shorten_retention_flag is not None:
+            _dict['shorten_retention_flag'] = self.shorten_retention_flag
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ProtectionManagementResponseTokenEntry object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ProtectionManagementResponseTokenEntry') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ProtectionManagementResponseTokenEntry') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
