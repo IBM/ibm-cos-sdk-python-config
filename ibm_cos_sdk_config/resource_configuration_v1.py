@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# IBM OpenAPI SDK Code Generator Version: 3.84.1-55f6d880-20240110-194020
+# IBM OpenAPI SDK Code Generator Version: 3.91.0-d9755c53-20240605-153412
 
 """
 REST API used to configure Cloud Object Storage buckets.
@@ -158,7 +158,7 @@ class ResourceConfigurationV1(BaseService):
         if bucket_patch is not None and isinstance(bucket_patch, BucketPatch):
             bucket_patch = convert_model(bucket_patch)
         headers = {
-            'if-match': if_match,
+            'If-Match': if_match,
         }
         sdk_headers = get_sdk_headers(
             service_name=self.DEFAULT_SERVICE_NAME,
@@ -196,18 +196,28 @@ class ResourceConfigurationV1(BaseService):
 
 class ActivityTracking:
     """
-    Enables sending log data to IBM Cloud Activity Tracker to provide visibility into
-    object read and write events. All object events are sent to the activity tracker
-    instance defined in the `activity_tracker_crn` field.
+    Enables sending log data to IBM Cloud Activity Tracker Event Routing to provide
+    visibility into bucket management, object read and write events. (Recommended) When
+    the `activity_tracker_crn` is not populated, then enabled events are sent to the
+    Activity Tracker Event Routing instance at the container's location unless otherwise
+    specified in the Activity Tracker Event Routing Event Routing service configuration.
+    (Legacy) When the `activity_tracker_crn` is populated, then enabled events are sent to
+    the Activity Tracker Event Routing instance specified.
 
     :param bool read_data_events: (optional) If set to `true`, all object read
-          events (i.e. downloads) will be sent to Activity Tracker.
+          events (i.e. downloads) will be sent to Activity Tracker Event Routing.
     :param bool write_data_events: (optional) If set to `true`, all object write
-          events (i.e. uploads) will be sent to Activity Tracker.
-    :param str activity_tracker_crn: (optional) Required the first time
-          `activity_tracking` is configured. The instance of Activity Tracker that will
-          receive object event data. The format is "crn:v1:bluemix:public:logdnaat:{bucket
-          location}:a/{storage account}:{activity tracker service instance}::".
+          events (i.e. uploads) will be sent to Activity Tracker Event Routing.
+    :param str activity_tracker_crn: (optional) When the `activity_tracker_crn` is
+          not populated, then enabled events are sent to the Activity Tracker Event
+          Routing instance associated to the container's location unless otherwise
+          specified in the Activity Tracker Event Routing Event Routing service
+          configuration. If `activity_tracker_crn` is populated, then enabled events are
+          sent to the Activity Tracker Event Routing instance specified and bucket
+          management events are always enabled.
+    :param bool management_events: (optional) This field only applies if
+          `activity_tracker_crn` is not populated. If set to `true`, all bucket management
+          events will be sent to Activity Tracker Event Routing.
     """
 
     def __init__(
@@ -216,34 +226,43 @@ class ActivityTracking:
         read_data_events: Optional[bool] = None,
         write_data_events: Optional[bool] = None,
         activity_tracker_crn: Optional[str] = None,
+        management_events: Optional[bool] = None,
     ) -> None:
         """
         Initialize a ActivityTracking object.
 
         :param bool read_data_events: (optional) If set to `true`, all object read
-               events (i.e. downloads) will be sent to Activity Tracker.
+               events (i.e. downloads) will be sent to Activity Tracker Event Routing.
         :param bool write_data_events: (optional) If set to `true`, all object
-               write events (i.e. uploads) will be sent to Activity Tracker.
-        :param str activity_tracker_crn: (optional) Required the first time
-               `activity_tracking` is configured. The instance of Activity Tracker that
-               will receive object event data. The format is
-               "crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage
-               account}:{activity tracker service instance}::".
+               write events (i.e. uploads) will be sent to Activity Tracker Event Routing.
+        :param str activity_tracker_crn: (optional) When the `activity_tracker_crn`
+               is not populated, then enabled events are sent to the Activity Tracker
+               Event Routing instance associated to the container's location unless
+               otherwise specified in the Activity Tracker Event Routing Event Routing
+               service configuration. If `activity_tracker_crn` is populated, then enabled
+               events are sent to the Activity Tracker Event Routing instance specified
+               and bucket management events are always enabled.
+        :param bool management_events: (optional) This field only applies if
+               `activity_tracker_crn` is not populated. If set to `true`, all bucket
+               management events will be sent to Activity Tracker Event Routing.
         """
         self.read_data_events = read_data_events
         self.write_data_events = write_data_events
         self.activity_tracker_crn = activity_tracker_crn
+        self.management_events = management_events
 
     @classmethod
     def from_dict(cls, _dict: Dict) -> 'ActivityTracking':
         """Initialize a ActivityTracking object from a json dictionary."""
         args = {}
-        if 'read_data_events' in _dict:
-            args['read_data_events'] = _dict.get('read_data_events')
-        if 'write_data_events' in _dict:
-            args['write_data_events'] = _dict.get('write_data_events')
-        if 'activity_tracker_crn' in _dict:
-            args['activity_tracker_crn'] = _dict.get('activity_tracker_crn')
+        if (read_data_events := _dict.get('read_data_events')) is not None:
+            args['read_data_events'] = read_data_events
+        if (write_data_events := _dict.get('write_data_events')) is not None:
+            args['write_data_events'] = write_data_events
+        if (activity_tracker_crn := _dict.get('activity_tracker_crn')) is not None:
+            args['activity_tracker_crn'] = activity_tracker_crn
+        if (management_events := _dict.get('management_events')) is not None:
+            args['management_events'] = management_events
         return cls(**args)
 
     @classmethod
@@ -260,6 +279,8 @@ class ActivityTracking:
             _dict['write_data_events'] = self.write_data_events
         if hasattr(self, 'activity_tracker_crn') and self.activity_tracker_crn is not None:
             _dict['activity_tracker_crn'] = self.activity_tracker_crn
+        if hasattr(self, 'management_events') and self.management_events is not None:
+            _dict['management_events'] = self.management_events
         return _dict
 
     def _to_dict(self):
@@ -313,12 +334,21 @@ class Bucket:
           request.  Viewing or updating the `Firewall` element requires the requester to
           have the `manager` role.
     :param ActivityTracking activity_tracking: (optional) Enables sending log data
-          to IBM Cloud Activity Tracker to provide visibility into object read and write
-          events. All object events are sent to the activity tracker instance defined in
-          the `activity_tracker_crn` field.
+          to IBM Cloud Activity Tracker Event Routing to provide visibility into bucket
+          management, object read and write events. (Recommended) When the
+          `activity_tracker_crn` is not populated, then enabled events are sent to the
+          Activity Tracker Event Routing instance at the container's location unless
+          otherwise specified in the Activity Tracker Event Routing Event Routing service
+          configuration. (Legacy) When the `activity_tracker_crn` is populated, then
+          enabled events are sent to the Activity Tracker Event Routing instance
+          specified.
     :param MetricsMonitoring metrics_monitoring: (optional) Enables sending metrics
-          to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring
-          instance defined in the `monitoring_crn` field.
+          to IBM Cloud Monitoring.  All metrics are opt-in. (Recommended) When the
+          `metrics_monitoring_crn` is not populated, then enabled metrics are sent to the
+          Monitoring instance at the container's location unless otherwise specified in
+          the Metrics Router service configuration. (Legacy) When the
+          `metrics_monitoring_crn` is populated, then enabled metrics are sent to the
+          Monitoring instance defined in the `metrics_monitoring_crn` field.
     :param int hard_quota: (optional) Maximum bytes for this bucket.
     :param ProtectionManagementResponse protection_management: (optional) Data
           structure holding protection management response.
@@ -375,12 +405,22 @@ class Bucket:
                otherwise permit the request.  Viewing or updating the `Firewall` element
                requires the requester to have the `manager` role.
         :param ActivityTracking activity_tracking: (optional) Enables sending log
-               data to IBM Cloud Activity Tracker to provide visibility into object read
-               and write events. All object events are sent to the activity tracker
-               instance defined in the `activity_tracker_crn` field.
+               data to IBM Cloud Activity Tracker Event Routing to provide visibility into
+               bucket management, object read and write events. (Recommended) When the
+               `activity_tracker_crn` is not populated, then enabled events are sent to
+               the Activity Tracker Event Routing instance at the container's location
+               unless otherwise specified in the Activity Tracker Event Routing Event
+               Routing service configuration. (Legacy) When the `activity_tracker_crn` is
+               populated, then enabled events are sent to the Activity Tracker Event
+               Routing instance specified.
         :param MetricsMonitoring metrics_monitoring: (optional) Enables sending
-               metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud
-               Monitoring instance defined in the `monitoring_crn` field.
+               metrics to IBM Cloud Monitoring.  All metrics are opt-in. (Recommended)
+               When the `metrics_monitoring_crn` is not populated, then enabled metrics
+               are sent to the Monitoring instance at the container's location unless
+               otherwise specified in the Metrics Router service configuration. (Legacy)
+               When the `metrics_monitoring_crn` is populated, then enabled metrics are
+               sent to the Monitoring instance defined in the `metrics_monitoring_crn`
+               field.
         :param int hard_quota: (optional) Maximum bytes for this bucket.
         :param ProtectionManagementResponse protection_management: (optional) Data
                structure holding protection management response.
@@ -406,38 +446,38 @@ class Bucket:
     def from_dict(cls, _dict: Dict) -> 'Bucket':
         """Initialize a Bucket object from a json dictionary."""
         args = {}
-        if 'name' in _dict:
-            args['name'] = _dict.get('name')
-        if 'crn' in _dict:
-            args['crn'] = _dict.get('crn')
-        if 'service_instance_id' in _dict:
-            args['service_instance_id'] = _dict.get('service_instance_id')
-        if 'service_instance_crn' in _dict:
-            args['service_instance_crn'] = _dict.get('service_instance_crn')
-        if 'time_created' in _dict:
-            args['time_created'] = string_to_datetime(_dict.get('time_created'))
-        if 'time_updated' in _dict:
-            args['time_updated'] = string_to_datetime(_dict.get('time_updated'))
-        if 'object_count' in _dict:
-            args['object_count'] = _dict.get('object_count')
-        if 'bytes_used' in _dict:
-            args['bytes_used'] = _dict.get('bytes_used')
-        if 'noncurrent_object_count' in _dict:
-            args['noncurrent_object_count'] = _dict.get('noncurrent_object_count')
-        if 'noncurrent_bytes_used' in _dict:
-            args['noncurrent_bytes_used'] = _dict.get('noncurrent_bytes_used')
-        if 'delete_marker_count' in _dict:
-            args['delete_marker_count'] = _dict.get('delete_marker_count')
-        if 'firewall' in _dict:
-            args['firewall'] = Firewall.from_dict(_dict.get('firewall'))
-        if 'activity_tracking' in _dict:
-            args['activity_tracking'] = ActivityTracking.from_dict(_dict.get('activity_tracking'))
-        if 'metrics_monitoring' in _dict:
-            args['metrics_monitoring'] = MetricsMonitoring.from_dict(_dict.get('metrics_monitoring'))
-        if 'hard_quota' in _dict:
-            args['hard_quota'] = _dict.get('hard_quota')
-        if 'protection_management' in _dict:
-            args['protection_management'] = ProtectionManagementResponse.from_dict(_dict.get('protection_management'))
+        if (name := _dict.get('name')) is not None:
+            args['name'] = name
+        if (crn := _dict.get('crn')) is not None:
+            args['crn'] = crn
+        if (service_instance_id := _dict.get('service_instance_id')) is not None:
+            args['service_instance_id'] = service_instance_id
+        if (service_instance_crn := _dict.get('service_instance_crn')) is not None:
+            args['service_instance_crn'] = service_instance_crn
+        if (time_created := _dict.get('time_created')) is not None:
+            args['time_created'] = string_to_datetime(time_created)
+        if (time_updated := _dict.get('time_updated')) is not None:
+            args['time_updated'] = string_to_datetime(time_updated)
+        if (object_count := _dict.get('object_count')) is not None:
+            args['object_count'] = object_count
+        if (bytes_used := _dict.get('bytes_used')) is not None:
+            args['bytes_used'] = bytes_used
+        if (noncurrent_object_count := _dict.get('noncurrent_object_count')) is not None:
+            args['noncurrent_object_count'] = noncurrent_object_count
+        if (noncurrent_bytes_used := _dict.get('noncurrent_bytes_used')) is not None:
+            args['noncurrent_bytes_used'] = noncurrent_bytes_used
+        if (delete_marker_count := _dict.get('delete_marker_count')) is not None:
+            args['delete_marker_count'] = delete_marker_count
+        if (firewall := _dict.get('firewall')) is not None:
+            args['firewall'] = Firewall.from_dict(firewall)
+        if (activity_tracking := _dict.get('activity_tracking')) is not None:
+            args['activity_tracking'] = ActivityTracking.from_dict(activity_tracking)
+        if (metrics_monitoring := _dict.get('metrics_monitoring')) is not None:
+            args['metrics_monitoring'] = MetricsMonitoring.from_dict(metrics_monitoring)
+        if (hard_quota := _dict.get('hard_quota')) is not None:
+            args['hard_quota'] = hard_quota
+        if (protection_management := _dict.get('protection_management')) is not None:
+            args['protection_management'] = ProtectionManagementResponse.from_dict(protection_management)
         return cls(**args)
 
     @classmethod
@@ -524,12 +564,21 @@ class BucketPatch:
           request.  Viewing or updating the `Firewall` element requires the requester to
           have the `manager` role.
     :param ActivityTracking activity_tracking: (optional) Enables sending log data
-          to IBM Cloud Activity Tracker to provide visibility into object read and write
-          events. All object events are sent to the activity tracker instance defined in
-          the `activity_tracker_crn` field.
+          to IBM Cloud Activity Tracker Event Routing to provide visibility into bucket
+          management, object read and write events. (Recommended) When the
+          `activity_tracker_crn` is not populated, then enabled events are sent to the
+          Activity Tracker Event Routing instance at the container's location unless
+          otherwise specified in the Activity Tracker Event Routing Event Routing service
+          configuration. (Legacy) When the `activity_tracker_crn` is populated, then
+          enabled events are sent to the Activity Tracker Event Routing instance
+          specified.
     :param MetricsMonitoring metrics_monitoring: (optional) Enables sending metrics
-          to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring
-          instance defined in the `monitoring_crn` field.
+          to IBM Cloud Monitoring.  All metrics are opt-in. (Recommended) When the
+          `metrics_monitoring_crn` is not populated, then enabled metrics are sent to the
+          Monitoring instance at the container's location unless otherwise specified in
+          the Metrics Router service configuration. (Legacy) When the
+          `metrics_monitoring_crn` is populated, then enabled metrics are sent to the
+          Monitoring instance defined in the `metrics_monitoring_crn` field.
     :param int hard_quota: (optional) Maximum bytes for this bucket.
     :param ProtectionManagement protection_management: (optional) Data structure
           holding protection management operations.
@@ -554,12 +603,22 @@ class BucketPatch:
                otherwise permit the request.  Viewing or updating the `Firewall` element
                requires the requester to have the `manager` role.
         :param ActivityTracking activity_tracking: (optional) Enables sending log
-               data to IBM Cloud Activity Tracker to provide visibility into object read
-               and write events. All object events are sent to the activity tracker
-               instance defined in the `activity_tracker_crn` field.
+               data to IBM Cloud Activity Tracker Event Routing to provide visibility into
+               bucket management, object read and write events. (Recommended) When the
+               `activity_tracker_crn` is not populated, then enabled events are sent to
+               the Activity Tracker Event Routing instance at the container's location
+               unless otherwise specified in the Activity Tracker Event Routing Event
+               Routing service configuration. (Legacy) When the `activity_tracker_crn` is
+               populated, then enabled events are sent to the Activity Tracker Event
+               Routing instance specified.
         :param MetricsMonitoring metrics_monitoring: (optional) Enables sending
-               metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud
-               Monitoring instance defined in the `monitoring_crn` field.
+               metrics to IBM Cloud Monitoring.  All metrics are opt-in. (Recommended)
+               When the `metrics_monitoring_crn` is not populated, then enabled metrics
+               are sent to the Monitoring instance at the container's location unless
+               otherwise specified in the Metrics Router service configuration. (Legacy)
+               When the `metrics_monitoring_crn` is populated, then enabled metrics are
+               sent to the Monitoring instance defined in the `metrics_monitoring_crn`
+               field.
         :param int hard_quota: (optional) Maximum bytes for this bucket.
         :param ProtectionManagement protection_management: (optional) Data
                structure holding protection management operations.
@@ -574,16 +633,16 @@ class BucketPatch:
     def from_dict(cls, _dict: Dict) -> 'BucketPatch':
         """Initialize a BucketPatch object from a json dictionary."""
         args = {}
-        if 'firewall' in _dict:
-            args['firewall'] = Firewall.from_dict(_dict.get('firewall'))
-        if 'activity_tracking' in _dict:
-            args['activity_tracking'] = ActivityTracking.from_dict(_dict.get('activity_tracking'))
-        if 'metrics_monitoring' in _dict:
-            args['metrics_monitoring'] = MetricsMonitoring.from_dict(_dict.get('metrics_monitoring'))
-        if 'hard_quota' in _dict:
-            args['hard_quota'] = _dict.get('hard_quota')
-        if 'protection_management' in _dict:
-            args['protection_management'] = ProtectionManagement.from_dict(_dict.get('protection_management'))
+        if (firewall := _dict.get('firewall')) is not None:
+            args['firewall'] = Firewall.from_dict(firewall)
+        if (activity_tracking := _dict.get('activity_tracking')) is not None:
+            args['activity_tracking'] = ActivityTracking.from_dict(activity_tracking)
+        if (metrics_monitoring := _dict.get('metrics_monitoring')) is not None:
+            args['metrics_monitoring'] = MetricsMonitoring.from_dict(metrics_monitoring)
+        if (hard_quota := _dict.get('hard_quota')) is not None:
+            args['hard_quota'] = hard_quota
+        if (protection_management := _dict.get('protection_management')) is not None:
+            args['protection_management'] = ProtectionManagement.from_dict(protection_management)
         return cls(**args)
 
     @classmethod
@@ -696,12 +755,12 @@ class Firewall:
     def from_dict(cls, _dict: Dict) -> 'Firewall':
         """Initialize a Firewall object from a json dictionary."""
         args = {}
-        if 'allowed_ip' in _dict:
-            args['allowed_ip'] = _dict.get('allowed_ip')
-        if 'denied_ip' in _dict:
-            args['denied_ip'] = _dict.get('denied_ip')
-        if 'allowed_network_type' in _dict:
-            args['allowed_network_type'] = _dict.get('allowed_network_type')
+        if (allowed_ip := _dict.get('allowed_ip')) is not None:
+            args['allowed_ip'] = allowed_ip
+        if (denied_ip := _dict.get('denied_ip')) is not None:
+            args['denied_ip'] = denied_ip
+        if (allowed_network_type := _dict.get('allowed_network_type')) is not None:
+            args['allowed_network_type'] = allowed_network_type
         return cls(**args)
 
     @classmethod
@@ -755,18 +814,22 @@ class Firewall:
 
 class MetricsMonitoring:
     """
-    Enables sending metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud
-    Monitoring instance defined in the `monitoring_crn` field.
+    Enables sending metrics to IBM Cloud Monitoring.  All metrics are opt-in.
+    (Recommended) When the `metrics_monitoring_crn` is not populated, then enabled metrics
+    are sent to the Monitoring instance at the container's location unless otherwise
+    specified in the Metrics Router service configuration. (Legacy) When the
+    `metrics_monitoring_crn` is populated, then enabled metrics are sent to the Monitoring
+    instance defined in the `metrics_monitoring_crn` field.
 
     :param bool usage_metrics_enabled: (optional) If set to `true`, all usage
           metrics (i.e. `bytes_used`) will be sent to the monitoring service.
     :param bool request_metrics_enabled: (optional) If set to `true`, all request
           metrics (i.e. `rest.object.head`) will be sent to the monitoring service.
-    :param str metrics_monitoring_crn: (optional) Required the first time
-          `metrics_monitoring` is configured. The instance of IBM Cloud Monitoring that
-          will receive the bucket metrics. The format is
-          "crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage
-          account}:{monitoring service instance}::".
+    :param str metrics_monitoring_crn: (optional) When the `metrics_monitoring_crn`
+          is not populated, then enabled metrics are sent to the monitoring instance
+          associated to the container's location unless otherwise specified in the Metrics
+          Router service configuration. If `metrics_monitoring_crn` is populated, then
+          enabled events are sent to the Metrics Monitoring instance specified.
     """
 
     def __init__(
@@ -784,11 +847,12 @@ class MetricsMonitoring:
         :param bool request_metrics_enabled: (optional) If set to `true`, all
                request metrics (i.e. `rest.object.head`) will be sent to the monitoring
                service.
-        :param str metrics_monitoring_crn: (optional) Required the first time
-               `metrics_monitoring` is configured. The instance of IBM Cloud Monitoring
-               that will receive the bucket metrics. The format is
-               "crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage
-               account}:{monitoring service instance}::".
+        :param str metrics_monitoring_crn: (optional) When the
+               `metrics_monitoring_crn` is not populated, then enabled metrics are sent to
+               the monitoring instance associated to the container's location unless
+               otherwise specified in the Metrics Router service configuration. If
+               `metrics_monitoring_crn` is populated, then enabled events are sent to the
+               Metrics Monitoring instance specified.
         """
         self.usage_metrics_enabled = usage_metrics_enabled
         self.request_metrics_enabled = request_metrics_enabled
@@ -798,12 +862,12 @@ class MetricsMonitoring:
     def from_dict(cls, _dict: Dict) -> 'MetricsMonitoring':
         """Initialize a MetricsMonitoring object from a json dictionary."""
         args = {}
-        if 'usage_metrics_enabled' in _dict:
-            args['usage_metrics_enabled'] = _dict.get('usage_metrics_enabled')
-        if 'request_metrics_enabled' in _dict:
-            args['request_metrics_enabled'] = _dict.get('request_metrics_enabled')
-        if 'metrics_monitoring_crn' in _dict:
-            args['metrics_monitoring_crn'] = _dict.get('metrics_monitoring_crn')
+        if (usage_metrics_enabled := _dict.get('usage_metrics_enabled')) is not None:
+            args['usage_metrics_enabled'] = usage_metrics_enabled
+        if (request_metrics_enabled := _dict.get('request_metrics_enabled')) is not None:
+            args['request_metrics_enabled'] = request_metrics_enabled
+        if (metrics_monitoring_crn := _dict.get('metrics_monitoring_crn')) is not None:
+            args['metrics_monitoring_crn'] = metrics_monitoring_crn
         return cls(**args)
 
     @classmethod
@@ -874,10 +938,10 @@ class ProtectionManagement:
     def from_dict(cls, _dict: Dict) -> 'ProtectionManagement':
         """Initialize a ProtectionManagement object from a json dictionary."""
         args = {}
-        if 'requested_state' in _dict:
-            args['requested_state'] = _dict.get('requested_state')
-        if 'protection_management_token' in _dict:
-            args['protection_management_token'] = _dict.get('protection_management_token')
+        if (requested_state := _dict.get('requested_state')) is not None:
+            args['requested_state'] = requested_state
+        if (protection_management_token := _dict.get('protection_management_token')) is not None:
+            args['protection_management_token'] = protection_management_token
         return cls(**args)
 
     @classmethod
@@ -960,10 +1024,10 @@ class ProtectionManagementResponse:
     def from_dict(cls, _dict: Dict) -> 'ProtectionManagementResponse':
         """Initialize a ProtectionManagementResponse object from a json dictionary."""
         args = {}
-        if 'token_applied_counter' in _dict:
-            args['token_applied_counter'] = _dict.get('token_applied_counter')
-        if 'token_entries' in _dict:
-            args['token_entries'] = [ProtectionManagementResponseTokenEntry.from_dict(v) for v in _dict.get('token_entries')]
+        if (token_applied_counter := _dict.get('token_applied_counter')) is not None:
+            args['token_applied_counter'] = token_applied_counter
+        if (token_entries := _dict.get('token_entries')) is not None:
+            args['token_entries'] = [ProtectionManagementResponseTokenEntry.from_dict(v) for v in token_entries]
         return cls(**args)
 
     @classmethod
@@ -1052,20 +1116,20 @@ class ProtectionManagementResponseTokenEntry:
     def from_dict(cls, _dict: Dict) -> 'ProtectionManagementResponseTokenEntry':
         """Initialize a ProtectionManagementResponseTokenEntry object from a json dictionary."""
         args = {}
-        if 'token_id' in _dict:
-            args['token_id'] = _dict.get('token_id')
-        if 'token_expiration_time' in _dict:
-            args['token_expiration_time'] = _dict.get('token_expiration_time')
-        if 'token_reference_id' in _dict:
-            args['token_reference_id'] = _dict.get('token_reference_id')
-        if 'applied_time' in _dict:
-            args['applied_time'] = _dict.get('applied_time')
-        if 'invalidated_time' in _dict:
-            args['invalidated_time'] = _dict.get('invalidated_time')
-        if 'expiration_time' in _dict:
-            args['expiration_time'] = _dict.get('expiration_time')
-        if 'shorten_retention_flag' in _dict:
-            args['shorten_retention_flag'] = _dict.get('shorten_retention_flag')
+        if (token_id := _dict.get('token_id')) is not None:
+            args['token_id'] = token_id
+        if (token_expiration_time := _dict.get('token_expiration_time')) is not None:
+            args['token_expiration_time'] = token_expiration_time
+        if (token_reference_id := _dict.get('token_reference_id')) is not None:
+            args['token_reference_id'] = token_reference_id
+        if (applied_time := _dict.get('applied_time')) is not None:
+            args['applied_time'] = applied_time
+        if (invalidated_time := _dict.get('invalidated_time')) is not None:
+            args['invalidated_time'] = invalidated_time
+        if (expiration_time := _dict.get('expiration_time')) is not None:
+            args['expiration_time'] = expiration_time
+        if (shorten_retention_flag := _dict.get('shorten_retention_flag')) is not None:
+            args['shorten_retention_flag'] = shorten_retention_flag
         return cls(**args)
 
     @classmethod

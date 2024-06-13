@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 2.1.0
+
+### Content
+
+#### Features
+
+* Sysdig Event Routing and Activity Tracker Routing Support
+
+#### Defect Fixes
+
+* Support for Python 3.11 and 3.12
+* Update dependencies
+
 ## 2.0.3
 
 ### Content
