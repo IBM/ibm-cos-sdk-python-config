@@ -97,7 +97,7 @@
 <span class="c1"># See the License for the specific language governing permissions and</span>
 <span class="c1"># limitations under the License.</span>
 
-<span class="c1"># IBM OpenAPI SDK Code Generator Version: 3.84.1-55f6d880-20240110-194020</span>
+<span class="c1"># IBM OpenAPI SDK Code Generator Version: 3.91.0-d9755c53-20240605-153412</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">REST API used to configure Cloud Object Storage buckets.</span>
@@ -241,7 +241,7 @@
         <span class="k">if</span> <span class="n">bucket_patch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bucket_patch</span><span class="p">,</span> <span class="n">BucketPatch</span><span class="p">):</span>
             <span class="n">bucket_patch</span> <span class="o">=</span> <span class="n">convert_model</span><span class="p">(</span><span class="n">bucket_patch</span><span class="p">)</span>
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;if-match&#39;</span><span class="p">:</span> <span class="n">if_match</span><span class="p">,</span>
+            <span class="s1">&#39;If-Match&#39;</span><span class="p">:</span> <span class="n">if_match</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">sdk_headers</span> <span class="o">=</span> <span class="n">get_sdk_headers</span><span class="p">(</span>
             <span class="n">service_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_SERVICE_NAME</span><span class="p">,</span>
@@ -279,18 +279,28 @@
 
 <div class="viewcode-block" id="ActivityTracking"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking">[docs]</a><span class="k">class</span> <span class="nc">ActivityTracking</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Enables sending log data to IBM Cloud Activity Tracker to provide visibility into</span>
-<span class="sd">    object read and write events. All object events are sent to the activity tracker</span>
-<span class="sd">    instance defined in the `activity_tracker_crn` field.</span>
+<span class="sd">    Enables sending log data to IBM Cloud Activity Tracker Event Routing to provide</span>
+<span class="sd">    visibility into bucket management, object read and write events. (Recommended) When</span>
+<span class="sd">    the `activity_tracker_crn` is not populated, then enabled events are sent to the</span>
+<span class="sd">    Activity Tracker Event Routing instance at the container&#39;s location unless otherwise</span>
+<span class="sd">    specified in the Activity Tracker Event Routing Event Routing service configuration.</span>
+<span class="sd">    (Legacy) When the `activity_tracker_crn` is populated, then enabled events are sent to</span>
+<span class="sd">    the Activity Tracker Event Routing instance specified.</span>
 
 <span class="sd">    :param bool read_data_events: (optional) If set to `true`, all object read</span>
-<span class="sd">          events (i.e. downloads) will be sent to Activity Tracker.</span>
+<span class="sd">          events (i.e. downloads) will be sent to Activity Tracker Event Routing.</span>
 <span class="sd">    :param bool write_data_events: (optional) If set to `true`, all object write</span>
-<span class="sd">          events (i.e. uploads) will be sent to Activity Tracker.</span>
-<span class="sd">    :param str activity_tracker_crn: (optional) Required the first time</span>
-<span class="sd">          `activity_tracking` is configured. The instance of Activity Tracker that will</span>
-<span class="sd">          receive object event data. The format is &quot;crn:v1:bluemix:public:logdnaat:{bucket</span>
-<span class="sd">          location}:a/{storage account}:{activity tracker service instance}::&quot;.</span>
+<span class="sd">          events (i.e. uploads) will be sent to Activity Tracker Event Routing.</span>
+<span class="sd">    :param str activity_tracker_crn: (optional) When the `activity_tracker_crn` is</span>
+<span class="sd">          not populated, then enabled events are sent to the Activity Tracker Event</span>
+<span class="sd">          Routing instance associated to the container&#39;s location unless otherwise</span>
+<span class="sd">          specified in the Activity Tracker Event Routing Event Routing service</span>
+<span class="sd">          configuration. If `activity_tracker_crn` is populated, then enabled events are</span>
+<span class="sd">          sent to the Activity Tracker Event Routing instance specified and bucket</span>
+<span class="sd">          management events are always enabled.</span>
+<span class="sd">    :param bool management_events: (optional) This field only applies if</span>
+<span class="sd">          `activity_tracker_crn` is not populated. If set to `true`, all bucket management</span>
+<span class="sd">          events will be sent to Activity Tracker Event Routing.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -299,34 +309,43 @@
         <span class="n">read_data_events</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">write_data_events</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">activity_tracker_crn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">management_events</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a ActivityTracking object.</span>
 
 <span class="sd">        :param bool read_data_events: (optional) If set to `true`, all object read</span>
-<span class="sd">               events (i.e. downloads) will be sent to Activity Tracker.</span>
+<span class="sd">               events (i.e. downloads) will be sent to Activity Tracker Event Routing.</span>
 <span class="sd">        :param bool write_data_events: (optional) If set to `true`, all object</span>
-<span class="sd">               write events (i.e. uploads) will be sent to Activity Tracker.</span>
-<span class="sd">        :param str activity_tracker_crn: (optional) Required the first time</span>
-<span class="sd">               `activity_tracking` is configured. The instance of Activity Tracker that</span>
-<span class="sd">               will receive object event data. The format is</span>
-<span class="sd">               &quot;crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage</span>
-<span class="sd">               account}:{activity tracker service instance}::&quot;.</span>
+<span class="sd">               write events (i.e. uploads) will be sent to Activity Tracker Event Routing.</span>
+<span class="sd">        :param str activity_tracker_crn: (optional) When the `activity_tracker_crn`</span>
+<span class="sd">               is not populated, then enabled events are sent to the Activity Tracker</span>
+<span class="sd">               Event Routing instance associated to the container&#39;s location unless</span>
+<span class="sd">               otherwise specified in the Activity Tracker Event Routing Event Routing</span>
+<span class="sd">               service configuration. If `activity_tracker_crn` is populated, then enabled</span>
+<span class="sd">               events are sent to the Activity Tracker Event Routing instance specified</span>
+<span class="sd">               and bucket management events are always enabled.</span>
+<span class="sd">        :param bool management_events: (optional) This field only applies if</span>
+<span class="sd">               `activity_tracker_crn` is not populated. If set to `true`, all bucket</span>
+<span class="sd">               management events will be sent to Activity Tracker Event Routing.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">read_data_events</span> <span class="o">=</span> <span class="n">read_data_events</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">write_data_events</span> <span class="o">=</span> <span class="n">write_data_events</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracker_crn</span> <span class="o">=</span> <span class="n">activity_tracker_crn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">management_events</span> <span class="o">=</span> <span class="n">management_events</span>
 
 <div class="viewcode-block" id="ActivityTracking.from_dict"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ActivityTracking&#39;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a ActivityTracking object from a json dictionary.&quot;&quot;&quot;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="s1">&#39;read_data_events&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;read_data_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;read_data_events&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;write_data_events&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;write_data_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;write_data_events&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;activity_tracker_crn&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">read_data_events</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;read_data_events&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;read_data_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">read_data_events</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">write_data_events</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;write_data_events&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;write_data_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">write_data_events</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">activity_tracker_crn</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">activity_tracker_crn</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">management_events</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;management_events&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;management_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">management_events</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
@@ -343,6 +362,8 @@
             <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;write_data_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_data_events</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracker_crn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;activity_tracker_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracker_crn</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;management_events&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">management_events</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_dict</span><span class="p">[</span><span class="s1">&#39;management_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">management_events</span>
         <span class="k">return</span> <span class="n">_dict</span></div>
 
     <span class="k">def</span> <span class="nf">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -396,12 +417,21 @@
 <span class="sd">          request.  Viewing or updating the `Firewall` element requires the requester to</span>
 <span class="sd">          have the `manager` role.</span>
 <span class="sd">    :param ActivityTracking activity_tracking: (optional) Enables sending log data</span>
-<span class="sd">          to IBM Cloud Activity Tracker to provide visibility into object read and write</span>
-<span class="sd">          events. All object events are sent to the activity tracker instance defined in</span>
-<span class="sd">          the `activity_tracker_crn` field.</span>
+<span class="sd">          to IBM Cloud Activity Tracker Event Routing to provide visibility into bucket</span>
+<span class="sd">          management, object read and write events. (Recommended) When the</span>
+<span class="sd">          `activity_tracker_crn` is not populated, then enabled events are sent to the</span>
+<span class="sd">          Activity Tracker Event Routing instance at the container&#39;s location unless</span>
+<span class="sd">          otherwise specified in the Activity Tracker Event Routing Event Routing service</span>
+<span class="sd">          configuration. (Legacy) When the `activity_tracker_crn` is populated, then</span>
+<span class="sd">          enabled events are sent to the Activity Tracker Event Routing instance</span>
+<span class="sd">          specified.</span>
 <span class="sd">    :param MetricsMonitoring metrics_monitoring: (optional) Enables sending metrics</span>
-<span class="sd">          to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring</span>
-<span class="sd">          instance defined in the `monitoring_crn` field.</span>
+<span class="sd">          to IBM Cloud Monitoring.  All metrics are opt-in. (Recommended) When the</span>
+<span class="sd">          `metrics_monitoring_crn` is not populated, then enabled metrics are sent to the</span>
+<span class="sd">          Monitoring instance at the container&#39;s location unless otherwise specified in</span>
+<span class="sd">          the Metrics Router service configuration. (Legacy) When the</span>
+<span class="sd">          `metrics_monitoring_crn` is populated, then enabled metrics are sent to the</span>
+<span class="sd">          Monitoring instance defined in the `metrics_monitoring_crn` field.</span>
 <span class="sd">    :param int hard_quota: (optional) Maximum bytes for this bucket.</span>
 <span class="sd">    :param ProtectionManagementResponse protection_management: (optional) Data</span>
 <span class="sd">          structure holding protection management response.</span>
@@ -458,12 +488,22 @@
 <span class="sd">               otherwise permit the request.  Viewing or updating the `Firewall` element</span>
 <span class="sd">               requires the requester to have the `manager` role.</span>
 <span class="sd">        :param ActivityTracking activity_tracking: (optional) Enables sending log</span>
-<span class="sd">               data to IBM Cloud Activity Tracker to provide visibility into object read</span>
-<span class="sd">               and write events. All object events are sent to the activity tracker</span>
-<span class="sd">               instance defined in the `activity_tracker_crn` field.</span>
+<span class="sd">               data to IBM Cloud Activity Tracker Event Routing to provide visibility into</span>
+<span class="sd">               bucket management, object read and write events. (Recommended) When the</span>
+<span class="sd">               `activity_tracker_crn` is not populated, then enabled events are sent to</span>
+<span class="sd">               the Activity Tracker Event Routing instance at the container&#39;s location</span>
+<span class="sd">               unless otherwise specified in the Activity Tracker Event Routing Event</span>
+<span class="sd">               Routing service configuration. (Legacy) When the `activity_tracker_crn` is</span>
+<span class="sd">               populated, then enabled events are sent to the Activity Tracker Event</span>
+<span class="sd">               Routing instance specified.</span>
 <span class="sd">        :param MetricsMonitoring metrics_monitoring: (optional) Enables sending</span>
-<span class="sd">               metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud</span>
-<span class="sd">               Monitoring instance defined in the `monitoring_crn` field.</span>
+<span class="sd">               metrics to IBM Cloud Monitoring.  All metrics are opt-in. (Recommended)</span>
+<span class="sd">               When the `metrics_monitoring_crn` is not populated, then enabled metrics</span>
+<span class="sd">               are sent to the Monitoring instance at the container&#39;s location unless</span>
+<span class="sd">               otherwise specified in the Metrics Router service configuration. (Legacy)</span>
+<span class="sd">               When the `metrics_monitoring_crn` is populated, then enabled metrics are</span>
+<span class="sd">               sent to the Monitoring instance defined in the `metrics_monitoring_crn`</span>
+<span class="sd">               field.</span>
 <span class="sd">        :param int hard_quota: (optional) Maximum bytes for this bucket.</span>
 <span class="sd">        :param ProtectionManagementResponse protection_management: (optional) Data</span>
 <span class="sd">               structure holding protection management response.</span>
@@ -489,38 +529,38 @@
     <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Bucket&#39;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a Bucket object from a json dictionary.&quot;&quot;&quot;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="s1">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;crn&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;crn&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;service_instance_id&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;service_instance_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;service_instance_id&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;service_instance_crn&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;service_instance_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;service_instance_crn&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;time_created&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;time_created&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">string_to_datetime</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time_created&#39;</span><span class="p">))</span>
-        <span class="k">if</span> <span class="s1">&#39;time_updated&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;time_updated&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">string_to_datetime</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time_updated&#39;</span><span class="p">))</span>
-        <span class="k">if</span> <span class="s1">&#39;object_count&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;object_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;object_count&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;bytes_used&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;bytes_used&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bytes_used&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;noncurrent_object_count&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;noncurrent_object_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;noncurrent_object_count&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;noncurrent_bytes_used&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;noncurrent_bytes_used&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;noncurrent_bytes_used&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;delete_marker_count&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;delete_marker_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;delete_marker_count&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;firewall&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;firewall&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Firewall</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;firewall&#39;</span><span class="p">))</span>
-        <span class="k">if</span> <span class="s1">&#39;activity_tracking&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActivityTracking</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">))</span>
-        <span class="k">if</span> <span class="s1">&#39;metrics_monitoring&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">MetricsMonitoring</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">))</span>
-        <span class="k">if</span> <span class="s1">&#39;hard_quota&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;protection_management&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;protection_management&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ProtectionManagementResponse</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;protection_management&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">name</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">crn</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;crn&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">crn</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">service_instance_id</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;service_instance_id&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;service_instance_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">service_instance_id</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">service_instance_crn</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;service_instance_crn&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;service_instance_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">service_instance_crn</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">time_created</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time_created&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;time_created&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">string_to_datetime</span><span class="p">(</span><span class="n">time_created</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">time_updated</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time_updated&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;time_updated&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">string_to_datetime</span><span class="p">(</span><span class="n">time_updated</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">object_count</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;object_count&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;object_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">object_count</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">bytes_used</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bytes_used&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;bytes_used&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bytes_used</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">noncurrent_object_count</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;noncurrent_object_count&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;noncurrent_object_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">noncurrent_object_count</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">noncurrent_bytes_used</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;noncurrent_bytes_used&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;noncurrent_bytes_used&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">noncurrent_bytes_used</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">delete_marker_count</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;delete_marker_count&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;delete_marker_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">delete_marker_count</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">firewall</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;firewall&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;firewall&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Firewall</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">firewall</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">activity_tracking</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActivityTracking</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">activity_tracking</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">metrics_monitoring</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">MetricsMonitoring</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">metrics_monitoring</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">hard_quota</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hard_quota</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">protection_management</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;protection_management&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;protection_management&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ProtectionManagementResponse</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">protection_management</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
@@ -607,12 +647,21 @@
 <span class="sd">          request.  Viewing or updating the `Firewall` element requires the requester to</span>
 <span class="sd">          have the `manager` role.</span>
 <span class="sd">    :param ActivityTracking activity_tracking: (optional) Enables sending log data</span>
-<span class="sd">          to IBM Cloud Activity Tracker to provide visibility into object read and write</span>
-<span class="sd">          events. All object events are sent to the activity tracker instance defined in</span>
-<span class="sd">          the `activity_tracker_crn` field.</span>
+<span class="sd">          to IBM Cloud Activity Tracker Event Routing to provide visibility into bucket</span>
+<span class="sd">          management, object read and write events. (Recommended) When the</span>
+<span class="sd">          `activity_tracker_crn` is not populated, then enabled events are sent to the</span>
+<span class="sd">          Activity Tracker Event Routing instance at the container&#39;s location unless</span>
+<span class="sd">          otherwise specified in the Activity Tracker Event Routing Event Routing service</span>
+<span class="sd">          configuration. (Legacy) When the `activity_tracker_crn` is populated, then</span>
+<span class="sd">          enabled events are sent to the Activity Tracker Event Routing instance</span>
+<span class="sd">          specified.</span>
 <span class="sd">    :param MetricsMonitoring metrics_monitoring: (optional) Enables sending metrics</span>
-<span class="sd">          to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring</span>
-<span class="sd">          instance defined in the `monitoring_crn` field.</span>
+<span class="sd">          to IBM Cloud Monitoring.  All metrics are opt-in. (Recommended) When the</span>
+<span class="sd">          `metrics_monitoring_crn` is not populated, then enabled metrics are sent to the</span>
+<span class="sd">          Monitoring instance at the container&#39;s location unless otherwise specified in</span>
+<span class="sd">          the Metrics Router service configuration. (Legacy) When the</span>
+<span class="sd">          `metrics_monitoring_crn` is populated, then enabled metrics are sent to the</span>
+<span class="sd">          Monitoring instance defined in the `metrics_monitoring_crn` field.</span>
 <span class="sd">    :param int hard_quota: (optional) Maximum bytes for this bucket.</span>
 <span class="sd">    :param ProtectionManagement protection_management: (optional) Data structure</span>
 <span class="sd">          holding protection management operations.</span>
@@ -637,12 +686,22 @@
 <span class="sd">               otherwise permit the request.  Viewing or updating the `Firewall` element</span>
 <span class="sd">               requires the requester to have the `manager` role.</span>
 <span class="sd">        :param ActivityTracking activity_tracking: (optional) Enables sending log</span>
-<span class="sd">               data to IBM Cloud Activity Tracker to provide visibility into object read</span>
-<span class="sd">               and write events. All object events are sent to the activity tracker</span>
-<span class="sd">               instance defined in the `activity_tracker_crn` field.</span>
+<span class="sd">               data to IBM Cloud Activity Tracker Event Routing to provide visibility into</span>
+<span class="sd">               bucket management, object read and write events. (Recommended) When the</span>
+<span class="sd">               `activity_tracker_crn` is not populated, then enabled events are sent to</span>
+<span class="sd">               the Activity Tracker Event Routing instance at the container&#39;s location</span>
+<span class="sd">               unless otherwise specified in the Activity Tracker Event Routing Event</span>
+<span class="sd">               Routing service configuration. (Legacy) When the `activity_tracker_crn` is</span>
+<span class="sd">               populated, then enabled events are sent to the Activity Tracker Event</span>
+<span class="sd">               Routing instance specified.</span>
 <span class="sd">        :param MetricsMonitoring metrics_monitoring: (optional) Enables sending</span>
-<span class="sd">               metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud</span>
-<span class="sd">               Monitoring instance defined in the `monitoring_crn` field.</span>
+<span class="sd">               metrics to IBM Cloud Monitoring.  All metrics are opt-in. (Recommended)</span>
+<span class="sd">               When the `metrics_monitoring_crn` is not populated, then enabled metrics</span>
+<span class="sd">               are sent to the Monitoring instance at the container&#39;s location unless</span>
+<span class="sd">               otherwise specified in the Metrics Router service configuration. (Legacy)</span>
+<span class="sd">               When the `metrics_monitoring_crn` is populated, then enabled metrics are</span>
+<span class="sd">               sent to the Monitoring instance defined in the `metrics_monitoring_crn`</span>
+<span class="sd">               field.</span>
 <span class="sd">        :param int hard_quota: (optional) Maximum bytes for this bucket.</span>
 <span class="sd">        :param ProtectionManagement protection_management: (optional) Data</span>
 <span class="sd">               structure holding protection management operations.</span>
@@ -657,16 +716,16 @@
     <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;BucketPatch&#39;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a BucketPatch object from a json dictionary.&quot;&quot;&quot;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="s1">&#39;firewall&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;firewall&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Firewall</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;firewall&#39;</span><span class="p">))</span>
-        <span class="k">if</span> <span class="s1">&#39;activity_tracking&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActivityTracking</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">))</span>
-        <span class="k">if</span> <span class="s1">&#39;metrics_monitoring&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">MetricsMonitoring</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">))</span>
-        <span class="k">if</span> <span class="s1">&#39;hard_quota&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;protection_management&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;protection_management&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ProtectionManagement</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;protection_management&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">firewall</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;firewall&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;firewall&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Firewall</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">firewall</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">activity_tracking</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;activity_tracking&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActivityTracking</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">activity_tracking</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">metrics_monitoring</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">MetricsMonitoring</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">metrics_monitoring</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">hard_quota</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;hard_quota&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hard_quota</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">protection_management</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;protection_management&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;protection_management&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ProtectionManagement</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">protection_management</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
@@ -779,12 +838,12 @@
     <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Firewall&#39;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a Firewall object from a json dictionary.&quot;&quot;&quot;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="s1">&#39;allowed_ip&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;denied_ip&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;denied_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;denied_ip&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;allowed_network_type&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;allowed_network_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allowed_network_type&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">allowed_ip</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;allowed_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">allowed_ip</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">denied_ip</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;denied_ip&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;denied_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">denied_ip</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">allowed_network_type</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;allowed_network_type&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;allowed_network_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">allowed_network_type</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
@@ -838,18 +897,22 @@
 
 <div class="viewcode-block" id="MetricsMonitoring"><a class="viewcode-back" href="../../source/ibm_cos_sdk_config.html#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring">[docs]</a><span class="k">class</span> <span class="nc">MetricsMonitoring</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Enables sending metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud</span>
-<span class="sd">    Monitoring instance defined in the `monitoring_crn` field.</span>
+<span class="sd">    Enables sending metrics to IBM Cloud Monitoring.  All metrics are opt-in.</span>
+<span class="sd">    (Recommended) When the `metrics_monitoring_crn` is not populated, then enabled metrics</span>
+<span class="sd">    are sent to the Monitoring instance at the container&#39;s location unless otherwise</span>
+<span class="sd">    specified in the Metrics Router service configuration. (Legacy) When the</span>
+<span class="sd">    `metrics_monitoring_crn` is populated, then enabled metrics are sent to the Monitoring</span>
+<span class="sd">    instance defined in the `metrics_monitoring_crn` field.</span>
 
 <span class="sd">    :param bool usage_metrics_enabled: (optional) If set to `true`, all usage</span>
 <span class="sd">          metrics (i.e. `bytes_used`) will be sent to the monitoring service.</span>
 <span class="sd">    :param bool request_metrics_enabled: (optional) If set to `true`, all request</span>
 <span class="sd">          metrics (i.e. `rest.object.head`) will be sent to the monitoring service.</span>
-<span class="sd">    :param str metrics_monitoring_crn: (optional) Required the first time</span>
-<span class="sd">          `metrics_monitoring` is configured. The instance of IBM Cloud Monitoring that</span>
-<span class="sd">          will receive the bucket metrics. The format is</span>
-<span class="sd">          &quot;crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage</span>
-<span class="sd">          account}:{monitoring service instance}::&quot;.</span>
+<span class="sd">    :param str metrics_monitoring_crn: (optional) When the `metrics_monitoring_crn`</span>
+<span class="sd">          is not populated, then enabled metrics are sent to the monitoring instance</span>
+<span class="sd">          associated to the container&#39;s location unless otherwise specified in the Metrics</span>
+<span class="sd">          Router service configuration. If `metrics_monitoring_crn` is populated, then</span>
+<span class="sd">          enabled events are sent to the Metrics Monitoring instance specified.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -867,11 +930,12 @@
 <span class="sd">        :param bool request_metrics_enabled: (optional) If set to `true`, all</span>
 <span class="sd">               request metrics (i.e. `rest.object.head`) will be sent to the monitoring</span>
 <span class="sd">               service.</span>
-<span class="sd">        :param str metrics_monitoring_crn: (optional) Required the first time</span>
-<span class="sd">               `metrics_monitoring` is configured. The instance of IBM Cloud Monitoring</span>
-<span class="sd">               that will receive the bucket metrics. The format is</span>
-<span class="sd">               &quot;crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage</span>
-<span class="sd">               account}:{monitoring service instance}::&quot;.</span>
+<span class="sd">        :param str metrics_monitoring_crn: (optional) When the</span>
+<span class="sd">               `metrics_monitoring_crn` is not populated, then enabled metrics are sent to</span>
+<span class="sd">               the monitoring instance associated to the container&#39;s location unless</span>
+<span class="sd">               otherwise specified in the Metrics Router service configuration. If</span>
+<span class="sd">               `metrics_monitoring_crn` is populated, then enabled events are sent to the</span>
+<span class="sd">               Metrics Monitoring instance specified.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">usage_metrics_enabled</span> <span class="o">=</span> <span class="n">usage_metrics_enabled</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">request_metrics_enabled</span> <span class="o">=</span> <span class="n">request_metrics_enabled</span>
@@ -881,12 +945,12 @@
     <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;MetricsMonitoring&#39;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a MetricsMonitoring object from a json dictionary.&quot;&quot;&quot;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="s1">&#39;usage_metrics_enabled&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;usage_metrics_enabled&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;usage_metrics_enabled&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;request_metrics_enabled&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;request_metrics_enabled&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;request_metrics_enabled&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;metrics_monitoring_crn&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;metrics_monitoring_crn&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">usage_metrics_enabled</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;usage_metrics_enabled&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;usage_metrics_enabled&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">usage_metrics_enabled</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">request_metrics_enabled</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;request_metrics_enabled&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;request_metrics_enabled&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request_metrics_enabled</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">metrics_monitoring_crn</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;metrics_monitoring_crn&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;metrics_monitoring_crn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metrics_monitoring_crn</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
@@ -957,10 +1021,10 @@
     <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ProtectionManagement&#39;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a ProtectionManagement object from a json dictionary.&quot;&quot;&quot;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="s1">&#39;requested_state&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;requested_state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;requested_state&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;protection_management_token&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;protection_management_token&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;protection_management_token&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">requested_state</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;requested_state&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;requested_state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">requested_state</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">protection_management_token</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;protection_management_token&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;protection_management_token&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">protection_management_token</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
@@ -1043,10 +1107,10 @@
     <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ProtectionManagementResponse&#39;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a ProtectionManagementResponse object from a json dictionary.&quot;&quot;&quot;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="s1">&#39;token_applied_counter&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;token_applied_counter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;token_applied_counter&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;token_entries&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;token_entries&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ProtectionManagementResponseTokenEntry</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;token_entries&#39;</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">token_applied_counter</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;token_applied_counter&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;token_applied_counter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">token_applied_counter</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">token_entries</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;token_entries&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;token_entries&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ProtectionManagementResponseTokenEntry</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">token_entries</span><span class="p">]</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
@@ -1135,20 +1199,20 @@
     <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ProtectionManagementResponseTokenEntry&#39;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a ProtectionManagementResponseTokenEntry object from a json dictionary.&quot;&quot;&quot;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="s1">&#39;token_id&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;token_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;token_id&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;token_expiration_time&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;token_expiration_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;token_expiration_time&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;token_reference_id&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;token_reference_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;token_reference_id&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;applied_time&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;applied_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;applied_time&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;invalidated_time&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;invalidated_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;invalidated_time&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;expiration_time&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;expiration_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;expiration_time&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;shorten_retention_flag&#39;</span> <span class="ow">in</span> <span class="n">_dict</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;shorten_retention_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;shorten_retention_flag&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">token_id</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;token_id&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;token_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">token_id</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">token_expiration_time</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;token_expiration_time&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;token_expiration_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">token_expiration_time</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">token_reference_id</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;token_reference_id&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;token_reference_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">token_reference_id</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">applied_time</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;applied_time&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;applied_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">applied_time</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">invalidated_time</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;invalidated_time&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;invalidated_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">invalidated_time</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">expiration_time</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;expiration_time&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;expiration_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">expiration_time</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">shorten_retention_flag</span> <span class="o">:=</span> <span class="n">_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;shorten_retention_flag&#39;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;shorten_retention_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shorten_retention_flag</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>

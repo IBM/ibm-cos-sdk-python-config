@@ -178,22 +178,32 @@
 <p>API Version: 1.0.0</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.</span></span><span class="sig-name descname"><span class="pre">ActivityTracking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_data_events</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_data_events</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity_tracker_crn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ActivityTracking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.</span></span><span class="sig-name descname"><span class="pre">ActivityTracking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_data_events</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_data_events</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity_tracker_crn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">management_events</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#ActivityTracking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Enables sending log data to IBM Cloud Activity Tracker to provide visibility into
-object read and write events. All object events are sent to the activity tracker
-instance defined in the <cite>activity_tracker_crn</cite> field.</p>
+<p>Enables sending log data to IBM Cloud Activity Tracker Event Routing to provide
+visibility into bucket management, object read and write events. (Recommended) When
+the <cite>activity_tracker_crn</cite> is not populated, then enabled events are sent to the
+Activity Tracker Event Routing instance at the container’s location unless otherwise
+specified in the Activity Tracker Event Routing Event Routing service configuration.
+(Legacy) When the <cite>activity_tracker_crn</cite> is populated, then enabled events are sent to
+the Activity Tracker Event Routing instance specified.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>read_data_events</strong> (<em>bool</em>) – (optional) If set to <cite>true</cite>, all object read
-events (i.e. downloads) will be sent to Activity Tracker.</p></li>
+events (i.e. downloads) will be sent to Activity Tracker Event Routing.</p></li>
 <li><p><strong>write_data_events</strong> (<em>bool</em>) – (optional) If set to <cite>true</cite>, all object write
-events (i.e. uploads) will be sent to Activity Tracker.</p></li>
-<li><p><strong>activity_tracker_crn</strong> (<em>str</em>) – (optional) Required the first time
-<cite>activity_tracking</cite> is configured. The instance of Activity Tracker that will
-receive object event data. The format is “crn:v1:bluemix:public:logdnaat:{bucket
-location}:a/{storage account}:{activity tracker service instance}::”.</p></li>
+events (i.e. uploads) will be sent to Activity Tracker Event Routing.</p></li>
+<li><p><strong>activity_tracker_crn</strong> (<em>str</em>) – (optional) When the <cite>activity_tracker_crn</cite> is
+not populated, then enabled events are sent to the Activity Tracker Event
+Routing instance associated to the container’s location unless otherwise
+specified in the Activity Tracker Event Routing Event Routing service
+configuration. If <cite>activity_tracker_crn</cite> is populated, then enabled events are
+sent to the Activity Tracker Event Routing instance specified and bucket
+management events are always enabled.</p></li>
+<li><p><strong>management_events</strong> (<em>bool</em>) – (optional) This field only applies if
+<cite>activity_tracker_crn</cite> is not populated. If set to <cite>true</cite>, all bucket management
+events will be sent to Activity Tracker Event Routing.</p></li>
 </ul>
 </dd>
 </dl>
@@ -247,12 +257,21 @@ access policies (including public access) that might otherwise permit the
 request.  Viewing or updating the <cite>Firewall</cite> element requires the requester to
 have the <cite>manager</cite> role.</p></li>
 <li><p><strong>activity_tracking</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking" title="ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking"><em>ActivityTracking</em></a>) – (optional) Enables sending log data
-to IBM Cloud Activity Tracker to provide visibility into object read and write
-events. All object events are sent to the activity tracker instance defined in
-the <cite>activity_tracker_crn</cite> field.</p></li>
+to IBM Cloud Activity Tracker Event Routing to provide visibility into bucket
+management, object read and write events. (Recommended) When the
+<cite>activity_tracker_crn</cite> is not populated, then enabled events are sent to the
+Activity Tracker Event Routing instance at the container’s location unless
+otherwise specified in the Activity Tracker Event Routing Event Routing service
+configuration. (Legacy) When the <cite>activity_tracker_crn</cite> is populated, then
+enabled events are sent to the Activity Tracker Event Routing instance
+specified.</p></li>
 <li><p><strong>metrics_monitoring</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring" title="ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring"><em>MetricsMonitoring</em></a>) – (optional) Enables sending metrics
-to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring
-instance defined in the <cite>monitoring_crn</cite> field.</p></li>
+to IBM Cloud Monitoring.  All metrics are opt-in. (Recommended) When the
+<cite>metrics_monitoring_crn</cite> is not populated, then enabled metrics are sent to the
+Monitoring instance at the container’s location unless otherwise specified in
+the Metrics Router service configuration. (Legacy) When the
+<cite>metrics_monitoring_crn</cite> is populated, then enabled metrics are sent to the
+Monitoring instance defined in the <cite>metrics_monitoring_crn</cite> field.</p></li>
 <li><p><strong>hard_quota</strong> (<em>int</em>) – (optional) Maximum bytes for this bucket.</p></li>
 <li><p><strong>protection_management</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse" title="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagementResponse"><em>ProtectionManagementResponse</em></a>) – (optional) Data
 structure holding protection management response.</p></li>
@@ -288,12 +307,21 @@ access policies (including public access) that might otherwise permit the
 request.  Viewing or updating the <cite>Firewall</cite> element requires the requester to
 have the <cite>manager</cite> role.</p></li>
 <li><p><strong>activity_tracking</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking" title="ibm_cos_sdk_config.resource_configuration_v1.ActivityTracking"><em>ActivityTracking</em></a>) – (optional) Enables sending log data
-to IBM Cloud Activity Tracker to provide visibility into object read and write
-events. All object events are sent to the activity tracker instance defined in
-the <cite>activity_tracker_crn</cite> field.</p></li>
+to IBM Cloud Activity Tracker Event Routing to provide visibility into bucket
+management, object read and write events. (Recommended) When the
+<cite>activity_tracker_crn</cite> is not populated, then enabled events are sent to the
+Activity Tracker Event Routing instance at the container’s location unless
+otherwise specified in the Activity Tracker Event Routing Event Routing service
+configuration. (Legacy) When the <cite>activity_tracker_crn</cite> is populated, then
+enabled events are sent to the Activity Tracker Event Routing instance
+specified.</p></li>
 <li><p><strong>metrics_monitoring</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring" title="ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring"><em>MetricsMonitoring</em></a>) – (optional) Enables sending metrics
-to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud Monitoring
-instance defined in the <cite>monitoring_crn</cite> field.</p></li>
+to IBM Cloud Monitoring.  All metrics are opt-in. (Recommended) When the
+<cite>metrics_monitoring_crn</cite> is not populated, then enabled metrics are sent to the
+Monitoring instance at the container’s location unless otherwise specified in
+the Metrics Router service configuration. (Legacy) When the
+<cite>metrics_monitoring_crn</cite> is populated, then enabled metrics are sent to the
+Monitoring instance defined in the <cite>metrics_monitoring_crn</cite> field.</p></li>
 <li><p><strong>hard_quota</strong> (<em>int</em>) – (optional) Maximum bytes for this bucket.</p></li>
 <li><p><strong>protection_management</strong> (<a class="reference internal" href="#ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement" title="ibm_cos_sdk_config.resource_configuration_v1.ProtectionManagement"><em>ProtectionManagement</em></a>) – (optional) Data structure
 holding protection management operations.</p></li>
@@ -388,8 +416,12 @@ documentation](<a class="reference external" href="https://cloud.ibm.com/docs/cl
 <dt class="sig sig-object py" id="ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ibm_cos_sdk_config.resource_configuration_v1.</span></span><span class="sig-name descname"><span class="pre">MetricsMonitoring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usage_metrics_enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_metrics_enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics_monitoring_crn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ibm_cos_sdk_config/resource_configuration_v1.html#MetricsMonitoring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ibm_cos_sdk_config.resource_configuration_v1.MetricsMonitoring" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Enables sending metrics to IBM Cloud Monitoring. All metrics are sent to the IBM Cloud
-Monitoring instance defined in the <cite>monitoring_crn</cite> field.</p>
+<p>Enables sending metrics to IBM Cloud Monitoring.  All metrics are opt-in.
+(Recommended) When the <cite>metrics_monitoring_crn</cite> is not populated, then enabled metrics
+are sent to the Monitoring instance at the container’s location unless otherwise
+specified in the Metrics Router service configuration. (Legacy) When the
+<cite>metrics_monitoring_crn</cite> is populated, then enabled metrics are sent to the Monitoring
+instance defined in the <cite>metrics_monitoring_crn</cite> field.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -397,11 +429,11 @@ Monitoring instance defined in the <cite>monitoring_crn</cite> field.</p>
 metrics (i.e. <cite>bytes_used</cite>) will be sent to the monitoring service.</p></li>
 <li><p><strong>request_metrics_enabled</strong> (<em>bool</em>) – (optional) If set to <cite>true</cite>, all request
 metrics (i.e. <cite>rest.object.head</cite>) will be sent to the monitoring service.</p></li>
-<li><p><strong>metrics_monitoring_crn</strong> (<em>str</em>) – (optional) Required the first time
-<cite>metrics_monitoring</cite> is configured. The instance of IBM Cloud Monitoring that
-will receive the bucket metrics. The format is
-“crn:v1:bluemix:public:logdnaat:{bucket location}:a/{storage
-account}:{monitoring service instance}::”.</p></li>
+<li><p><strong>metrics_monitoring_crn</strong> (<em>str</em>) – (optional) When the <cite>metrics_monitoring_crn</cite>
+is not populated, then enabled metrics are sent to the monitoring instance
+associated to the container’s location unless otherwise specified in the Metrics
+Router service configuration. If <cite>metrics_monitoring_crn</cite> is populated, then
+enabled events are sent to the Metrics Monitoring instance specified.</p></li>
 </ul>
 </dd>
 </dl>
