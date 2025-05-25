@@ -17,4 +17,4 @@
 """
 Version of ibm_cos_sdk_config
 """
-__version__ = '2.1.0'
+__version__ = '2.2.0'

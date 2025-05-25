@@ -16,7 +16,7 @@
 from setuptools import setup
 import pkg_resources
 
-__version__ = '2.1.0'
+__version__ = '2.2.0'
 PACKAGE_NAME = 'ibm_cos_sdk_config'
 PACKAGE_DESC = 'IBM COS Resource Configuration SDK for Python'
 
